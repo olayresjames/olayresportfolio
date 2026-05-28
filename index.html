@@ -35,6 +35,11 @@
     overflow-x: hidden;
   }
 
+  @keyframes navFadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* NAV */
   nav {
     position: fixed;
@@ -49,6 +54,7 @@
     backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
     transition: transform 0.3s ease;
+    animation: navFadeIn 0.8s ease-out both;
   }
 
   nav.nav-hidden {
@@ -785,12 +791,14 @@
     .modal-actions { flex-direction: column; align-items: stretch; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .modal-content { padding: 1.5rem; width: 95%; }
-    .scroll-top-btn { bottom: 1.5rem; right: 1.5rem; }
+    .scroll-top-btn { bottom: 5rem; right: 1.25rem; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
   }
 
   @media (max-width: 480px) {
-    nav { padding: 1rem; }
-    #hire-me-btn { padding: 0.5rem 1rem !important; font-size: 0.75rem !important; }
+    nav { padding: 0.75rem 1rem; }
+    .nav-logo { font-size: 1rem; }
+    .nav-right { gap: 0.4rem; }
+    #hire-me-btn { padding: 0.4rem 0.5rem !important; font-size: 0.65rem !important; white-space: nowrap; }
   }
 </style>
 </head>
@@ -1206,24 +1214,6 @@
       setTimeout(() => {
         document.body.removeChild(link);
       }, 100);
-    });
-  }
-
-  // Hamburger Menu
-  const hamburger = document.querySelector('.hamburger');
-  const navLinksMenu = document.querySelector('.nav-links');
-  const navItems = document.querySelectorAll('.nav-links a');
-
-  if (hamburger) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinksMenu.classList.toggle('active');
-    });
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinksMenu.classList.remove('active');
-      });
     });
   }
 </script>
