@@ -44,8 +44,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 3rem;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(16px);
+    background: rgba(10, 10, 15, 0.65);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
     transition: transform 0.3s ease;
   }
@@ -681,12 +682,12 @@
     text-align: center;
     max-width: 90%;
     width: 400px;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .modal-overlay.visible .modal-content {
-    transform: scale(1);
+    transform: translateY(0);
   }
 
   .modal-title {
@@ -743,7 +744,8 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 90;
+    z-index: 999;
+    visibility: hidden;
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
@@ -752,6 +754,7 @@
 
   .scroll-top-btn.visible {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
   }
@@ -795,7 +798,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" id="hire-me-btn" class="btn-primary" style="padding:0.6rem 1.25rem; font-size:0.8rem;">
+  <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" id="hire-me-btn" class="btn-primary" style="padding:0.6rem 1.25rem; font-size:0.8rem;">
     Download Resume ↓
   </a>
 </nav>
@@ -1118,15 +1121,17 @@
   const scrollTopBtn = document.getElementById('scroll-top-btn');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > lastScrollY && window.scrollY > 80) {
+    const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 80) {
       navbar.classList.add('nav-hidden');
     } else {
       navbar.classList.remove('nav-hidden');
     }
-    lastScrollY = window.scrollY;
+    lastScrollY = currentScrollY;
 
     // Scroll to top button visibility logic
-    if (window.scrollY > 400) {
+    if (currentScrollY > 400) {
       scrollTopBtn.classList.add('visible');
     } else {
       scrollTopBtn.classList.remove('visible');
@@ -1135,7 +1140,8 @@
 
   // Scroll to top click handler
   scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Smooth behavior is already handled natively via your CSS `html { scroll-behavior: smooth; }`
+    window.scrollTo(0, 0);
   });
 
   // Resume download modal
@@ -1171,9 +1177,13 @@
       const link = document.createElement('a');
       link.href = hireMeBtn.href;
       link.download = hireMeBtn.getAttribute('download');
+      link.target = '_blank';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+      // Add a slight delay before removing so mobile browsers have time to register the tap
+      setTimeout(() => {
+        document.body.removeChild(link);
+      }, 100);
     });
   }
 </script>
