@@ -326,7 +326,8 @@
     overflow: hidden;
     transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     text-decoration: none;
-    display: block;
+    display: flex;
+    flex-direction: column;
     color: inherit;
   }
 
@@ -365,6 +366,7 @@
     padding: 0.3rem 0.75rem;
     border-radius: 100px;
     margin-bottom: 1rem;
+    align-self: flex-start;
   }
 
   .tag-fullstack { background: rgba(124,106,247,0.15); color: #a99bf5; }
@@ -386,6 +388,7 @@
     line-height: 1.7;
     margin-bottom: 1.5rem;
     font-weight: 300;
+    flex-grow: 1;
   }
 
   .project-tech {
@@ -777,6 +780,9 @@
     .contact-section { padding: 2.5rem 1.25rem; }
     .contact-links { flex-direction: column; align-items: stretch; }
     .contact-link { justify-content: center; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-ghost { justify-content: center; }
+    .modal-actions { flex-direction: column; align-items: stretch; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .modal-content { padding: 1.5rem; width: 95%; }
     .scroll-top-btn { bottom: 1.5rem; right: 1.5rem; }
@@ -825,7 +831,7 @@
     <div class="stat-card">
       <div class="stat-icon">🚀</div>
       <div>
-        <div class="stat-num">4</div>
+        <div class="stat-num">5</div>
         <div class="stat-label">Projects Shipped</div>
       </div>
     </div>
@@ -851,6 +857,7 @@
       <span class="tech-pill">Gemini AI</span>
       <span class="tech-pill">Supabase</span>
       <span class="tech-pill">Tailwind</span>
+      <span class="tech-pill">Python</span>
     </div>
   </div>
 </div>
@@ -949,6 +956,20 @@
       <span class="project-arrow">↗</span>
     </a>
 
+    <!-- Sword Phantasia -->
+    <a href="https://github.com/olayresjames/Sword-Phantasia" target="_blank" class="project-card reveal">
+      <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
+      <h3 class="project-name">Sword Phantasia</h3>
+      <p class="project-desc">
+        A Python-based Role-Playing Game (RPG) featuring a graphical user interface built with Tkinter and audio powered by Pygame.
+      </p>
+      <div class="project-tech">
+        <span>Python</span><span>Tkinter</span><span>Pygame</span>
+      </div>
+      <span class="project-date">Dec 2025</span>
+      <span class="project-arrow">↗</span>
+    </a>
+
   </div>
 </section>
 
@@ -966,6 +987,7 @@
         <span class="skill-item">TypeScript</span>
         <span class="skill-item">JavaScript</span>
         <span class="skill-item">HTML5 & CSS3</span>
+        <span class="skill-item">Python</span>
       </div>
     </div>
     <div class="skill-group">
@@ -1184,6 +1206,24 @@
       setTimeout(() => {
         document.body.removeChild(link);
       }, 100);
+    });
+  }
+
+  // Hamburger Menu
+  const hamburger = document.querySelector('.hamburger');
+  const navLinksMenu = document.querySelector('.nav-links');
+  const navItems = document.querySelectorAll('.nav-links a');
+
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinksMenu.classList.toggle('active');
+    });
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinksMenu.classList.remove('active');
+      });
     });
   }
 </script>
