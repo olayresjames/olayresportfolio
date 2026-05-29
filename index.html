@@ -551,6 +551,17 @@
   animation: floatSword 3s ease-in-out infinite;
 }
 
+@keyframes flicker {
+  0%, 90%, 100% { opacity: 1; }
+  92% { opacity: 0.1; }
+  94% { opacity: 1; }
+  96% { opacity: 0.1; }
+  98% { opacity: 1; }
+}
+.flicker-anim {
+  animation: flicker 4s infinite;
+}
+
   /* SKILLS */
   .skills-grid {
     display: grid;
@@ -970,7 +981,7 @@
     <div class="stat-card">
       <div class="stat-icon">🚀</div>
       <div>
-        <div class="stat-num">5</div>
+        <div class="stat-num">6</div>
         <div class="stat-label">Projects Shipped</div>
       </div>
     </div>
@@ -1181,6 +1192,23 @@
         <span>Python</span><span>Tkinter</span><span>Pygame</span>
       </div>
       <span class="project-date">Dec 2025</span>
+      <span class="project-arrow">↗</span>
+    </a>
+
+    <!-- Reset: Endless Horror -->
+    <a href="https://deckode.itch.io/reset-the-endless-horror" target="_blank" class="project-card reveal">
+      <div class="project-visual">
+        <img src="resources/reset.png" alt="Reset: Endless Horror Screenshot" loading="lazy">
+      </div>
+      <span class="project-tag tag-frontend">Frontend Developer</span>
+      <h3 class="project-name">Reset: Endless Horror</h3>
+      <p class="project-desc">
+        Trapped in a nightmarish time loop within his own home, a man must use his gruesome deaths and fractured memories to outwit a relentless, supernatural killer and break the cycle before he loses his mind. Set into the very house of the main character Cesar Ryan, he woke up unexpectedly in his room with something strange going on. After further investigation it turns out that there is a killer inside house. It is now up for the players to decide which path Cesar choose to beat the killer, or wake up once again dealing with the same situation.
+      </p>
+      <div class="project-tech">
+        <span>UI / UX</span><span>Game UI</span><span>Frontend</span>
+      </div>
+      <span class="project-date">February 2026</span>
       <span class="project-arrow">↗</span>
     </a>
 
