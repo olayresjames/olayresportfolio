@@ -24,7 +24,7 @@
     --font-body: 'DM Sans', sans-serif;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
   body {
     background: var(--bg);
@@ -34,6 +34,15 @@
     line-height: 1.7;
     overflow-x: hidden;
   }
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { 
+  background: var(--bg3); 
+  border-radius: 4px; 
+}
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
   @keyframes navFadeIn {
     from { opacity: 0; transform: translateY(-15px); }
@@ -53,12 +62,12 @@
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
-    transition: transform 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
     animation: navFadeIn 0.8s ease-out both;
   }
 
   nav.nav-hidden {
-    transform: translateY(-100%);
+    transform: translateY(-110%);
   }
 
   .nav-logo {
@@ -85,9 +94,20 @@
     text-decoration: none;
     letter-spacing: 0.03em;
     transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
 
   /* HERO */
   .hero {
@@ -101,6 +121,12 @@
     overflow: hidden;
   }
 
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
   .hero::before {
     content: '';
     position: absolute;
@@ -109,6 +135,7 @@
     border-radius: 50%;
     background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
     pointer-events: none;
+  animation: floatBlob 20s infinite ease-in-out;
   }
 
   .hero::after {
@@ -119,6 +146,12 @@
     border-radius: 50%;
     background: radial-gradient(circle, rgba(200,240,101,0.06) 0%, transparent 70%);
     pointer-events: none;
+  animation: floatBlob 25s infinite ease-in-out reverse;
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
   }
 
   .hero-eyebrow {
@@ -131,6 +164,7 @@
     color: var(--accent);
     font-weight: 500;
     margin-bottom: 1.5rem;
+  animation: slideUpFade 0.8s ease backwards 0.2s;
   }
 
   .hero-eyebrow::before {
@@ -148,6 +182,7 @@
     line-height: 1.0;
     letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
+  animation: slideUpFade 0.8s ease backwards 0.3s;
   }
 
   .hero-name .line2 {
@@ -162,12 +197,14 @@
     line-height: 1.75;
     margin-bottom: 2.5rem;
     font-weight: 300;
+  animation: slideUpFade 0.8s ease backwards 0.4s;
   }
 
   .hero-cta {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  animation: slideUpFade 0.8s ease backwards 0.5s;
   }
 
   .btn-primary {
@@ -187,7 +224,11 @@
     transition: opacity 0.2s, transform 0.2s;
   }
 
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary:hover { 
+  opacity: 0.88; 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 20px -8px rgba(200, 240, 101, 0.4);
+}
 
   .btn-ghost {
     display: inline-flex;
@@ -225,6 +266,7 @@
     align-items: center;
     gap: 1rem;
     animation: floatIn 0.6s ease both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .stat-card:nth-child(2) { margin-left: 2.5rem; animation-delay: 0.1s; }
@@ -234,6 +276,11 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px -10px rgba(124, 106, 247, 0.2);
+}
 
   .stat-icon {
     width: 42px; height: 42px;
@@ -278,7 +325,11 @@
     transition: color 0.2s, border-color 0.2s;
   }
 
-  .tech-pill:hover { color: var(--accent); border-color: rgba(200,240,101,0.3); }
+.tech-pill:hover { 
+  color: var(--accent); 
+  border-color: rgba(200,240,101,0.3); 
+  transform: translateY(-2px);
+}
 
   /* SECTIONS */
   section {
@@ -427,7 +478,12 @@
     top: 1.5rem; right: 1.5rem;
     font-size: 0.75rem;
     color: var(--muted);
-    opacity: 0.6;
+  opacity: 0.9;
+  background: rgba(10, 10, 15, 0.75);
+  backdrop-filter: blur(4px);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  z-index: 2;
   }
 
   .project-arrow {
@@ -459,9 +515,41 @@
     justify-content: center;
   }
 
-  .project-visual svg {
-    width: 100%; height: 100%;
+  .project-visual img {
+    cursor: zoom-in;
   }
+
+.project-visual img,
+.project-visual svg {
+    width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-visual img,
+.project-card:hover .project-visual svg { transform: scale(1.08); }
+
+.project-card:not(.featured) .project-visual {
+  margin-bottom: 1.25rem;
+}
+
+@keyframes pulseSOS {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+.sos-pulse {
+  transform-origin: 200px 112px;
+  animation: pulseSOS 2.5s infinite ease-in-out;
+}
+
+@keyframes floatSword {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.sword-anim {
+  animation: floatSword 3s ease-in-out infinite;
+}
 
   /* SKILLS */
   .skills-grid {
@@ -508,7 +596,8 @@
   .skill-item:hover {
     color: var(--accent);
     border-color: rgba(200, 240, 101, 0.3);
-    transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(200, 240, 101, 0.1);
   }
 
   /* ABOUT */
@@ -605,6 +694,7 @@
     border-radius: 50%;
     background: radial-gradient(circle, rgba(124,106,247,0.08) 0%, transparent 70%);
     pointer-events: none;
+  animation: floatBlob 15s infinite ease-in-out;
   }
 
   .contact-title {
@@ -641,10 +731,23 @@
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s, border-color 0.2s;
+    transition: color 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   }
 
-  .contact-link:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .contact-link svg {
+    transition: filter 0.3s ease;
+  }
+
+.contact-link:hover { 
+  color: var(--accent); 
+  border-color: rgba(200, 240, 101, 0.4); 
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px -8px rgba(200, 240, 101, 0.3);
+}
+
+.contact-link:hover svg {
+  filter: drop-shadow(0 0 6px rgba(200, 240, 101, 0.6));
+}
 
   /* FOOTER */
   footer {
@@ -699,6 +802,34 @@
     transform: translateY(0);
   }
 
+  /* LIGHTBOX MODAL */
+  #lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    transform: scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #lightbox-modal.visible #lightbox-img {
+    transform: scale(1);
+  }
+
+  .lightbox-close-btn {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 1px solid var(--card-border);
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; z-index: 1001;
+  }
+  .lightbox-close-btn:hover { color: var(--accent); border-color: rgba(200, 240, 101, 0.3); transform: scale(1.1); }
+
   .modal-title {
     font-family: var(--font-head);
     font-size: 1.5rem;
@@ -733,7 +864,8 @@
   /* DIVIDER */
   .section-divider {
     border: none;
-    border-top: 1px solid var(--border);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
     max-width: 1100px;
     margin: 0 auto;
   }
@@ -754,16 +886,14 @@
     justify-content: center;
     cursor: pointer;
     z-index: 999;
-    visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(20px);
-    transition: opacity 0.3s, transform 0.3s, border-color 0.2s, color 0.2s;
+    transform: translateY(40px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, color 0.2s;
   }
 
   .scroll-top-btn.visible {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
   }
@@ -792,6 +922,7 @@
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .modal-content { padding: 1.5rem; width: 95%; }
     .scroll-top-btn { bottom: 5rem; right: 1.25rem; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    .lightbox-close-btn { top: 1rem; right: 1rem; }
   }
 
   @media (max-width: 480px) {
@@ -898,7 +1029,7 @@
           <rect x="150" y="20" width="100" height="185" rx="14" fill="#11111a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
           <rect x="157" y="36" width="86" height="153" rx="6" fill="#0a0a0f"/>
           <!-- SOS button -->
-          <circle cx="200" cy="112" r="30" fill="rgba(226,75,74,0.2)" stroke="rgba(226,75,74,0.5)" stroke-width="1.5"/>
+          <circle class="sos-pulse" cx="200" cy="112" r="30" fill="rgba(226,75,74,0.2)" stroke="rgba(226,75,74,0.5)" stroke-width="1.5"/>
           <circle cx="200" cy="112" r="20" fill="rgba(226,75,74,0.35)"/>
           <text x="200" y="117" text-anchor="middle" fill="#f0ede8" font-size="10" font-family="sans-serif" font-weight="700">SOS</text>
           <!-- health bars -->
@@ -924,6 +1055,9 @@
 
     <!-- Verdemelt -->
     <a href="https://verdemelt-app.vercel.app/" target="_blank" class="project-card reveal">
+      <div class="project-visual">
+      <img src="resources/verdemelt.png" alt="Verdemelt Storefront Screenshot" loading="lazy">
+      </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Verdemelt Storefront</h3>
       <p class="project-desc">
@@ -938,6 +1072,9 @@
 
     <!-- Pagpag -->
     <a href="https://pagpag-hybrid.vercel.app/" target="_blank" class="project-card reveal">
+      <div class="project-visual">
+      <img src="resources/pagpag.png" alt="Pagpag Screenshot" loading="lazy">
+      </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Pagpag: Shake, Battle & Roll</h3>
       <p class="project-desc">
@@ -952,6 +1089,9 @@
 
     <!-- Suriel's Cafe -->
     <a href="https://suriels-cafe.vercel.app/" target="_blank" class="project-card reveal">
+      <div class="project-visual">
+      <img src="resources/suriel.png" alt="Suriel's Cafe Screenshot" loading="lazy">
+      </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Suriel's Cafe Platform</h3>
       <p class="project-desc">
@@ -966,6 +1106,72 @@
 
     <!-- Sword Phantasia -->
     <a href="https://github.com/olayresjames/Sword-Phantasia" target="_blank" class="project-card reveal">
+      <div class="project-visual">
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="225" fill="#191924"/>
+          <!-- Desktop Window Mockup -->
+          <rect x="50" y="25" width="300" height="175" rx="8" fill="#11111a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <!-- Window controls -->
+          <circle cx="68" cy="42" r="4" fill="#ff5f56"/>
+          <circle cx="82" cy="42" r="4" fill="#ffbd2e"/>
+          <circle cx="96" cy="42" r="4" fill="#27c93f"/>
+          <rect x="180" y="39" width="40" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
+          <!-- Separator -->
+          <line x1="50" y1="58" x2="350" y2="58" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          
+          <!-- Game View Area -->
+          <rect x="65" y="73" width="160" height="112" rx="4" fill="#0a0a0f" stroke="rgba(255,255,255,0.05)"/>
+          <!-- Subtle Grid/Landscape -->
+          <path d="M65 140 Q 145 120 225 150" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+          <path d="M65 160 Q 145 140 225 170" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+          
+          <!-- Floating Sword Graphic -->
+          <g transform="translate(145, 125) rotate(45)">
+            <g class="sword-anim">
+              <!-- Blade -->
+              <defs>
+                <linearGradient id="blade-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#cbd5e1" />
+                  <stop offset="50%" stop-color="#f8fafc" />
+                  <stop offset="100%" stop-color="#94a3b8" />
+                </linearGradient>
+              </defs>
+              <rect x="-5" y="-35" width="10" height="45" fill="url(#blade-grad)"/>
+              <polygon points="0,-48 -5,-35 5,-35" fill="#e2e8f0"/>
+              <line x1="0" y1="-45" x2="0" y2="10" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+              <!-- Crossguard -->
+              <rect x="-16" y="10" width="32" height="6" rx="2" fill="#ffbd2e"/>
+              <circle cx="-16" cy="13" r="3" fill="#ffbd2e"/>
+              <circle cx="16" cy="13" r="3" fill="#ffbd2e"/>
+              <!-- Handle -->
+              <rect x="-4" y="16" width="8" height="18" fill="#78350f"/>
+              <!-- Pommel -->
+              <circle cx="0" cy="36" r="6" fill="#ffbd2e"/>
+              <circle cx="0" cy="36" r="2" fill="#e24b4a"/>
+              <!-- Sparkles -->
+              <circle cx="-25" cy="-20" r="1.5" fill="#c8f065" class="sword-anim" style="animation-delay: 0.5s"/>
+              <circle cx="20" cy="-40" r="1" fill="#c8f065" class="sword-anim" style="animation-delay: 1s"/>
+            </g>
+          </g>
+          
+          <!-- UI / Stats Area -->
+          <rect x="240" y="73" width="95" height="45" rx="4" fill="#0a0a0f" stroke="rgba(255,255,255,0.05)"/>
+          <text x="250" y="91" fill="rgba(255,255,255,0.8)" font-size="8" font-family="sans-serif" font-weight="700">Hero Stats</text>
+          <!-- HP Bar -->
+          <rect x="250" y="98" width="75" height="4" rx="2" fill="#1f1f2e"/>
+          <rect x="250" y="98" width="55" height="4" rx="2" fill="#e24b4a"/>
+          <!-- MP Bar -->
+          <rect x="250" y="108" width="75" height="4" rx="2" fill="#1f1f2e"/>
+          <rect x="250" y="108" width="35" height="4" rx="2" fill="#7c6af7"/>
+          
+          <!-- Event Log Area -->
+          <rect x="240" y="128" width="95" height="57" rx="4" fill="#0a0a0f" stroke="rgba(255,255,255,0.05)"/>
+          <line x1="250" y1="143" x2="320" y2="143" stroke="rgba(255,255,255,0.2)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="250" y1="154" x2="300" y2="154" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="250" y1="165" x2="310" y2="165" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="250" y1="176" x2="280" y2="176" stroke="rgba(200,240,101,0.5)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
       <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
       <h3 class="project-name">Sword Phantasia</h3>
       <p class="project-desc">
@@ -1126,6 +1332,14 @@
   </div>
 </div>
 
+<!-- IMAGE LIGHTBOX MODAL -->
+<div id="lightbox-modal" class="modal-overlay">
+  <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close Gallery">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <img id="lightbox-img" src="" alt="Full Screen Project Preview">
+</div>
+
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -1139,9 +1353,14 @@
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
+      e.preventDefault();
       const id = a.getAttribute('href').slice(1);
+      if (!id) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       const el = document.getElementById(id);
-      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+      if (el) { el.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
 
@@ -1155,13 +1374,13 @@
 
     if (currentScrollY > lastScrollY && currentScrollY > 80) {
       navbar.classList.add('nav-hidden');
-    } else {
+    } else if (currentScrollY < lastScrollY) {
       navbar.classList.remove('nav-hidden');
     }
     lastScrollY = currentScrollY;
 
     // Scroll to top button visibility logic
-    if (currentScrollY > 400) {
+    if (currentScrollY > window.innerHeight) {
       scrollTopBtn.classList.add('visible');
     } else {
       scrollTopBtn.classList.remove('visible');
@@ -1214,6 +1433,38 @@
       setTimeout(() => {
         document.body.removeChild(link);
       }, 100);
+    });
+  }
+
+  // Image Lightbox Logic
+  const lightboxModal = document.getElementById('lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCloseBtn = document.getElementById('lightbox-close');
+  const projectImages = document.querySelectorAll('.project-visual img');
+
+  if (lightboxModal && lightboxImg) {
+    projectImages.forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.preventDefault(); // Stop the link from redirecting
+        e.stopPropagation();
+        lightboxImg.src = img.src;
+        lightboxModal.classList.add('visible');
+      });
+    });
+
+    const closeLightbox = () => {
+      lightboxModal.classList.remove('visible');
+      setTimeout(() => { if (!lightboxModal.classList.contains('visible')) lightboxImg.src = ''; }, 300);
+    };
+
+    lightboxCloseBtn.addEventListener('click', closeLightbox);
+    
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxModal.classList.contains('visible')) closeLightbox();
     });
   }
 </script>
