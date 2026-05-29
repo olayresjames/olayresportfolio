@@ -44,6 +44,41 @@
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
+  /* PERSONA 5 DYNAMIC BACKGROUND */
+  .p5-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -10;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.5px, transparent 2px);
+    background-size: 26px 26px;
+    animation: p5Dots 20s linear infinite;
+  }
+
+  .p5-bg::after {
+    content: '';
+    position: absolute;
+    top: -20%; left: -20%; width: 140%; height: 140%;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 60px,
+      rgba(230, 0, 18, 0.04) 60px,
+      rgba(230, 0, 18, 0.04) 100px
+    );
+    animation: p5Stripes 30s linear infinite;
+  }
+
+  @keyframes p5Dots {
+    0% { background-position: 0 0; }
+    100% { background-position: -52px 52px; }
+  }
+
+  @keyframes p5Stripes {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(141.42px, -141.42px); }
+  }
+
   @keyframes navFadeIn {
     from { opacity: 0; transform: translateY(-15px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1001,6 +1036,8 @@
 </style>
 </head>
 <body>
+
+<div class="p5-bg"></div>
 
 <nav>
   <a href="#" class="nav-logo">Raj<span>.</span></a>
