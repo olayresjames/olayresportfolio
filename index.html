@@ -214,6 +214,7 @@
     margin-bottom: 1.5rem;
     min-height: 1.5rem;
     white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   animation: slideUpFade 0.8s ease backwards 0.2s;
   }
 
@@ -250,12 +251,14 @@
     line-height: 1.0;
     letter-spacing: -0.04em;
     margin-bottom: 1.5rem;
+    text-shadow: 0 8px 30px rgba(0,0,0,0.6);
   animation: slideUpFade 0.8s ease backwards 0.3s;
   }
 
   .hero-name .line2 {
     color: transparent;
     -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+    text-shadow: none;
   }
 
   .hero-desc {
@@ -265,6 +268,7 @@
     line-height: 1.75;
     margin-bottom: 2.5rem;
     font-weight: 300;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
   animation: slideUpFade 0.8s ease backwards 0.4s;
   }
 
@@ -789,25 +793,6 @@
     font-weight: 500;
   }
 
-  .resume-wrapper {
-    margin-top: 1.5rem;
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--bg2);
-    height: 70vh;
-    min-height: 400px;
-    max-height: 600px;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
-  }
-
-  .resume-wrapper.active {
-    display: flex;
-    animation: slideUpFade 0.4s ease backwards;
-  }
-
   .resume-wrapper-header {
     display: flex;
     justify-content: space-between;
@@ -831,8 +816,8 @@
     color: #ff4d5a;
   }
 
-  .resume-wrapper object,
-  .resume-wrapper iframe {
+  .resume-view-container object,
+  .resume-view-container iframe {
     width: 100%;
     height: 100%;
     flex-grow: 1;
@@ -968,12 +953,12 @@
     text-align: center;
     max-width: 90%;
     width: 400px;
-    transform: translateY(30px);
+    transform: translateY(20px) scale(0.95);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .modal-overlay.visible .modal-content {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 
   /* LIGHTBOX MODAL */
@@ -1509,18 +1494,7 @@
         I thrive in <strong>cross-functional teams</strong>, contribute consistently, and aim to ship quality work on time.
       </p>
       <div style="margin-top: 2.5rem;" class="reveal">
-        <button id="toggle-resume-btn" class="btn-ghost">View Resume ⬇</button>
-      </div>
-      <div id="resume-viewer" class="resume-wrapper">
-        <div class="resume-wrapper-header">
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--text);">Resume</span>
-          <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" class="resume-download-link">Download PDF ↓</a>
-        </div>
-        <object data="resources/olayres-resume.pdf" type="application/pdf">
-          <iframe src="resources/olayres-resume.pdf">
-            <p style="padding: 2rem; text-align: center; color: var(--muted);">Your browser doesn't support embedded PDFs. <br><br><a href="resources/olayres-resume.pdf" download style="color: var(--accent);">Download the PDF</a>.</p>
-          </iframe>
-        </object>
+        <button id="view-resume-btn" class="btn-primary">View Resume ↗</button>
       </div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -1587,6 +1561,26 @@
       <button id="modal-cancel-btn" class="btn-ghost">Cancel</button>
       <button id="modal-download-btn" class="btn-primary">Download</button>
     </div>
+  </div>
+</div>
+
+<!-- RESUME VIEW MODAL -->
+<div id="resume-view-modal" class="modal-overlay">
+  <div class="modal-content resume-view-container" style="width: 900px; max-width: 95vw; height: 85vh; padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+    <div class="resume-wrapper-header" style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 1rem; font-family: var(--font-head); font-weight: 700; color: var(--text);">Resume</span>
+      <div style="display: flex; gap: 1.5rem; align-items: center;">
+        <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" class="resume-download-link">Download PDF ↓</a>
+        <button id="close-resume-view-btn" style="background: transparent; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <object data="resources/olayres-resume.pdf" type="application/pdf">
+      <iframe src="resources/olayres-resume.pdf">
+        <p style="padding: 2rem; text-align: center; color: var(--muted);">Your browser doesn't support embedded PDFs. <br><br><a href="resources/olayres-resume.pdf" download style="color: var(--accent);">Download the PDF</a>.</p>
+      </iframe>
+    </object>
   </div>
 </div>
 
@@ -1779,18 +1773,26 @@
   // Start typing after initial CSS slideUpFade animation finishes (1000ms)
   setTimeout(typeWriter, 1000);
 
-  // Resume Inline Toggle Logic
-  const toggleResumeBtn = document.getElementById('toggle-resume-btn');
-  const resumeViewer = document.getElementById('resume-viewer');
+  // Resume View Modal Logic
+  const viewResumeBtn = document.getElementById('view-resume-btn');
+  const resumeViewModal = document.getElementById('resume-view-modal');
+  const closeResumeViewBtn = document.getElementById('close-resume-view-btn');
 
-  if (toggleResumeBtn && resumeViewer) {
-    toggleResumeBtn.addEventListener('click', () => {
-      resumeViewer.classList.toggle('active');
-      if (resumeViewer.classList.contains('active')) {
-        toggleResumeBtn.innerHTML = 'Hide Resume ⬆';
-      } else {
-        toggleResumeBtn.innerHTML = 'View Resume ⬇';
-      }
+  if (viewResumeBtn && resumeViewModal && closeResumeViewBtn) {
+    const closeResumeView = () => resumeViewModal.classList.remove('visible');
+
+    viewResumeBtn.addEventListener('click', () => {
+      resumeViewModal.classList.add('visible');
+    });
+
+    closeResumeViewBtn.addEventListener('click', closeResumeView);
+
+    resumeViewModal.addEventListener('click', (e) => {
+      if (e.target === resumeViewModal) closeResumeView();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && resumeViewModal.classList.contains('visible')) closeResumeView();
     });
   }
 </script>
