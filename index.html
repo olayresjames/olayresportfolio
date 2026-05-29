@@ -116,6 +116,19 @@
 
   .nav-logo span { color: var(--accent); }
 
+  @keyframes logoGlitch {
+    0% { transform: translate(0) skewX(0deg); text-shadow: none; }
+    20% { transform: translate(-2px, 1px) skewX(-5deg); text-shadow: 2px 0 var(--accent), -1px -1px rgba(255,255,255,0.6); }
+    40% { transform: translate(1px, -1px) skewX(5deg); text-shadow: -2px 1px var(--accent), 1px 0 rgba(255,255,255,0.6); }
+    60% { transform: translate(-1px, 2px) skewX(-2deg); text-shadow: 1px -1px var(--accent), -1px 2px rgba(255,255,255,0.6); }
+    80% { transform: translate(2px, -1px) skewX(2deg); text-shadow: -1px 0 var(--accent), 1px -1px rgba(255,255,255,0.6); }
+    100% { transform: translate(0) skewX(0deg); text-shadow: none; }
+  }
+
+  .nav-logo:hover {
+    animation: logoGlitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  }
+
   .nav-links {
     display: flex;
     gap: 2rem;
@@ -1620,15 +1633,34 @@
 
   // Typing Effect for Hero Sub-heading
   const typeWriterElement = document.getElementById('typewriter');
-  const textToType = "IT Student & Developer";
-  let typeIndex = 0;
+  const titles = ["IT Student", "Full-Stack Developer", "Game Developer","Web Developer", "AI Enthusiast","Emerging Technologist", "Creative Coder", "Lifelong Learner"];
+  let titleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
 
   function typeWriter() {
-    if (typeIndex < textToType.length) {
-      typeWriterElement.textContent += textToType.charAt(typeIndex);
-      typeIndex++;
-      setTimeout(typeWriter, Math.random() * 40 + 50); // Random delay for realistic typing
+    const currentText = titles[titleIndex];
+    
+    if (isDeleting) {
+      typeWriterElement.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      typeWriterElement.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
     }
+
+    let typeSpeed = isDeleting ? 30 : Math.random() * 40 + 50;
+
+    if (!isDeleting && charIndex === currentText.length) {
+      typeSpeed = 2000; // Pause before deleting
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      titleIndex = (titleIndex + 1) % titles.length;
+      typeSpeed = 500; // Pause before typing the next word
+    }
+
+    setTimeout(typeWriter, typeSpeed);
   }
 
   // Start typing after initial CSS slideUpFade animation finishes (1000ms)
