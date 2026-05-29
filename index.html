@@ -175,6 +175,24 @@
     background: var(--accent);
   }
 
+  .typing-container {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.45em;
+    height: 1.15em;
+    background-color: var(--accent);
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
   .hero-name {
     font-family: var(--font-head);
     font-size: clamp(3rem, 5vw, 5.5rem);
@@ -1007,7 +1025,11 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-eyebrow">IT Student & Developer</div>
+    <div class="hero-eyebrow">
+      <span class="typing-container">
+        <span id="typewriter"></span><span class="cursor"></span>
+      </span>
+    </div>
     <h1 class="hero-name">
       Rafhael<br>
       <span class="line2">James</span><br>
@@ -1558,6 +1580,22 @@
       });
     });
   }
+
+  // Typing Effect for Hero Sub-heading
+  const typeWriterElement = document.getElementById('typewriter');
+  const textToType = "IT Student & Developer";
+  let typeIndex = 0;
+
+  function typeWriter() {
+    if (typeIndex < textToType.length) {
+      typeWriterElement.textContent += textToType.charAt(typeIndex);
+      typeIndex++;
+      setTimeout(typeWriter, Math.random() * 40 + 50); // Random delay for realistic typing
+    }
+  }
+
+  // Start typing after initial CSS slideUpFade animation finishes (1000ms)
+  setTimeout(typeWriter, 1000);
 </script>
 </body>
 </html>
