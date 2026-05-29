@@ -212,6 +212,8 @@
     color: var(--accent);
     font-weight: 500;
     margin-bottom: 1.5rem;
+    min-height: 1.5rem;
+    white-space: nowrap;
   animation: slideUpFade 0.8s ease backwards 0.2s;
   }
 
@@ -332,7 +334,19 @@
     align-items: center;
     gap: 1rem;
     animation: floatIn 0.6s ease both;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top right, rgba(230,0,18,0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
   }
 
   .stat-card:nth-child(2) { margin-left: 2.5rem; animation-delay: 0.1s; }
@@ -344,8 +358,13 @@
   }
 
 .stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px -10px rgba(230, 0, 18, 0.2);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 30px -10px rgba(230, 0, 18, 0.3);
+  border-color: rgba(230, 0, 18, 0.4);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
 }
 
   .stat-icon {
@@ -355,6 +374,13 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1.1rem;
     flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .stat-card:hover .stat-icon {
+    transform: scale(1.15) rotate(5deg);
+    background: rgba(230,0,18,0.25);
+    box-shadow: 0 0 15px rgba(230,0,18,0.3);
   }
 
   .stat-num {
@@ -388,13 +414,15 @@
     padding: 0.35rem 0.75rem;
     border-radius: 100px;
     letter-spacing: 0.02em;
-    transition: color 0.2s, border-color 0.2s;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
 .tech-pill:hover { 
   color: var(--accent); 
-  border-color: rgba(230,0,18,0.5); 
-  transform: translateY(-2px);
+  border-color: rgba(230,0,18,0.6);
+  background: rgba(230,0,18,0.08);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px -4px rgba(230, 0, 18, 0.25);
 }
 
   /* SECTIONS */
@@ -697,15 +725,34 @@
     font-weight: 500;
   }
 
-  .about-img {
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .about-img-wrapper {
     width: 100%;
-    height: auto;
     aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: center 15%;
     border-radius: 12px;
     border: 1px solid var(--card-border);
-    background: var(--bg3);
+    background: linear-gradient(90deg, var(--bg3) 25%, var(--bg2) 50%, var(--bg3) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    overflow: hidden;
+  }
+
+  .about-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    display: block;
+  }
+
+  .about-img-wrapper img.loaded {
+    opacity: 1;
   }
 
   .edu-card {
@@ -1413,7 +1460,9 @@
       </p>
     </div>
     <div style="display: flex; flex-direction: column; gap: 1rem;">
-      <img src="resources/picture.png" alt="Rafhael James Olayres" class="about-img reveal">
+      <div class="about-img-wrapper reveal">
+        <img src="resources/id_picture.png" alt="Rafhael James Olayres" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
+      </div>
       <div class="edu-card reveal">
         <div class="edu-school">Pamantasan ng Lungsod ng Valenzuela</div>
         <div class="edu-degree">Bachelor of Science in Information Technology</div>
