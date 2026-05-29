@@ -11,15 +11,15 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0a0a0f;
-    --bg2: #11111a;
-    --bg3: #191924;
-    --text: #f0ede8;
-    --muted: #8a8799;
-    --accent: #c8f065;
-    --accent2: #7c6af7;
-    --border: rgba(255,255,255,0.07);
-    --card-border: rgba(255,255,255,0.1);
+    --bg: #050505;
+    --bg2: #121212;
+    --bg3: #1a1a1a;
+    --text: #f5f5f5;
+    --muted: #a3a3a3;
+    --accent: #e60012;
+    --accent2: #ffffff;
+    --border: rgba(255,255,255,0.1);
+    --card-border: rgba(255,255,255,0.15);
     --font-head: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
   }
@@ -58,7 +58,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 3rem;
-    background: rgba(10, 10, 15, 0.65);
+    background: rgba(5, 5, 5, 0.65);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
@@ -133,7 +133,7 @@
     top: -200px; right: -200px;
     width: 700px; height: 700px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(230,0,18,0.15) 0%, transparent 70%);
     pointer-events: none;
   animation: floatBlob 20s infinite ease-in-out;
   }
@@ -144,7 +144,7 @@
     bottom: -100px; left: 200px;
     width: 500px; height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,240,101,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
     pointer-events: none;
   animation: floatBlob 25s infinite ease-in-out reverse;
 }
@@ -205,7 +205,7 @@
 
   .hero-name .line2 {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(240,237,232,0.3);
+    -webkit-text-stroke: 1px rgba(255,255,255,0.4);
   }
 
   .hero-desc {
@@ -230,7 +230,7 @@
     align-items: center;
     gap: 0.5rem;
     background: var(--accent);
-    color: #0a0a0f;
+    color: #ffffff;
     font-family: var(--font-head);
     font-weight: 700;
     font-size: 0.875rem;
@@ -245,7 +245,7 @@
 .btn-primary:hover { 
   opacity: 0.88; 
   transform: translateY(-2px); 
-  box-shadow: 0 8px 20px -8px rgba(200, 240, 101, 0.4);
+  box-shadow: 0 8px 20px -8px rgba(230, 0, 18, 0.5);
 }
 
   .btn-ghost {
@@ -297,13 +297,13 @@
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px -10px rgba(124, 106, 247, 0.2);
+  box-shadow: 0 10px 20px -10px rgba(230, 0, 18, 0.2);
 }
 
   .stat-icon {
     width: 42px; height: 42px;
     border-radius: 8px;
-    background: rgba(124,106,247,0.15);
+    background: rgba(230,0,18,0.15);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.1rem;
     flex-shrink: 0;
@@ -345,7 +345,7 @@
 
 .tech-pill:hover { 
   color: var(--accent); 
-  border-color: rgba(200,240,101,0.3); 
+  border-color: rgba(230,0,18,0.5); 
   transform: translateY(-2px);
 }
 
@@ -419,7 +419,7 @@
   .project-card:hover {
     border-color: rgba(255,255,255,0.2);
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px -12px rgba(200, 240, 101, 0.15);
+    box-shadow: 0 12px 40px -12px rgba(230, 0, 18, 0.2);
   }
 
   .project-card:hover::before { opacity: 1; }
@@ -444,9 +444,9 @@
     align-self: flex-start;
   }
 
-  .tag-fullstack { background: rgba(124,106,247,0.15); color: #a99bf5; }
-  .tag-frontend { background: rgba(200,240,101,0.12); color: #a8cc4a; }
-  .tag-ai { background: rgba(45,200,180,0.12); color: #5ecfb8; }
+  .tag-fullstack { background: rgba(230,0,18,0.15); color: #ff4d5a; }
+  .tag-frontend { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .tag-ai { background: rgba(230,0,18,0.15); color: #ff4d5a; }
 
   .project-name {
     font-family: var(--font-head);
@@ -487,7 +487,7 @@
 
   .project-tech span:hover {
     color: var(--accent);
-    border-color: rgba(200, 240, 101, 0.3);
+    border-color: rgba(230, 0, 18, 0.5);
     transform: translateY(-2px);
   }
 
@@ -497,7 +497,7 @@
     font-size: 0.75rem;
     color: var(--muted);
   opacity: 0.9;
-  background: rgba(10, 10, 15, 0.75);
+  background: rgba(5, 5, 5, 0.75);
   backdrop-filter: blur(4px);
   padding: 0.25rem 0.6rem;
   border-radius: 6px;
@@ -624,9 +624,9 @@
 
   .skill-item:hover {
     color: var(--accent);
-    border-color: rgba(200, 240, 101, 0.3);
+    border-color: rgba(230, 0, 18, 0.5);
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 4px 12px rgba(200, 240, 101, 0.1);
+  box-shadow: 0 4px 12px rgba(230, 0, 18, 0.15);
   }
 
   /* ABOUT */
@@ -687,8 +687,8 @@
     gap: 0.4rem;
     font-size: 0.75rem;
     color: var(--accent);
-    background: rgba(200,240,101,0.1);
-    border: 1px solid rgba(200,240,101,0.2);
+    background: rgba(230,0,18,0.1);
+    border: 1px solid rgba(230,0,18,0.2);
     padding: 0.25rem 0.65rem;
     border-radius: 100px;
     font-weight: 500;
@@ -711,7 +711,7 @@
   .contact-section:hover {
     border-color: rgba(255,255,255,0.2);
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px -12px rgba(200, 240, 101, 0.15);
+    box-shadow: 0 12px 40px -12px rgba(230, 0, 18, 0.2);
   }
 
   .contact-section::before {
@@ -721,7 +721,7 @@
     transform: translateX(-50%);
     width: 400px; height: 400px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(124,106,247,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(230,0,18,0.12) 0%, transparent 70%);
     pointer-events: none;
   animation: floatBlob 15s infinite ease-in-out;
   }
@@ -769,13 +769,13 @@
 
 .contact-link:hover { 
   color: var(--accent); 
-  border-color: rgba(200, 240, 101, 0.4); 
+  border-color: rgba(230, 0, 18, 0.5); 
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px -8px rgba(200, 240, 101, 0.3);
+  box-shadow: 0 8px 24px -8px rgba(230, 0, 18, 0.4);
 }
 
 .contact-link:hover svg {
-  filter: drop-shadow(0 0 6px rgba(200, 240, 101, 0.6));
+  filter: drop-shadow(0 0 6px rgba(230, 0, 18, 0.8));
 }
 
   /* FOOTER */
@@ -799,7 +799,7 @@
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(10,10,15,0.7);
+    background: rgba(0,0,0,0.8);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
@@ -857,7 +857,7 @@
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all 0.2s; z-index: 1001;
   }
-  .lightbox-close-btn:hover { color: var(--accent); border-color: rgba(200, 240, 101, 0.3); transform: scale(1.1); }
+  .lightbox-close-btn:hover { color: var(--accent); border-color: rgba(230, 0, 18, 0.5); transform: scale(1.1); }
 
   .modal-title {
     font-family: var(--font-head);
@@ -929,7 +929,7 @@
 
   .scroll-top-btn:hover {
     color: var(--accent);
-    border-color: rgba(200, 240, 101, 0.3);
+    border-color: rgba(230, 0, 18, 0.5);
   }
 
   .hamburger {
@@ -957,7 +957,7 @@
       position: fixed;
       top: 0; right: -100%;
       width: 250px; height: 100vh;
-      background: rgba(10, 10, 15, 0.98);
+      background: rgba(5, 5, 5, 0.98);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-left: 1px solid var(--border);
@@ -1112,19 +1112,19 @@
           <text x="200" y="117" text-anchor="middle" fill="#f0ede8" font-size="10" font-family="sans-serif" font-weight="700">SOS</text>
           <!-- health bars -->
           <rect x="162" y="55" width="76" height="4" rx="2" fill="#1f1f2e"/>
-          <rect x="162" y="55" width="52" height="4" rx="2" fill="#5ecfb8"/>
-          <text x="162" y="50" fill="rgba(200,240,101,0.7)" font-size="7" font-family="sans-serif">Heart Rate</text>
+          <rect x="162" y="55" width="52" height="4" rx="2" fill="#e60012"/>
+          <text x="162" y="50" fill="rgba(255,255,255,0.7)" font-size="7" font-family="sans-serif">Heart Rate</text>
           <!-- users icons -->
-          <circle cx="174" cy="170" r="7" fill="rgba(124,106,247,0.3)" stroke="rgba(124,106,247,0.5)" stroke-width="1"/>
-          <circle cx="200" cy="170" r="7" fill="rgba(200,240,101,0.2)" stroke="rgba(200,240,101,0.4)" stroke-width="1"/>
-          <circle cx="226" cy="170" r="7" fill="rgba(94,207,184,0.2)" stroke="rgba(94,207,184,0.4)" stroke-width="1"/>
+          <circle cx="174" cy="170" r="7" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <circle cx="200" cy="170" r="7" fill="rgba(230,0,18,0.3)" stroke="rgba(230,0,18,0.5)" stroke-width="1"/>
+          <circle cx="226" cy="170" r="7" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
           <!-- decorative lines -->
-          <line x1="60" y1="50" x2="130" y2="90" stroke="rgba(124,106,247,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
-          <line x1="270" y1="50" x2="340" y2="90" stroke="rgba(200,240,101,0.15)" stroke-width="1" stroke-dasharray="4,4"/>
-          <circle cx="60" cy="48" r="18" fill="rgba(124,106,247,0.1)" stroke="rgba(124,106,247,0.25)" stroke-width="1"/>
-          <text x="60" y="53" text-anchor="middle" fill="rgba(169,155,245,0.8)" font-size="8" font-family="sans-serif">LGU</text>
-          <circle cx="340" cy="48" r="18" fill="rgba(200,240,101,0.08)" stroke="rgba(200,240,101,0.2)" stroke-width="1"/>
-          <text x="340" y="53" text-anchor="middle" fill="rgba(168,204,74,0.8)" font-size="8" font-family="sans-serif">FAM</text>
+          <line x1="60" y1="50" x2="130" y2="90" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="270" y1="50" x2="340" y2="90" stroke="rgba(230,0,18,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+          <circle cx="60" cy="48" r="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="60" y="53" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="8" font-family="sans-serif">LGU</text>
+          <circle cx="340" cy="48" r="18" fill="rgba(230,0,18,0.1)" stroke="rgba(230,0,18,0.3)" stroke-width="1"/>
+          <text x="340" y="53" text-anchor="middle" fill="rgba(255,50,50,0.8)" font-size="8" font-family="sans-serif">FAM</text>
         </svg>
       </div>
       <span class="project-date">Jan 2026 – Present</span>
@@ -1227,8 +1227,8 @@
               <circle cx="0" cy="36" r="6" fill="#ffbd2e"/>
               <circle cx="0" cy="36" r="2" fill="#e24b4a"/>
               <!-- Sparkles -->
-              <circle cx="-25" cy="-20" r="1.5" fill="#c8f065" class="sword-anim" style="animation-delay: 0.5s"/>
-              <circle cx="20" cy="-40" r="1" fill="#c8f065" class="sword-anim" style="animation-delay: 1s"/>
+              <circle cx="-25" cy="-20" r="1.5" fill="#e60012" class="sword-anim" style="animation-delay: 0.5s"/>
+              <circle cx="20" cy="-40" r="1" fill="#e60012" class="sword-anim" style="animation-delay: 1s"/>
             </g>
           </g>
           
@@ -1240,14 +1240,14 @@
           <rect x="250" y="98" width="55" height="4" rx="2" fill="#e24b4a"/>
           <!-- MP Bar -->
           <rect x="250" y="108" width="75" height="4" rx="2" fill="#1f1f2e"/>
-          <rect x="250" y="108" width="35" height="4" rx="2" fill="#7c6af7"/>
+          <rect x="250" y="108" width="35" height="4" rx="2" fill="#ffffff"/>
           
           <!-- Event Log Area -->
           <rect x="240" y="128" width="95" height="57" rx="4" fill="#0a0a0f" stroke="rgba(255,255,255,0.05)"/>
           <line x1="250" y1="143" x2="320" y2="143" stroke="rgba(255,255,255,0.2)" stroke-width="3" stroke-linecap="round"/>
           <line x1="250" y1="154" x2="300" y2="154" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
           <line x1="250" y1="165" x2="310" y2="165" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
-          <line x1="250" y1="176" x2="280" y2="176" stroke="rgba(200,240,101,0.5)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="250" y1="176" x2="280" y2="176" stroke="rgba(230,0,18,0.5)" stroke-width="3" stroke-linecap="round"/>
         </svg>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
