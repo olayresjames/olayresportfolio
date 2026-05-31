@@ -1032,7 +1032,7 @@
   }
 
   /* SCROLL TO TOP */
-  .scroll-top-btn {
+  .page-up-action {
     position: fixed;
     bottom: 2.5rem;
     right: 2.5rem;
@@ -1053,13 +1053,13 @@
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, color 0.2s;
   }
 
-  .scroll-top-btn.visible {
+  .page-up-action.visible {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
   }
 
-  .scroll-top-btn:hover {
+  .page-up-action:hover {
     color: var(--accent);
     border-color: rgba(230, 0, 18, 0.5);
   }
@@ -1120,7 +1120,7 @@
     .modal-actions { flex-direction: column; align-items: stretch; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .modal-content { padding: 1.5rem; width: 95%; }
-    .scroll-top-btn { bottom: 5rem; right: 1.25rem; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    .page-up-action { bottom: 5rem; right: 1.25rem; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
     .lightbox-close-btn { top: 1rem; right: 1rem; }
   }
 
@@ -1550,7 +1550,7 @@
 </footer>
 
 <!-- SCROLL TO TOP BUTTON -->
-<button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
+<button id="page-up-action" class="page-up-action" aria-label="Scroll to top">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
@@ -1621,7 +1621,7 @@
   // Smart Navbar (hide on scroll down, show on scroll up)
   let lastScrollY = window.scrollY;
   const navbar = document.querySelector('nav');
-  const scrollTopBtn = document.getElementById('scroll-top-btn');
+  const scrollTopBtn = document.getElementById('page-up-action');
   const navLinksMenu = document.querySelector('.nav-links');
 
   window.addEventListener('scroll', () => {
@@ -1636,18 +1636,21 @@
     lastScrollY = currentScrollY;
 
     // Scroll to top button visibility logic
-    if (currentScrollY > window.innerHeight) {
-      scrollTopBtn.classList.add('visible');
-    } else {
-      scrollTopBtn.classList.remove('visible');
+    if (scrollTopBtn) {
+      if (currentScrollY > 400) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
     }
   });
 
   // Scroll to top click handler
-  scrollTopBtn.addEventListener('click', () => {
-    // Smooth behavior is already handled natively via your CSS `html { scroll-behavior: smooth; }`
-    window.scrollTo(0, 0);
-  });
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo(0, 0);
+    });
+  }
 
   // Resume download modal
   const hireMeBtn = document.getElementById('hire-me-btn');
