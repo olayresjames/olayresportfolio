@@ -1223,7 +1223,7 @@
   <div class="projects-grid">
 
     <!-- AgapAI — featured -->
-    <a href="https://olayresportfolio.vercel.app" target="_blank" class="project-card featured reveal">
+    <a href="#" id="agapai-project" class="project-card featured reveal">
       <div>
         <span class="project-tag tag-ai">AI · Full-Stack · Present</span>
         <h3 class="project-name">AgapAI</h3>
@@ -1594,6 +1594,17 @@
   <img id="lightbox-img" src="" alt="Full Screen Project Preview">
 </div>
 
+<!-- WIP MODAL -->
+<div id="wip-modal" class="modal-overlay">
+  <div class="modal-content">
+    <h3 class="modal-title">Work in Progress</h3>
+    <p class="modal-text">This project is currently under heavy development. A public repository or live demo will be available soon. Thank you for your interest!</p>
+    <div class="modal-actions">
+      <button id="wip-modal-close-btn" class="btn-primary">OK</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -1798,6 +1809,30 @@
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && resumeViewModal.classList.contains('visible')) closeResumeView();
+    });
+  }
+
+  // WIP Modal Logic for AgapAI
+  const agapaiProjectCard = document.getElementById('agapai-project');
+  const wipModal = document.getElementById('wip-modal');
+  const wipModalCloseBtn = document.getElementById('wip-modal-close-btn');
+
+  if (agapaiProjectCard && wipModal && wipModalCloseBtn) {
+    const closeWipModal = () => wipModal.classList.remove('visible');
+
+    agapaiProjectCard.addEventListener('click', (e) => {
+      e.preventDefault();
+      wipModal.classList.add('visible');
+    });
+
+    wipModalCloseBtn.addEventListener('click', closeWipModal);
+
+    wipModal.addEventListener('click', (e) => {
+      if (e.target === wipModal) closeWipModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && wipModal.classList.contains('visible')) closeWipModal();
     });
   }
 </script>
