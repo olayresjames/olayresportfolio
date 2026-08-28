@@ -221,6 +221,13 @@
     align-items: center;
   }
 
+  #typewriter {
+    display: inline-block;
+    width: 21ch;
+    min-width: 21ch;
+    white-space: nowrap;
+  }
+
   .cursor {
     display: inline-block;
     width: 0.45em;
@@ -2524,6 +2531,61 @@
 
     .project-card { cursor: default; }
 
+    .project-card .project-desc,
+    .project-card .project-tech,
+    .project-card .project-facts,
+    .project-card .project-actions {
+      max-height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease;
+    }
+
+    .project-card.is-expanded .project-desc,
+    .project-card.is-expanded .project-tech,
+    .project-card.is-expanded .project-facts,
+    .project-card.is-expanded .project-actions {
+      max-height: 520px;
+      opacity: 1;
+    }
+
+    .project-card.is-expanded .project-desc { margin-bottom: 1.5rem; }
+    .project-card.is-expanded .project-facts { margin: 1.2rem 0 1.4rem; }
+    .project-card.is-expanded .project-actions { margin-top: 1.6rem; }
+
+    .project-toggle {
+      align-self: flex-start;
+      margin: 0.2rem 0 0.4rem;
+      padding: 0.45rem 0.7rem;
+      border: 1px solid currentColor;
+      color: var(--paper);
+      background: transparent;
+      font: 800 0.67rem var(--font-head);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      clip-path: polygon(4% 0, 100% 8%, 95% 100%, 0 90%);
+    }
+
+    .project-card.featured .project-toggle {
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .project-toggle:hover,
+    .project-toggle:focus-visible {
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .project-card.featured .project-toggle:hover,
+    .project-card.featured .project-toggle:focus-visible {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
     .project-card.featured > div:first-child { min-width: 0; }
 
     .project-facts {
@@ -3004,4 +3066,153 @@
       filter: none !important;
       transform: none !important;
     }
+  }
+
+  /* PROJECT DETAIL DISCLOSURE */
+  .project-card .project-desc,
+  .project-card .project-tech,
+  .project-card .project-facts,
+  .project-card .project-actions {
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease;
+  }
+
+  .project-card.is-expanded .project-desc,
+  .project-card.is-expanded .project-tech,
+  .project-card.is-expanded .project-facts,
+  .project-card.is-expanded .project-actions {
+    max-height: 520px;
+    opacity: 1;
+  }
+
+  .project-card.is-expanded .project-desc { margin-bottom: 1.5rem; }
+  .project-card.is-expanded .project-facts { margin: 1.2rem 0 1.4rem; }
+  .project-card.is-expanded .project-actions { margin-top: 1.6rem; }
+
+  .project-toggle {
+    position: relative;
+    z-index: 3;
+    align-self: flex-start;
+    margin: 0.2rem 0 0.4rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid currentColor;
+    color: var(--paper);
+    background: transparent;
+    font: 800 0.67rem var(--font-head);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    pointer-events: auto;
+    clip-path: polygon(4% 0, 100% 8%, 95% 100%, 0 90%);
+  }
+
+  .project-card.featured .project-toggle {
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  .project-toggle:hover,
+  .project-toggle:focus-visible {
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  .project-card.featured .project-toggle:hover,
+  .project-card.featured .project-toggle:focus-visible {
+    color: var(--paper);
+    background: var(--ink);
+  }
+
+  @media (max-width: 560px) {
+    html,
+    body {
+      overflow-x: clip;
+    }
+
+    .nav-logo,
+    .nav-right {
+      flex-shrink: 0;
+    }
+
+    .nav-right {
+      gap: 0.45rem;
+    }
+
+    #hire-me-btn {
+      display: inline-flex;
+      min-height: 38px;
+      padding: 0.42rem 0.58rem;
+      font-size: 0.58rem;
+      white-space: nowrap;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 9vw, 2.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-title {
+      max-width: 100%;
+      font-size: clamp(1.8rem, 9vw, 2.55rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      overflow-wrap: anywhere;
+    }
+
+    .project-name {
+      font-size: clamp(1.25rem, 6.2vw, 1.7rem);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    .hamburger {
+      width: 32px;
+      height: 38px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hamburger .bar {
+      position: absolute;
+      left: 50%;
+      width: 20px;
+      margin: 0;
+      transform: translateX(-50%);
+      transform-origin: center;
+    }
+
+    .hamburger .bar:nth-child(1) { top: 10px; }
+    .hamburger .bar:nth-child(2) { top: 17px; }
+    .hamburger .bar:nth-child(3) { top: 24px; }
+
+    .hamburger.active .bar:nth-child(1) {
+      top: 17px;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+      top: 17px;
+      transform: translateX(-50%) scaleX(0);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+      top: 17px;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+  }
+
+  @media (max-width: 340px) {
+    #hire-me-btn {
+      min-height: 34px;
+      padding-inline: 0.38rem;
+      font-size: 0.5rem;
+    }
+
+    .nav-right { gap: 0.25rem; }
   }

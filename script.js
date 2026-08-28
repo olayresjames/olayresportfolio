@@ -146,6 +146,17 @@
     sections.forEach(section => sectionObserver.observe(section));
   }
 
+  document.querySelectorAll('.project-toggle').forEach(toggle => {
+    toggle.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const card = toggle.closest('.project-card');
+      const expanded = card.classList.toggle('is-expanded');
+      toggle.setAttribute('aria-expanded', String(expanded));
+      toggle.firstChild.textContent = expanded ? 'Hide details ' : 'View details ';
+    });
+  });
+
   // Resume download modal
   const hireMeBtn = document.getElementById('hire-me-btn');
   const resumeModal = document.getElementById('resume-modal');
