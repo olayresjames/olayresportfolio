@@ -4,7 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#050505">
-<title>Rafhael James Olayres</title>
+<meta name="description" content="Rafhael James Olayres is a full-stack developer and IT student building useful web, mobile, and AI-powered products from Valenzuela City, Philippines.">
+<link rel="canonical" href="https://olayresportfolio.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rafhael James Olayres | Full-Stack Developer">
+<meta property="og:description" content="Selected projects in full-stack development, AI integration, mobile applications, and user-centered design.">
+<meta property="og:url" content="https://olayresportfolio.vercel.app/">
+<meta property="og:image" content="https://olayresportfolio.vercel.app/resources/picture.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rafhael James Olayres | Full-Stack Developer">
+<meta name="twitter:description" content="Selected projects in full-stack development, AI integration, mobile applications, and user-centered design.">
+<meta name="twitter:image" content="https://olayresportfolio.vercel.app/resources/picture.webp">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rafhael James Olayres",
+  "url": "https://olayresportfolio.vercel.app/",
+  "jobTitle": "Full-Stack Developer",
+  "address": { "@type": "PostalAddress", "addressLocality": "Valenzuela City", "addressCountry": "PH" },
+  "sameAs": ["https://github.com/olayresjames", "https://linkedin.com/in/james-olayres-888721410"]
+}
+</script>
+<title>Rafhael James Olayres | Full-Stack Developer</title>
 <link rel="icon" type="image/png" href="resources/favicon.ico">
 <link rel="apple-touch-icon" href="resources/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,10 +42,10 @@
 <nav>
   <a href="#" class="nav-logo">Raj<span>.</span></a>
   <ul class="nav-links" id="primary-navigation">
-    <li><a href="#projects"><span>01</span> Projects</a></li>
-    <li><a href="#skills"><span>02</span> Skills</a></li>
-    <li><a href="#about"><span>03</span> About</a></li>
-    <li><a href="#contact"><span>04</span> Contact</a></li>
+    <li><a href="#projects" data-section-link="projects"><span>01</span> Projects</a></li>
+    <li><a href="#skills" data-section-link="skills"><span>02</span> Skills</a></li>
+    <li><a href="#about" data-section-link="about"><span>03</span> About</a></li>
+    <li><a href="#contact" data-section-link="contact"><span>04</span> Contact</a></li>
   </ul>
   <div class="nav-right">
     <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" id="hire-me-btn" class="btn-primary">
@@ -64,7 +86,7 @@
   <div class="hero-visual">
     <div class="portrait-burst" aria-hidden="true"></div>
     <div class="portrait-frame">
-      <img src="resources/picture.png" alt="Portrait of Rafhael James Olayres" width="1024" height="1024" decoding="async" fetchpriority="high">
+      <picture><source srcset="resources/picture-800.webp 800w, resources/picture.webp 1024w" sizes="(max-width: 768px) 92vw, 48vw" type="image/webp"><img src="resources/picture.png" alt="Portrait of Rafhael James Olayres" width="1024" height="1024" decoding="async" fetchpriority="high"></picture>
     </div>
     <div class="portrait-stamp" aria-hidden="true">
       <span>FULL-STACK</span>
@@ -90,28 +112,36 @@
   <div class="projects-grid">
 
     <!-- AgapAI — featured -->
-    <a href="https://download-agapai.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card featured reveal">
+    <article id="agapai-project" class="project-card featured reveal">
       <div>
         <span class="project-tag tag-ai">AI · Full-Stack · Present</span>
         <h3 class="project-name">AgapAI</h3>
-        <p class="project-desc">
-          A comprehensive mobile app for emergency rescue, proactive health monitoring, and community engagement for senior citizens in Valenzuela City. Connects senior citizens, family guardians, and LGU admins through a centralized system with live SOS dispatching.
-        </p>
+        <dl class="project-facts">
+          <div><dt>Role</dt><dd>Product designer & full-stack developer</dd></div>
+          <div><dt>Problem</dt><dd>Senior citizens and guardians need faster, clearer access to emergency support.</dd></div>
+          <div><dt>Built</dt><dd>Cross-platform app with SOS dispatch, health monitoring, AI assistance, and LGU workflows.</dd></div>
+          <div><dt>Result</dt><dd>One centralized experience connects seniors, guardians, and local responders.</dd></div>
+        </dl>
         <div class="project-tech">
           <span>React</span><span>Firebase</span><span>Google Gemini AI</span><span>React Native</span><span>Expo</span>
         </div>
+        <div class="project-actions">
+          <a class="btn-primary" href="agapai-case-study.html">Case study <span aria-hidden="true">↗</span></a>
+          <a class="btn-ghost" href="https://download-agapai.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>
+          <a class="btn-ghost" href="https://github.com/olayresjames" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
       <div class="project-visual">
-        <img src="resources/agapai-image.png" alt="AgapAI Platform Screenshot" loading="lazy">
+        <picture><source srcset="resources/agapai-image-800.webp 800w, resources/agapai-image.webp 1265w" sizes="(max-width: 768px) 92vw, 52vw" type="image/webp"><img src="resources/agapai-image.png" alt="AgapAI Platform Screenshot" width="1265" height="712" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-date">Jan 2026 – Present</span>
       <span class="project-arrow">↗</span>
-    </a>
+    </article>
 
     <!-- Foliofy -->
     <a href="https://foliofy-omega.vercel.app/" target="_blank" class="project-card reveal">
       <div class="project-visual">
-        <img src="resources/foliofy.png" alt="Foliofy Screenshot" loading="lazy">
+        <picture><source srcset="resources/foliofy-800.webp 800w, resources/foliofy.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/foliofy.png" alt="Foliofy Screenshot" width="1365" height="631" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-frontend">PWA · Client-Side</span>
       <h3 class="project-name">Foliofy</h3>
@@ -128,7 +158,7 @@
     <!-- Verdemelt -->
     <a href="https://verdemelt-app.vercel.app/" target="_blank" class="project-card reveal">
       <div class="project-visual">
-      <img src="resources/verdemelt.png" alt="Verdemelt Storefront Screenshot" loading="lazy">
+      <picture><source srcset="resources/verdemelt-800.webp 800w, resources/verdemelt.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/verdemelt.png" alt="Verdemelt Storefront Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Verdemelt Storefront</h3>
@@ -145,7 +175,7 @@
     <!-- Reset: Endless Horror -->
     <a href="https://deckode.itch.io/reset-the-endless-horror" target="_blank" class="project-card reveal">
       <div class="project-visual">
-        <img src="resources/reset.png" alt="Reset: Endless Horror Screenshot" loading="lazy">
+        <picture><source srcset="resources/reset-800.webp 800w, resources/reset.webp 315w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/reset.png" alt="Reset: Endless Horror Screenshot" width="315" height="250" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-frontend">Frontend Developer</span>
       <h3 class="project-name">Reset: Endless Horror</h3>
@@ -162,7 +192,7 @@
     <!-- Pagpag -->
     <a href="https://pagpag-hybrid.vercel.app/" target="_blank" class="project-card reveal">
       <div class="project-visual">
-      <img src="resources/pagpag.png" alt="Pagpag Screenshot" loading="lazy">
+      <picture><source srcset="resources/pagpag-800.webp 800w, resources/pagpag.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/pagpag.png" alt="Pagpag Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Pagpag: Shake, Battle & Roll</h3>
@@ -179,7 +209,7 @@
     <!-- Sword Phantasia -->
     <a href="https://github.com/olayresjames/Sword-Phantasia" target="_blank" class="project-card reveal">
       <div class="project-visual">
-        <img src="resources/sword-phantasia.png" alt="Sword Phantasia Screenshot" loading="lazy">
+        <picture><source srcset="resources/sword-phantasia-800.webp 800w, resources/sword-phantasia.webp 1364w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/sword-phantasia.png" alt="Sword Phantasia Screenshot" width="1364" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
       <h3 class="project-name">Sword Phantasia</h3>
@@ -196,7 +226,7 @@
     <!-- Suriel's Cafe -->
     <a href="https://suriels-cafe.vercel.app/" target="_blank" class="project-card reveal">
       <div class="project-visual">
-      <img src="resources/suriel.png" alt="Suriel's Cafe Screenshot" loading="lazy">
+      <picture><source srcset="resources/suriel-800.webp 800w, resources/suriel.webp 1352w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/suriel.png" alt="Suriel's Cafe Screenshot" width="1352" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Suriel's Cafe Platform</h3>
@@ -294,13 +324,14 @@
       <p class="about-text">
         I thrive in <strong>cross-functional teams</strong>, contribute consistently, and aim to ship quality work on time.
       </p>
+      <p class="about-text about-intent">I’m looking for internships and freelance collaborations where I can build practical products with thoughtful teams.</p>
       <div class="about-resume-action reveal">
         <button id="view-resume-btn" class="btn-primary">View Resume ↗</button>
       </div>
     </div>
     <div class="about-aside">
       <div class="about-img-wrapper reveal">
-        <img src="resources/id_picture.png" alt="Rafhael James Olayres" loading="lazy" decoding="async">
+        <picture><source srcset="resources/id_picture-800.webp 800w, resources/id_picture.webp 1254w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/id_picture.png" alt="Rafhael James Olayres" loading="lazy" decoding="async"></picture>
       </div>
       <div class="edu-card reveal">
         <div class="edu-school">Pamantasan ng Lungsod ng Valenzuela</div>
@@ -314,6 +345,15 @@
         <div class="edu-school location-label">Based in</div>
         <div class="location-city">Valenzuela City</div>
         <div class="edu-degree">Metro Manila, Philippines 🇵🇭</div>
+      </div>
+      <div class="edu-card currently-card reveal">
+        <div class="edu-school">Currently</div>
+        <ul class="currently-list">
+          <li>Studying at PLV</li>
+          <li>Building AgapAI</li>
+          <li>Open to internships / freelance</li>
+          <li>Based in Valenzuela</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -356,9 +396,9 @@
 </button>
 
 <!-- RESUME DOWNLOAD MODAL -->
-<div id="resume-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3 class="modal-title">Download Resume</h3>
+<div id="resume-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title" aria-hidden="true">
+  <div class="modal-content" tabindex="-1">
+    <h3 id="resume-modal-title" class="modal-title">Download Resume</h3>
     <p class="modal-text">Would you like to download Rafhael's resume?</p>
     <div class="modal-actions">
       <button id="modal-cancel-btn" class="btn-ghost">Cancel</button>
@@ -368,10 +408,10 @@
 </div>
 
 <!-- RESUME VIEW MODAL -->
-<div id="resume-view-modal" class="modal-overlay">
-  <div class="modal-content resume-view-container">
+<div id="resume-view-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-view-title" aria-hidden="true">
+  <div class="modal-content resume-view-container" tabindex="-1">
     <div class="resume-wrapper-header">
-      <span class="resume-title">Resume</span>
+      <span id="resume-view-title" class="resume-title">Resume</span>
       <div class="resume-header-actions">
         <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" class="resume-download-link">Download PDF ↓</a>
         <button id="close-resume-view-btn" class="resume-close-button" aria-label="Close resume preview">
@@ -388,17 +428,18 @@
 </div>
 
 <!-- IMAGE LIGHTBOX MODAL -->
-<div id="lightbox-modal" class="modal-overlay">
-  <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close Gallery">
+<div id="lightbox-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-hidden="true">
+  <h2 id="lightbox-title" class="sr-only">Project preview</h2>
+  <button id="lightbox-close" class="lightbox-close-btn" aria-label="Close project preview">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
   </button>
-  <img id="lightbox-img" src="" alt="Full Screen Project Preview">
+  <img id="lightbox-img" src="" alt="Full Screen Project Preview" tabindex="-1">
 </div>
 
 <!-- WIP MODAL -->
-<div id="wip-modal" class="modal-overlay">
-  <div class="modal-content">
-    <h3 class="modal-title">Work in Progress</h3>
+<div id="wip-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="wip-modal-title" aria-hidden="true">
+  <div class="modal-content" tabindex="-1">
+    <h3 id="wip-modal-title" class="modal-title">Work in Progress</h3>
     <p class="modal-text">This project is currently under heavy development. A public repository or live demo will be available soon. Thank you for your interest!</p>
     <div class="modal-actions">
       <button id="wip-modal-close-btn" class="btn-primary">OK</button>

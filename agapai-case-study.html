@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="A case study of AgapAI, a mobile emergency rescue and proactive health platform for senior citizens in Valenzuela City.">
+  <link rel="canonical" href="https://olayresportfolio.vercel.app/agapai-case-study.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AgapAI Case Study | Rafhael James Olayres">
+  <meta property="og:description" content="Designing a connected emergency and health platform for senior citizens, guardians, and local responders.">
+  <meta property="og:image" content="https://olayresportfolio.vercel.app/resources/agapai-image.webp">
+  <title>AgapAI Case Study | Rafhael James Olayres</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .case-study { max-width: 1080px; margin: 0 auto; padding: 9rem clamp(1.5rem, 5vw, 4rem) 6rem; }
+    .case-kicker { display: inline-block; padding: .35rem .8rem; color: #fff; background: var(--accent); font: 800 .75rem var(--font-head); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-2deg); }
+    .case-study h1 { max-width: 800px; margin: 1.4rem 0 1rem; color: var(--paper); font: 800 clamp(3rem, 8vw, 7rem)/.86 var(--font-head); letter-spacing: -.06em; text-transform: uppercase; }
+    .case-lede { max-width: 690px; color: #d5d5d5; font-size: 1.15rem; line-height: 1.75; }
+    .case-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 2rem 0 4rem; }
+    .case-hero { border: 7px solid var(--paper); background: #111; clip-path: polygon(1% 0, 100% 4%, 98% 100%, 0 96%); }
+    .case-hero img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+    .case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 4rem; }
+    .case-block { padding: 1.5rem; color: var(--paper); background: #111; clip-path: polygon(0 8px, calc(100% - 12px) 0, 100% 14px, calc(100% - 6px) 100%, 10px calc(100% - 5px)); }
+    .case-block:nth-child(2n) { color: var(--ink); background: var(--paper); }
+    .case-block h2 { margin-bottom: .7rem; color: inherit; font: 800 1rem var(--font-head); letter-spacing: .08em; text-transform: uppercase; }
+    .case-block p { color: inherit; opacity: .8; line-height: 1.7; }
+    .case-footer { margin-top: 4rem; }
+    @media (max-width: 680px) { .case-study { padding-top: 7rem; } .case-grid { grid-template-columns: 1fr; } .case-actions { flex-direction: column; align-items: stretch; } .case-actions a { justify-content: center; } }
+  </style>
+</head>
+<body>
+  <div class="p5-bg"></div>
+  <a class="skip-link" href="#case-content">Skip to content</a>
+  <nav><a href="index.html" class="nav-logo">Raj<span>.</span></a><a href="index.html#projects" class="btn-ghost">Back to projects <span aria-hidden="true">↙</span></a></nav>
+  <main id="case-content" class="case-study">
+    <span class="case-kicker">Featured case study · 2026–present</span>
+    <h1>AgapAI</h1>
+    <p class="case-lede">A connected mobile platform for emergency rescue, proactive health monitoring, and community support for senior citizens in Valenzuela City.</p>
+    <div class="case-actions">
+      <a class="btn-primary" href="https://download-agapai.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>
+      <a class="btn-ghost" href="https://github.com/olayresjames" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="case-hero"><picture><source srcset="resources/agapai-image-800.webp 800w, resources/agapai-image.webp 1265w" sizes="(max-width: 768px) 92vw, 100vw" type="image/webp"><img src="resources/agapai-image.png" width="1265" height="712" alt="AgapAI platform interface showing emergency and health features" fetchpriority="high"></picture></div>
+    <div class="case-grid">
+      <section class="case-block"><h2>My role</h2><p>Product designer and full-stack developer. I shaped the product direction, interface, and connected user flows across the mobile and admin experiences.</p></section>
+      <section class="case-block"><h2>The problem</h2><p>Senior citizens, guardians, and local responders needed a clearer way to coordinate urgent help and ongoing health support.</p></section>
+      <section class="case-block"><h2>What I built</h2><p>React Native and Expo mobile flows, Firebase-backed real-time data, live SOS dispatching, health monitoring, and a Gemini-powered assistant.</p></section>
+      <section class="case-block"><h2>Result</h2><p>One centralized experience connects three audiences in a single operational loop, reducing the friction between an alert and the people who can respond.</p></section>
+    </div>
+    <p class="case-footer"><a class="btn-ghost" href="index.html#projects">← Back to selected projects</a></p>
+  </main>
+</body>
+</html>

@@ -94,15 +94,57 @@
     document.body.classList.toggle('overlay-open', Boolean(document.querySelector('.modal-overlay.visible')));
   };
 
+  let lastFocusedElement = null;
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
   const openOverlay = overlay => {
+    lastFocusedElement = document.activeElement;
     overlay.classList.add('visible');
+    overlay.setAttribute('aria-hidden', 'false');
     syncOverlayLock();
+    const firstFocusable = overlay.querySelector(focusableSelector) || overlay.querySelector('.modal-content');
+    if (firstFocusable) window.requestAnimationFrame(() => firstFocusable.focus());
   };
 
   const closeOverlay = overlay => {
     overlay.classList.remove('visible');
+    overlay.setAttribute('aria-hidden', 'true');
     syncOverlayLock();
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
   };
+
+  document.addEventListener('keydown', event => {
+    const overlay = document.querySelector('.modal-overlay.visible');
+    if (!overlay || event.key !== 'Tab') return;
+    const focusable = [...overlay.querySelectorAll(focusableSelector)].filter(element => element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  const sectionLinks = [...document.querySelectorAll('[data-section-link]')];
+  const sections = sectionLinks.map(link => document.getElementById(link.dataset.sectionLink)).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        sectionLinks.forEach(link => {
+          const isActive = link.dataset.sectionLink === entry.target.id;
+          link.classList.toggle('active', isActive);
+          if (isActive) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-28% 0px -58% 0px', threshold: 0 });
+    sections.forEach(section => sectionObserver.observe(section));
+  }
 
   // Resume download modal
   const hireMeBtn = document.getElementById('hire-me-btn');
@@ -280,26 +322,3 @@
     });
   }
 
-  // WIP Modal Logic for AgapAI
-  const agapaiProjectCard = document.getElementById('agapai-project');
-  const wipModal = document.getElementById('wip-modal');
-  const wipModalCloseBtn = document.getElementById('wip-modal-close-btn');
-
-  if (agapaiProjectCard && wipModal && wipModalCloseBtn) {
-    const closeWipModal = () => closeOverlay(wipModal);
-
-    agapaiProjectCard.addEventListener('click', (e) => {
-      e.preventDefault();
-      openOverlay(wipModal);
-    });
-
-    wipModalCloseBtn.addEventListener('click', closeWipModal);
-
-    wipModal.addEventListener('click', (e) => {
-      if (e.target === wipModal) closeWipModal();
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && wipModal.classList.contains('visible')) closeWipModal();
-    });
-  }
