@@ -108,15 +108,17 @@
   <span class="section-index" aria-hidden="true">01</span>
   <div class="section-label reveal reveal-left">Work</div>
   <h2 class="section-title reveal">Selected Projects</h2>
+  <p class="projects-intro reveal">A few products, experiments, and interfaces I’ve designed and shipped—from civic-minded AI tools to games and client-ready web platforms.</p>
 
   <div class="projects-grid">
 
     <!-- AgapAI — featured -->
     <article id="agapai-project" class="project-card featured reveal">
       <div>
+        <span class="project-featured-label">Featured / Current build</span>
         <span class="project-tag tag-ai">AI · Full-Stack · Present</span>
         <h3 class="project-name">AgapAI</h3>
-        <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+        <p class="project-summary">An AI-assisted emergency support platform designed to help seniors, guardians, and local responders act faster.</p>
         <dl class="project-facts">
           <div><dt>Role</dt><dd>Product designer & full-stack developer</dd></div>
           <div><dt>Problem</dt><dd>Senior citizens and guardians need faster, clearer access to emergency support.</dd></div>
@@ -129,7 +131,6 @@
         <div class="project-actions">
           <a class="btn-primary" href="agapai-case-study.html">Case study <span aria-hidden="true">↗</span></a>
           <a class="btn-ghost" href="https://download-agapai.vercel.app/" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>
-          <a class="btn-ghost" href="https://github.com/olayresjames" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="project-visual">
@@ -140,34 +141,39 @@
     </article>
 
     <!-- Foliofy -->
-    <a href="https://foliofy-omega.vercel.app/" target="_blank" class="project-card reveal">
-      <div class="project-visual">
+    <article class="project-card reveal">
+      <div class="project-visual browser-preview">
         <picture><source srcset="resources/foliofy-800.webp 800w, resources/foliofy.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/foliofy.png" alt="Foliofy Screenshot" width="1365" height="631" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-frontend">PWA · Client-Side</span>
       <h3 class="project-name">Foliofy</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
       <p class="project-desc">
-        A modern, fast Progressive Web Application (PWA) to organize, customize, and compile image collections into professional Word (.docx) or PDF documents directly in the browser.
+        Turns image collections into polished Word and PDF documents directly in the browser.
       </p>
+      <p class="project-proof"><span>Role</span> Product design, frontend architecture, and offline-first workflow.</p>
       <div class="project-tech">
         <span>JavaScript</span><span>PWA</span><span>docx.js</span><span>jsPDF</span><span>IndexedDB</span>
       </div>
+      <div class="project-actions project-actions-inline">
+        <a class="project-link" href="foliofy-case-study.html">Case study <span aria-hidden="true">↗</span></a>
+        <a class="project-link project-link-secondary" href="https://foliofy-omega.vercel.app/" target="_blank" rel="noopener noreferrer">Live project <span aria-hidden="true">↗</span></a>
+      </div>
       <span class="project-date">June 2026</span>
       <span class="project-arrow">↗</span>
-    </a>
+    </article>
 
     <!-- Verdemelt -->
     <a href="https://verdemelt-app.vercel.app/" target="_blank" class="project-card reveal">
-      <div class="project-visual">
+      <div class="project-visual browser-preview">
       <picture><source srcset="resources/verdemelt-800.webp 800w, resources/verdemelt.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/verdemelt.png" alt="Verdemelt Storefront Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Verdemelt Storefront</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+      <span class="project-link-label">View project <span aria-hidden="true">↗</span></span>
       <p class="project-desc">
-        A comprehensive digital storefront with dynamic product showcasing, intuitive navigation, and a CI/CD pipeline on Vercel.
+        A polished storefront that makes product discovery, browsing, and deployment feel effortless.
       </p>
+      <p class="project-proof"><span>Role</span> Full-stack implementation with a production-ready Vercel deployment.</p>
       <div class="project-tech">
         <span>React</span><span>Vite</span><span>Tailwind CSS</span><span>Vercel</span>
       </div>
@@ -182,10 +188,11 @@
       </div>
       <span class="project-tag tag-frontend">Frontend Developer</span>
       <h3 class="project-name">Reset: Endless Horror</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+      <span class="project-link-label">Play on itch.io <span aria-hidden="true">↗</span></span>
       <p class="project-desc">
-        Trapped in a nightmarish time loop, a man must use his fractured memories to outwit a relentless supernatural killer and break the cycle. Players dictate Cesar's path to survive or face the loop once again.
+        A tense game interface for a time-loop horror story where every decision changes the next attempt.
       </p>
+      <p class="project-proof"><span>Role</span> Frontend developer focused on interaction design and game UI.</p>
       <div class="project-tech">
         <span>UI / UX</span><span>Game UI</span><span>Frontend</span>
       </div>
@@ -195,15 +202,16 @@
 
     <!-- Pagpag -->
     <a href="https://pagpag-hybrid.vercel.app/" target="_blank" class="project-card reveal">
-      <div class="project-visual">
+      <div class="project-visual browser-preview">
       <picture><source srcset="resources/pagpag-800.webp 800w, resources/pagpag.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/pagpag.png" alt="Pagpag Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Pagpag: Shake, Battle & Roll</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+      <span class="project-link-label">View project <span aria-hidden="true">↗</span></span>
       <p class="project-desc">
         A web-based hybrid digital and card game — an automated medium for the co-produced physical card game, handling all game logic and the full gameplay loop.
       </p>
+      <p class="project-proof"><span>Role</span> Full-stack developer responsible for the digital rules engine and gameplay loop.</p>
       <div class="project-tech">
         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Vercel</span>
       </div>
@@ -218,10 +226,11 @@
       </div>
       <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
       <h3 class="project-name">Sword Phantasia</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+      <span class="project-link-label">View source <span aria-hidden="true">↗</span></span>
       <p class="project-desc">
-        A Python-based Role-Playing Game (RPG) featuring a graphical user interface built with Tkinter and audio powered by Pygame.
+        A desktop RPG that pairs a custom Tkinter interface with gameplay audio and interaction powered by Pygame.
       </p>
+      <p class="project-proof"><span>Role</span> Solo developer across interface, gameplay logic, and audio integration.</p>
       <div class="project-tech">
         <span>Python</span><span>Tkinter</span><span>Pygame</span>
       </div>
@@ -231,15 +240,16 @@
 
     <!-- Suriel's Cafe -->
     <a href="https://suriels-cafe.vercel.app/" target="_blank" class="project-card reveal">
-      <div class="project-visual">
+      <div class="project-visual browser-preview">
       <picture><source srcset="resources/suriel-800.webp 800w, resources/suriel.webp 1352w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/suriel.png" alt="Suriel's Cafe Screenshot" width="1352" height="767" loading="lazy" decoding="async"></picture>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Suriel's Cafe Platform</h3>
-      <button class="project-toggle" type="button" aria-expanded="false">View details <span aria-hidden="true">+</span></button>
+      <span class="project-link-label">View project <span aria-hidden="true">↗</span></span>
       <p class="project-desc">
-        A responsive full-stack web app for a local cafe with online ordering, table reservations, and role-based dashboards powered by Supabase.
+        A cafe platform that brings online ordering, table reservations, and role-based dashboards into one workflow.
       </p>
+      <p class="project-proof"><span>Role</span> Full-stack developer connecting customer and admin experiences.</p>
       <div class="project-tech">
         <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Supabase</span>
       </div>
@@ -354,12 +364,18 @@
         <div class="edu-degree">Metro Manila, Philippines 🇵🇭</div>
       </div>
       <div class="edu-card currently-card reveal">
+        <div class="currently-kicker">Now / On assignment</div>
         <div class="edu-school">Currently</div>
+        <div class="internship-card">
+          <span class="internship-label">Current internship</span>
+          <strong>Camp Crame ITMS Office</strong>
+          <span>Under SPMT</span>
+        </div>
         <ul class="currently-list">
-          <li>Studying at PLV</li>
+          <li>Studying BSIT at PLV</li>
           <li>Building AgapAI</li>
-          <li>Open to internships / freelance</li>
-          <li>Based in Valenzuela</li>
+          <li>Open to freelance collaborations</li>
+          <li>Based in Valenzuela City</li>
         </ul>
       </div>
     </div>
