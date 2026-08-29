@@ -44,8 +44,9 @@
   <ul class="nav-links" id="primary-navigation">
     <li><a href="#projects" data-section-link="projects"><span>01</span> Projects</a></li>
     <li><a href="#skills" data-section-link="skills"><span>02</span> Skills</a></li>
-    <li><a href="#about" data-section-link="about"><span>03</span> About</a></li>
-    <li><a href="#contact" data-section-link="contact"><span>04</span> Contact</a></li>
+    <li><a href="#certifications" data-section-link="certifications"><span>03</span> Certs</a></li>
+    <li><a href="#about" data-section-link="about"><span>04</span> About</a></li>
+    <li><a href="#contact" data-section-link="contact"><span>05</span> Contact</a></li>
   </ul>
   <div class="nav-right">
     <a href="resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" id="hire-me-btn" class="btn-primary">
@@ -324,9 +325,74 @@
 
 <hr class="section-divider">
 
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <span class="section-index" aria-hidden="true">03</span>
+  <div class="section-label reveal reveal-left">Credentials</div>
+  <h2 class="section-title reveal">Certifications</h2>
+  <p class="certifications-intro reveal">Certificates covering responsive interfaces, JavaScript, frontend libraries, and Python computing fundamentals.</p>
+
+  <div class="certifications-grid reveal">
+    <figure class="certification-card" data-cert-image="resources/Certificates/Legacy Responsive Web Design v8.png" data-cert-title="Responsive Web Design">
+      <figcaption>
+        <span class="certification-issuer">freeCodeCamp</span>
+        <h3>Responsive Web Design</h3>
+      </figcaption>
+      <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/Legacy Responsive Web Design v8.png" data-cert-title="Responsive Web Design" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
+        View certificate
+      </button>
+    </figure>
+
+    <figure class="certification-card" data-cert-image="resources/Certificates/Legacy javasctipt algorithms and data structures v8.png" data-cert-title="JavaScript Algorithms and Data Structures">
+      <figcaption>
+        <span class="certification-issuer">freeCodeCamp</span>
+        <h3>JavaScript Algorithms and Data Structures</h3>
+        <span class="certification-version">V8</span>
+      </figcaption>
+      <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/Legacy javasctipt algorithms and data structures v8.png" data-cert-title="JavaScript Algorithms and Data Structures" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
+        View certificate
+      </button>
+    </figure>
+
+    <figure class="certification-card" data-cert-image="resources/Certificates/frontend development libraries v8.png" data-cert-title="Front End Development Libraries">
+      <figcaption>
+        <span class="certification-issuer">freeCodeCamp</span>
+        <h3>Front End Development Libraries</h3>
+      </figcaption>
+      <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/frontend development libraries v8.png" data-cert-title="Front End Development Libraries" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
+        View certificate
+      </button>
+    </figure>
+
+    <figure class="certification-card" data-cert-image="resources/Certificates/scientific computing with python.png" data-cert-title="Scientific Computing with Python">
+      <figcaption>
+        <span class="certification-issuer">freeCodeCamp</span>
+        <h3>Scientific Computing with Python</h3>
+        <span class="certification-version">V7</span>
+      </figcaption>
+      <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/scientific computing with python.png" data-cert-title="Scientific Computing with Python" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
+        View certificate
+      </button>
+    </figure>
+
+    <figure class="certification-card" data-cert-image="resources/Certificates/Legacy javasctipt algorithms and data structures v7.png" data-cert-title="JavaScript Algorithms and Data Structures">
+      <figcaption>
+        <span class="certification-issuer">freeCodeCamp</span>
+        <h3>JavaScript Algorithms and Data Structures</h3>
+        <span class="certification-version">Legacy</span>
+      </figcaption>
+      <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/Legacy javasctipt algorithms and data structures v7.png" data-cert-title="JavaScript Algorithms and Data Structures" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
+        View certificate
+      </button>
+    </figure>
+  </div>
+</section>
+
+<hr class="section-divider">
+
 <!-- ABOUT -->
 <section id="about">
-  <span class="section-index" aria-hidden="true">03</span>
+  <span class="section-index" aria-hidden="true">04</span>
   <div class="section-label reveal reveal-left">Background</div>
   <h2 class="section-title reveal">About Me</h2>
 
@@ -387,7 +453,7 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-section reveal">
-    <span class="contact-kicker">04 / Send the calling card</span>
+    <span class="contact-kicker">05 / Send the calling card</span>
     <h2 class="contact-title">Let's Build Something</h2>
     <p class="contact-sub">Open to collaborations, freelance work, and opportunities.</p>
     <div class="contact-links">

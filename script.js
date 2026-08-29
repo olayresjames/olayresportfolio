@@ -198,14 +198,35 @@
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCloseBtn = document.getElementById('lightbox-close');
   const projectImages = document.querySelectorAll('.project-visual img');
+  const certificateButtons = document.querySelectorAll('.certification-view-btn');
+
+  window.openCertificateLightbox = (imageSrc, altText) => {
+    if (!lightboxModal || !lightboxImg || !imageSrc) return;
+    lightboxImg.src = imageSrc;
+    lightboxImg.alt = altText || 'Full Screen Preview';
+    openOverlay(lightboxModal);
+  };
 
   if (lightboxModal && lightboxImg) {
+    const openLightbox = (imageSrc, altText) => {
+      lightboxImg.src = imageSrc;
+      lightboxImg.alt = altText || 'Full Screen Preview';
+      openOverlay(lightboxModal);
+    };
+
     projectImages.forEach(img => {
       img.addEventListener('click', (e) => {
-        e.preventDefault(); // Stop the link from redirecting
+        e.preventDefault();
         e.stopPropagation();
-        lightboxImg.src = img.src;
-        openOverlay(lightboxModal);
+        openLightbox(img.src, img.alt || 'Project preview');
+      });
+    });
+
+    certificateButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const imageSrc = button.dataset.certImage;
+        const title = button.dataset.certTitle || 'Certificate preview';
+        if (imageSrc) openLightbox(imageSrc, `${title} certificate`);
       });
     });
 
