@@ -37,6 +37,7 @@
 <body>
 
 <div class="p5-bg"></div>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
 <a class="skip-link" href="#main-content">Skip to content</a>
 
 <nav>
@@ -111,10 +112,18 @@
   <h2 class="section-title reveal">Selected Projects</h2>
   <p class="projects-intro reveal">A few products, experiments, and interfaces I’ve designed and shipped—from civic-minded AI tools to games and client-ready web platforms.</p>
 
+  <div class="projects-filter reveal" role="group" aria-label="Filter projects by type">
+    <button type="button" class="filter-chip is-active" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="filter-chip" data-filter="ai" aria-pressed="false">AI</button>
+    <button type="button" class="filter-chip" data-filter="fullstack" aria-pressed="false">Full-Stack</button>
+    <button type="button" class="filter-chip" data-filter="frontend" aria-pressed="false">Frontend</button>
+    <span class="sr-only filter-status" aria-live="polite"></span>
+  </div>
+
   <div class="projects-grid">
 
     <!-- AgapAI — featured -->
-    <article id="agapai-project" class="project-card featured reveal">
+    <article id="agapai-project" class="project-card featured reveal" data-category="ai">
       <div>
         <span class="project-featured-label">Featured / Current build</span>
         <span class="project-tag tag-ai">AI · Full-Stack · Present</span>
@@ -136,15 +145,17 @@
       </div>
       <div class="project-visual">
         <picture><source srcset="resources/agapai-image-800.webp 800w, resources/agapai-image.webp 1265w" sizes="(max-width: 768px) 92vw, 52vw" type="image/webp"><img src="resources/agapai-image.png" alt="AgapAI Platform Screenshot" width="1265" height="712" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-date">Jan 2026 – Present</span>
       <span class="project-arrow">↗</span>
     </article>
 
     <!-- Foliofy -->
-    <article class="project-card reveal">
+    <article class="project-card reveal" data-category="frontend">
       <div class="project-visual browser-preview">
         <picture><source srcset="resources/foliofy-800.webp 800w, resources/foliofy.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/foliofy.png" alt="Foliofy Screenshot" width="1365" height="631" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-frontend">PWA · Client-Side</span>
       <h3 class="project-name">Foliofy</h3>
@@ -164,9 +175,10 @@
     </article>
 
     <!-- Verdemelt -->
-    <a href="https://verdemelt-app.vercel.app/" target="_blank" class="project-card reveal">
+    <a href="https://verdemelt-app.vercel.app/" target="_blank" class="project-card reveal" data-category="fullstack">
       <div class="project-visual browser-preview">
       <picture><source srcset="resources/verdemelt-800.webp 800w, resources/verdemelt.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/verdemelt.png" alt="Verdemelt Storefront Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Verdemelt Storefront</h3>
@@ -183,9 +195,10 @@
     </a>
 
     <!-- Reset: Endless Horror -->
-    <a href="https://deckode.itch.io/reset-the-endless-horror" target="_blank" class="project-card reveal">
+    <a href="https://deckode.itch.io/reset-the-endless-horror" target="_blank" class="project-card reveal" data-category="frontend">
       <div class="project-visual">
         <picture><source srcset="resources/reset-800.webp 800w, resources/reset.webp 315w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/reset.png" alt="Reset: Endless Horror Screenshot" width="315" height="250" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-frontend">Frontend Developer</span>
       <h3 class="project-name">Reset: Endless Horror</h3>
@@ -202,9 +215,10 @@
     </a>
 
     <!-- Pagpag -->
-    <a href="https://pagpag-hybrid.vercel.app/" target="_blank" class="project-card reveal">
+    <a href="https://pagpag-hybrid.vercel.app/" target="_blank" class="project-card reveal" data-category="fullstack">
       <div class="project-visual browser-preview">
       <picture><source srcset="resources/pagpag-800.webp 800w, resources/pagpag.webp 1365w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/pagpag.png" alt="Pagpag Screenshot" width="1365" height="767" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Pagpag: Shake, Battle & Roll</h3>
@@ -221,9 +235,10 @@
     </a>
 
     <!-- Sword Phantasia -->
-    <a href="https://github.com/olayresjames/Sword-Phantasia" target="_blank" class="project-card reveal">
+    <a href="https://github.com/olayresjames/Sword-Phantasia" target="_blank" class="project-card reveal" data-category="fullstack">
       <div class="project-visual">
         <picture><source srcset="resources/sword-phantasia-800.webp 800w, resources/sword-phantasia.webp 1364w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/sword-phantasia.png" alt="Sword Phantasia Screenshot" width="1364" height="767" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack · Solo Project</span>
       <h3 class="project-name">Sword Phantasia</h3>
@@ -240,9 +255,10 @@
     </a>
 
     <!-- Suriel's Cafe -->
-    <a href="https://suriels-cafe.vercel.app/" target="_blank" class="project-card reveal">
+    <a href="https://suriels-cafe.vercel.app/" target="_blank" class="project-card reveal" data-category="fullstack">
       <div class="project-visual browser-preview">
       <picture><source srcset="resources/suriel-800.webp 800w, resources/suriel.webp 1352w" sizes="(max-width: 768px) 92vw, 45vw" type="image/webp"><img src="resources/suriel.png" alt="Suriel's Cafe Screenshot" width="1352" height="767" loading="lazy" decoding="async"></picture>
+        <span class="zoom-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
       </div>
       <span class="project-tag tag-fullstack">Full-Stack</span>
       <h3 class="project-name">Suriel's Cafe Platform</h3>
@@ -337,6 +353,7 @@
       <figcaption>
         <span class="certification-issuer">freeCodeCamp</span>
         <h3>Responsive Web Design</h3>
+        <span class="certification-version">V8</span>
       </figcaption>
       <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/Legacy Responsive Web Design v8.png" data-cert-title="Responsive Web Design" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
         View certificate
@@ -358,6 +375,7 @@
       <figcaption>
         <span class="certification-issuer">freeCodeCamp</span>
         <h3>Front End Development Libraries</h3>
+        <span class="certification-version">V8</span>
       </figcaption>
       <button class="certification-view-btn" type="button" data-cert-image="resources/Certificates/frontend development libraries v8.png" data-cert-title="Front End Development Libraries" onclick="openCertificateLightbox(this.dataset.certImage, this.dataset.certTitle)">
         View certificate
@@ -483,18 +501,6 @@
 <button id="page-up-action" class="page-up-action" aria-label="Scroll to top">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
 </button>
-
-<!-- RESUME DOWNLOAD MODAL -->
-<div id="resume-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title" aria-hidden="true">
-  <div class="modal-content" tabindex="-1">
-    <h3 id="resume-modal-title" class="modal-title">Download Resume</h3>
-    <p class="modal-text">Would you like to download Rafhael's resume?</p>
-    <div class="modal-actions">
-      <button id="modal-cancel-btn" class="btn-ghost">Cancel</button>
-      <button id="modal-download-btn" class="btn-primary">Download</button>
-    </div>
-  </div>
-</div>
 
 <!-- RESUME VIEW MODAL -->
 <div id="resume-view-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-view-title" aria-hidden="true">

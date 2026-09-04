@@ -4,7 +4,7 @@
   const reveals = document.querySelectorAll('.reveal');
 
   reveals.forEach((element, index) => {
-    element.style.setProperty('--reveal-delay', `${(index % 4) * 70}ms`);
+    element.style.setProperty('--reveal-delay', `${(index % 3) * 45}ms`);
   });
 
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -49,6 +49,7 @@
   let lastScrollY = window.scrollY;
   const navbar = document.querySelector('nav');
   const scrollTopBtn = document.getElementById('page-up-action');
+  const scrollProgress = document.querySelector('.scroll-progress span');
   const navLinksMenu = document.querySelector('.nav-links');
 
   let scrollTicking = false;
@@ -64,13 +65,29 @@
     }
     lastScrollY = currentScrollY;
 
-    // Scroll to top button visibility logic
+    // Scroll progress bar
+    if (scrollProgress) {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, currentScrollY / scrollable) : 0;
+      scrollProgress.style.transform = `scaleX(${progress})`;
+    }
+
+    // Scroll to top button: show after 400px, hide again near the footer
     if (scrollTopBtn) {
-      if (currentScrollY > 400) {
+      const nearBottom = window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 240;
+      if (currentScrollY > 400 && !nearBottom) {
         scrollTopBtn.classList.add('visible');
       } else {
         scrollTopBtn.classList.remove('visible');
       }
+    }
+
+    // At the very top no section should read as current
+    if (currentScrollY < 160) {
+      document.querySelectorAll('.nav-links a.active').forEach(link => {
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+      });
     }
 
     scrollTicking = false;
@@ -81,6 +98,11 @@
       window.requestAnimationFrame(updateScrollUI);
       scrollTicking = true;
     }
+  }, { passive: true });
+
+  // Reveal the navbar whenever the pointer nears the top edge
+  window.addEventListener('mousemove', event => {
+    if (navbar && event.clientY <= 90) navbar.classList.remove('nav-hidden');
   }, { passive: true });
 
   // Scroll to top click handler
@@ -146,53 +168,6 @@
     sections.forEach(section => sectionObserver.observe(section));
   }
 
-  // Resume download modal
-  const hireMeBtn = document.getElementById('hire-me-btn');
-  const resumeModal = document.getElementById('resume-modal');
-  const closeModalBtn = document.getElementById('modal-cancel-btn');
-  const confirmDownloadBtn = document.getElementById('modal-download-btn');
-
-  if (hireMeBtn && resumeModal && closeModalBtn && confirmDownloadBtn) {
-    // Show modal on "Hire me" click
-    hireMeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openOverlay(resumeModal);
-    });
-
-    // Function to hide modal
-    const hideModal = () => {
-      closeOverlay(resumeModal);
-    };
-
-    // Hide modal on Cancel or clicking the overlay
-    closeModalBtn.addEventListener('click', hideModal);
-    resumeModal.addEventListener('click', (e) => {
-      if (e.target === resumeModal) {
-        hideModal();
-      }
-    });
-
-    window.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && resumeModal.classList.contains('visible')) hideModal();
-    });
-
-    // Handle the download on Confirm
-    confirmDownloadBtn.addEventListener('click', () => {
-      hideModal();
-      // Create a temporary link to trigger the download
-      const link = document.createElement('a');
-      link.href = hireMeBtn.href;
-      link.download = hireMeBtn.getAttribute('download');
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      // Add a slight delay before removing so mobile browsers have time to register the tap
-      setTimeout(() => {
-        document.body.removeChild(link);
-      }, 100);
-    });
-  }
-
   // Image Lightbox Logic
   const lightboxModal = document.getElementById('lightbox-modal');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -246,33 +221,89 @@
     });
   }
 
+  // Project Filter Chips
+  const filterContainer = document.querySelector('.projects-filter');
+  if (filterContainer) {
+    const chips = [...filterContainer.querySelectorAll('.filter-chip')];
+    const projectCards = [...document.querySelectorAll('#projects .project-card')];
+    const filterStatus = filterContainer.querySelector('.filter-status');
+
+    const countFor = filter => projectCards.filter(card => filter === 'all' || card.dataset.category === filter).length;
+    const applyFilter = filter => {
+      chips.forEach(chip => {
+        const isActive = chip.dataset.filter === filter;
+        chip.classList.toggle('is-active', isActive);
+        chip.setAttribute('aria-pressed', String(isActive));
+      });
+      projectCards.forEach(card => {
+        card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      });
+      if (filterStatus) filterStatus.textContent = `Showing ${countFor(filter)} of ${projectCards.length} projects`;
+    };
+
+    chips.forEach(chip => {
+      chip.insertAdjacentHTML('beforeend', `<span class="filter-count"> ${countFor(chip.dataset.filter)}</span>`);
+      chip.addEventListener('click', () => applyFilter(chip.dataset.filter));
+    });
+  }
+
   // Hamburger Menu Logic
   const hamburgerBtn = document.querySelector('.hamburger');
   if (hamburgerBtn && navLinksMenu) {
+    const menuFocusables = () => [...navLinksMenu.querySelectorAll(focusableSelector)].filter(element => element.offsetParent !== null);
+    let returnFocusToHamburger = false;
+
     const setMenuState = open => {
       hamburgerBtn.classList.toggle('active', open);
       navLinksMenu.classList.toggle('active', open);
       document.body.classList.toggle('menu-open', open);
       hamburgerBtn.setAttribute('aria-expanded', String(open));
       if (open && navbar) navbar.classList.remove('nav-hidden');
+      if (open) {
+        const first = menuFocusables()[0];
+        if (first && document.activeElement !== first) first.focus({ preventScroll: true });
+      } else if (returnFocusToHamburger) {
+        hamburgerBtn.focus({ preventScroll: true });
+        returnFocusToHamburger = false;
+      }
     };
 
-    hamburgerBtn.addEventListener('click', () => setMenuState(!navLinksMenu.classList.contains('active')));
+    hamburgerBtn.addEventListener('click', () => {
+      returnFocusToHamburger = false;
+      setMenuState(!navLinksMenu.classList.contains('active'));
+    });
 
     document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => setMenuState(false));
+      link.addEventListener('click', () => {
+        returnFocusToHamburger = true;
+        setMenuState(false);
+      });
     });
 
     document.addEventListener('click', event => {
       if (navLinksMenu.classList.contains('active') && !navbar.contains(event.target)) {
+        returnFocusToHamburger = false;
         setMenuState(false);
       }
     });
 
     window.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && navLinksMenu.classList.contains('active')) {
+      if (!navLinksMenu.classList.contains('active')) return;
+      if (event.key === 'Tab') {
+        const focusable = menuFocusables();
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      } else if (event.key === 'Escape') {
+        returnFocusToHamburger = true;
         setMenuState(false);
-        hamburgerBtn.focus();
       }
     });
 
