@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { certifications, education, experiences, galleryItems, skillGroups } from '../../data/siteData';
 
 export function Experience({ onOpenResume }) {
@@ -87,7 +88,7 @@ export function Certifications({ onPreview }) {
   );
 }
 
-export function Gallery() {
+export function Gallery({ onPreview }) {
   return (
     <section id="gallery" className="editorial-section">
       <div className="section-header reveal"><h2>07 — gallery</h2><a href="/gallery">full gallery →</a></div>
@@ -95,7 +96,7 @@ export function Gallery() {
       <div className="portfolio-gallery-grid reveal">
         {galleryItems.slice(0, 3).map((item, index) => (
           <article className="portfolio-gallery-card" key={item.title}>
-            <div className="portfolio-gallery-image"><img src={item.image} alt={item.alt} /></div>
+            <button className="portfolio-gallery-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt })} aria-label={`Preview ${item.title}`}><img src={item.image} alt={item.alt} /></button>
             <div className="portfolio-gallery-copy"><span>{String(index + 1).padStart(2, '0')} / gallery</span><h3>{item.title}</h3></div>
           </article>
         ))}
@@ -105,6 +106,34 @@ export function Gallery() {
 }
 
 export function GitHubSection() {
+  const [contributionYear, setContributionYear] = useState(2026);
+  const [contributionData, setContributionData] = useState(null);
+  useEffect(() => {
+    fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});
+  }, []);
+  const commits = [
+    ['PNP IDTMS', 'build internship attendance workflow', 'now', 'main'],
+    ['AgapAI', 'connect emergency support flows', '2026', 'feature/dispatch'],
+    ['Foliofy', 'ship browser-side document exports', '2026', 'main'],
+    ['Reset', 'polish game interface interactions', '2026', 'release'],
+    ['Portfolio', 'refine visual system and content', '2025', 'main'],
+  ];
+  const fallbackWeeks = Array.from({ length: 52 }, (_, week) => Array.from({ length: 7 }, (_, day) => {
+    if (contributionYear === 2025) {
+      if (week === 50 && day < 3) return 3;
+      if (week === 23 && day === 3) return 3;
+      return 0;
+    }
+    if (week === 13 && day === 3) return 3;
+    if (week >= 27 && week <= 39) {
+      const value = (week * 7 + day * 5) % 11;
+      return value < 3 ? 0 : value < 5 ? 1 : value < 8 ? 2 : value < 10 ? 3 : 4;
+    }
+    return 0;
+  }));
+  const selectedContributions = contributionData?.[contributionYear];
+  const contributionWeeks = selectedContributions?.weeks || fallbackWeeks;
+  const contributionTotal = selectedContributions?.total ?? (contributionYear === 2026 ? 203 : 34);
   return (
     <section id="github" className="editorial-section">
       <div className="section-header reveal"><h2>08 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
@@ -113,6 +142,29 @@ export function GitHubSection() {
         <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
         <span aria-hidden="true">↗</span>
       </a>
+      <div className="commit-history reveal" aria-label="Selected commit history">
+        <div className="commit-history-header"><span>selected activity</span><span>latest commits</span></div>
+        <ol>
+          {commits.map(([project, message, date, branch]) => (
+            <li key={`${project}-${message}`}>
+              <span className="commit-node" aria-hidden="true" />
+              <div className="commit-copy"><strong>{project}</strong><span>{message}</span></div>
+              <span className="commit-branch">{branch}</span>
+              <time>{date}</time>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div className="contribution-panel reveal">
+        <div className="contribution-header"><strong>{contributionTotal} contributions in {contributionYear}</strong><span>activity map</span></div>
+        <div className="contribution-scroll">
+          <div className="contribution-months" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+          <div className="contribution-grid" aria-label="Contribution activity heatmap">
+            {contributionWeeks.map((week, weekIndex) => week.map((level, dayIndex) => <span key={`${weekIndex}-${dayIndex}`} className={`contribution-cell level-${level}`} title={`${level} contribution intensity`} />))}
+          </div>
+        </div>
+        <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span><div className="contribution-years"><button type="button" className={contributionYear === 2026 ? 'active' : ''} onClick={() => setContributionYear(2026)}>2026</button><button type="button" className={contributionYear === 2025 ? 'active' : ''} onClick={() => setContributionYear(2025)}>2025</button></div></div>
+      </div>
     </section>
   );
 }

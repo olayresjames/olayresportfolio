@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import ThemeControl from '../components/ThemeControl';
+import { Lightbox } from '../components/Modals';
 import { galleryItems } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-function GalleryPageCard({ item, index }) {
+function GalleryPageCard({ item, index, onPreview }) {
   return (
     <article className="gallery-page-card">
-      <div className="gallery-page-image"><img src={item.image} alt={item.alt} /></div>
+      <button className="gallery-page-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt })} aria-label={`Preview ${item.title}`}><img src={item.image} alt={item.alt} /></button>
       <div className="gallery-page-card-copy">
         <span>{String(index + 1).padStart(2, '0')} / gallery</span>
         <h2>{item.title}</h2>
@@ -16,6 +18,7 @@ function GalleryPageCard({ item, index }) {
 }
 
 export default function GalleryPage() {
+  const [preview, setPreview] = useState(null);
   usePageMeta({ title: 'Gallery | Rafhael James Olayres', description: 'A visual archive of projects, awards, and selected moments from Rafhael James Olayres.', path: '/gallery' });
 
   return (
@@ -32,9 +35,10 @@ export default function GalleryPage() {
           <h1>gallery</h1>
           <p>Selected moments, artifacts, and milestones from the work behind the projects.</p>
         </header>
-        <div className="gallery-page-list">{galleryItems.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} />)}</div>
+        <div className="gallery-page-list">{galleryItems.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} onPreview={setPreview} />)}</div>
         <p className="gallery-page-footer"><a href="/#about">← back to portfolio</a></p>
       </main>
+      <Lightbox preview={preview} onClose={() => setPreview(null)} />
     </>
   );
 }

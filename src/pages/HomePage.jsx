@@ -28,7 +28,7 @@ export default function HomePage() {
         <Education />
         <Skills />
         <Certifications onPreview={setPreview} />
-        <Gallery />
+        <Gallery onPreview={setPreview} />
         <GitHubSection />
         <Contact />
       </main>

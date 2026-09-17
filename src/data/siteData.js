@@ -11,9 +11,10 @@ export const projects = [
     technologies: ['React', 'Database', 'Attendance Tracking', 'Vercel'],
     image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png',
     imageWidth: 1365,
-    imageHeight: 767,
+    imageHeight: 607,
     alt: 'PNP Internship Database Tracking Management System preview',
     date: 'Current',
+    caseStudyUrl: '/pnp-idtms-case-study.html',
     url: 'https://pnp-itms-internship-attendance.vercel.app/',
   },
   {
@@ -214,6 +215,29 @@ export const education = [
 ];
 
 export const caseStudies = {
+  pnp: {
+    path: '/pnp-idtms-case-study.html',
+    title: 'PNP ITMS Internship Attendance System',
+    pageTitle: 'PNP ITMS Internship Attendance System | Rafhael James Olayres',
+    description: 'A centralized platform for managing PNP ITMS internship attendance, records, documents, evaluations, and projects.',
+    kicker: 'Full-stack case study · active development',
+    lede: 'A role-aware platform that centralizes attendance, daily time records, intern documents, evaluations, project tracking, and staff workflows for PNP ITMS.',
+    image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png',
+    imageWidth: 1365,
+    imageHeight: 607,
+    alt: 'PNP ITMS Internship Attendance System project preview',
+    actions: [['Live project', 'https://pnp-itms-internship-attendance.vercel.app/']],
+    blocks: [
+      ['My role', 'Full-Stack Developer. I owned the user journeys, data model, React interface, Express API, authorization model, integrations, testing, and deployment preparation.'],
+      ['The challenge', 'Internship administration was spread across disconnected processes, making attendance, DTR processing, document review, evaluations, and reporting difficult to coordinate.'],
+      ['The solution', 'A single responsive PWA workspace with tailored experiences for administrators, supervisors, and interns, backed by a REST API and structured Supabase data layer.'],
+      ['Attendance & DTR', 'Interns scan a time-sensitive QR code and complete face verification. Approved time-in and time-out scans feed consistent daily time records and reports.'],
+      ['Operations', 'The platform supports intern records, divisions, schools, documents, evaluations, projects, calendar events, announcements, notifications, and legal consent.'],
+      ['Technical approach', 'React and Vite, React Router, Node.js, Express, Supabase Postgres and Storage, JWT authentication, bcrypt, FullCalendar, QR workflows, and browser vision utilities.'],
+      ['Security decisions', 'Authorization is enforced across the frontend, API, and database. Private files use protected access and signed URLs, while sensitive tables use Row Level Security.'],
+      ['Outcome', 'The project established one operational workspace for the internship program and a foundation that can scale beyond attendance into complete internship administration.'],
+    ],
+  },
   agapai: {
     path: '/agapai-case-study.html',
     title: 'AgapAI',

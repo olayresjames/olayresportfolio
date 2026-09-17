@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/stack" element={<StackPage />} />
         <Route path={caseStudies.agapai.path} element={<CaseStudyPage study={caseStudies.agapai} />} />
         <Route path={caseStudies.foliofy.path} element={<CaseStudyPage study={caseStudies.foliofy} />} />
+        <Route path={caseStudies.pnp.path} element={<CaseStudyPage study={caseStudies.pnp} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

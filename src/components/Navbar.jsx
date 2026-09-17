@@ -51,7 +51,7 @@ export default function Navbar() {
     <ul className={className}>
       {links.map(([number, label, id]) => (
         <li key={id}>
-          <a href={id === 'gallery' ? '/gallery' : `#${id}`} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'location' : undefined} onClick={closeMenu}>
+          <a href={`#${id}`} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'location' : undefined} onClick={closeMenu}>
             <span>{activeSection === id ? '→' : number}</span>{label}
           </a>
         </li>
