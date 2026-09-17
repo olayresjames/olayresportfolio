@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/agapai-case-study.html", "destination": "/index.html" },
+    { "source": "/foliofy-case-study.html", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

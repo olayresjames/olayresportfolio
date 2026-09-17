@@ -1,0 +1,134 @@
+import { certifications, education, experiences, galleryItems, skillGroups } from '../../data/siteData';
+
+export function Experience({ onOpenResume }) {
+  const _entries = [
+    {
+      year: '2026',
+      role: 'IT Intern',
+      organization: 'Camp Crame ITMS Office · SPMT',
+      description: 'Supporting information technology operations while gaining practical experience in a professional government environment.',
+    },
+    {
+      year: '2023—2027',
+      role: 'BS Information Technology',
+      organization: 'Pamantasan ng Lungsod ng Valenzuela',
+      description: 'Developing a foundation across software engineering, networking, databases, game development, and emerging technologies.',
+    },
+    {
+      year: 'Now',
+      role: 'Independent Developer',
+      organization: 'AgapAI and selected client work',
+      description: 'Designing and shipping useful web and mobile products with a focus on AI integration and user-centered workflows.',
+    },
+  ];
+  return (
+    <section id="experience" className="editorial-section">
+      <div className="section-header reveal"><h2>03 — experience</h2><div className="section-header-actions"><a href="/experiences">full experience →</a><button className="text-button" type="button" onClick={onOpenResume}>view résumé ↗</button></div></div>
+      <div className="timeline">
+        {experiences.map(entry => (
+          <article className="timeline-entry reveal" key={entry.title}>
+            <time>{entry.year}</time>
+            <div><h3>{entry.title}</h3><p className="timeline-org">{entry.organization}</p><p>{entry.description}</p></div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Education() {
+  return (
+    <section id="education" className="editorial-section">
+      <div className="section-header reveal"><h2>04 — education</h2><span>academic foundation</span></div>
+      <div className="education-list">
+        {education.map(item => (
+          <article className="education-entry reveal" key={item.degree}>
+            <time>{item.period}</time>
+            <div><h3>{item.degree}</h3><p className="education-school">{item.school}</p><p>{item.detail}</p></div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Skills() {
+  return (
+    <section id="stack" className="editorial-section">
+      <div className="section-header reveal"><h2>05 — stack</h2><a href="/stack">expanded stack →</a></div>
+      <div className="stack-list reveal">
+        {skillGroups.map(([group, skills]) => (
+          <div className="stack-row" key={group}><h3>{group}</h3><p>{skills.join(' · ')}</p></div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Certifications({ onPreview }) {
+  return (
+    <section id="certifications" className="editorial-section">
+      <div className="section-header reveal"><h2>06 — certifications</h2><a href="/certifications">all certifications →</a></div>
+      <p className="section-intro reveal">Credentials across frontend development and Python computing—each verifiable at its source.</p>
+      <div className="certification-grid reveal">
+        {certifications.slice(0, 3).map(certificate => (
+          <article className="certification-card" key={`${certificate.title}-${certificate.version}`}>
+            <button type="button" className="certification-icon" aria-label={`Preview ${certificate.title} certificate`} onClick={() => onPreview({ src: certificate.image, alt: `${certificate.title} certificate` })}>fcc</button>
+            <h3>{certificate.title}</h3>
+            <p>{certificate.issuer}</p>
+            <span className="certification-version">{certificate.version}</span>
+            <div className="certification-actions">
+              <a href={certificate.verify} target="_blank" rel="noreferrer">verify ↗</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Gallery() {
+  return (
+    <section id="gallery" className="editorial-section">
+      <div className="section-header reveal"><h2>07 — gallery</h2><a href="/gallery">full gallery →</a></div>
+      <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
+      <div className="portfolio-gallery-grid reveal">
+        {galleryItems.slice(0, 3).map((item, index) => (
+          <article className="portfolio-gallery-card" key={item.title}>
+            <div className="portfolio-gallery-image"><img src={item.image} alt={item.alt} /></div>
+            <div className="portfolio-gallery-copy"><span>{String(index + 1).padStart(2, '0')} / gallery</span><h3>{item.title}</h3></div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function GitHubSection() {
+  return (
+    <section id="github" className="editorial-section">
+      <div className="section-header reveal"><h2>08 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
+      <a className="github-panel reveal" href="https://github.com/olayresjames" target="_blank" rel="noreferrer">
+        <span className="github-mark" aria-hidden="true">&lt;/&gt;</span>
+        <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+  );
+}
+
+export function Contact() {
+  return (
+    <section id="contact" className="editorial-section contact-section">
+      <div className="halftone halftone-footer" aria-hidden="true" />
+      <p className="section-heading reveal">09 — contact</p>
+      <h2 className="reveal">Let’s build something useful.</h2>
+      <p className="reveal">I’m open to internships, freelance work, and thoughtful collaborations.</p>
+      <div className="text-links reveal">
+        <a href="mailto:olayres.rafhaeljames@gmail.com">email ↗</a>
+        <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
+        <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
+      </div>
+    </section>
+  );
+}
