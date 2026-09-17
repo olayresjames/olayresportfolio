@@ -192,9 +192,9 @@ export const awards = [
 ];
 
 export const galleryItems = [
-  { title: 'Reset — Certificate + Trophy', caption: 'A milestone from the Reset game project.', image: '/resources/Gallery/RESET - CERTIFICATE + TROPHY.jpg', alt: 'Reset certificate and trophy' },
+  { title: 'Reset — Certificate + Trophy', caption: 'A milestone from the Reset game project.', image: '/resources/Gallery/reset-certificate-trophy.jpg', alt: 'Reset certificate and trophy' },
   { title: 'Deckode', caption: 'Behind the scenes from the game development team.', image: '/resources/Gallery/DECKODE.jpg', alt: 'Deckode event photo' },
-  { title: 'Best Section', caption: 'A captured moment from the project showcase.', image: '/resources/Gallery/BEST SECTION.jpg', alt: 'Best section showcase photo' },
+  { title: 'Best Section', caption: 'A captured moment from the project showcase.', image: '/resources/Gallery/best-section.jpg', alt: 'Best section showcase photo' },
   { title: '3—7', caption: 'Selected documentation from the work.', image: '/resources/Gallery/3-7.jpg', alt: 'Project documentation photo' },
 ];
 
