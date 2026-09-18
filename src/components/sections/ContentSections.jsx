@@ -118,8 +118,18 @@ export function GitHubSection() {
     ['Reset', 'polish game interface interactions', '2026', 'release'],
     ['Portfolio', 'refine visual system and content', '2025', 'main'],
   ];
-  const yearDays = contributionData?.[contributionYear]?.days || {};
   const firstDay = new Date(`${contributionYear}-01-01T00:00:00Z`);
+  const contributionWeeksData = contributionData?.[contributionYear]?.weeks || [];
+  const yearDays = {};
+  let dayOffset = 0;
+  contributionWeeksData.forEach(week => {
+    week.forEach(level => {
+      const date = new Date(firstDay);
+      date.setUTCDate(firstDay.getUTCDate() + dayOffset);
+      yearDays[date.toISOString().slice(0, 10)] = { level };
+      dayOffset += 1;
+    });
+  });
   const lastDay = new Date(`${contributionYear}-12-31T00:00:00Z`);
   const calendarStart = new Date(firstDay);
   calendarStart.setUTCDate(calendarStart.getUTCDate() - calendarStart.getUTCDay());
@@ -169,8 +179,7 @@ export function GitHubSection() {
               const date = new Date(calendarStart);
               date.setUTCDate(calendarStart.getUTCDate() + (weekIndex * 7) + dayIndex);
               const dateKey = date.toISOString().slice(0, 10);
-              const count = yearDays[dateKey]?.count || 0;
-              return <span key={dateKey} className={`contribution-cell level-${level}`} title={`${count} contribution${count === 1 ? '' : 's'} on ${dateKey}`} />;
+              return <span key={dateKey} className={`contribution-cell level-${level}`} title={`${level ? 'Active' : 'No'} contribution activity on ${dateKey}`} />;
             }))}
           </div>
         </div>
