@@ -106,7 +106,7 @@ export function Gallery({ onPreview }) {
 }
 
 export function GitHubSection() {
-  const [contributionYear, setContributionYear] = useState(2026);
+  const contributionYear = 2026;
   const [contributionData, setContributionData] = useState(null);
   useEffect(() => {
     fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});
@@ -118,22 +118,27 @@ export function GitHubSection() {
     ['Reset', 'polish game interface interactions', '2026', 'release'],
     ['Portfolio', 'refine visual system and content', '2025', 'main'],
   ];
-  const fallbackWeeks = Array.from({ length: 52 }, (_, week) => Array.from({ length: 7 }, (_, day) => {
-    if (contributionYear === 2025) {
-      if (week === 50 && day < 3) return 3;
-      if (week === 23 && day === 3) return 3;
-      return 0;
-    }
-    if (week === 13 && day === 3) return 3;
-    if (week >= 27 && week <= 39) {
-      const value = (week * 7 + day * 5) % 11;
-      return value < 3 ? 0 : value < 5 ? 1 : value < 8 ? 2 : value < 10 ? 3 : 4;
-    }
-    return 0;
+  const yearDays = contributionData?.[contributionYear]?.days || {};
+  const firstDay = new Date(`${contributionYear}-01-01T00:00:00Z`);
+  const lastDay = new Date(`${contributionYear}-12-31T00:00:00Z`);
+  const calendarStart = new Date(firstDay);
+  calendarStart.setUTCDate(calendarStart.getUTCDate() - calendarStart.getUTCDay());
+  const calendarEnd = new Date(lastDay);
+  calendarEnd.setUTCDate(calendarEnd.getUTCDate() + (6 - calendarEnd.getUTCDay()));
+  const weekCount = Math.round((calendarEnd - calendarStart) / 604800000) + 1;
+  const contributionWeeks = Array.from({ length: weekCount }, (_, weekIndex) => Array.from({ length: 7 }, (_, dayIndex) => {
+    const date = new Date(calendarStart);
+    date.setUTCDate(calendarStart.getUTCDate() + (weekIndex * 7) + dayIndex);
+    const entry = yearDays[date.toISOString().slice(0, 10)];
+    return entry ? entry.level : 0;
   }));
+  const monthLabels = Array.from({ length: 12 }, (_, monthIndex) => {
+    const monthStart = new Date(Date.UTC(contributionYear, monthIndex, 1));
+    const weekIndex = Math.floor((monthStart - calendarStart) / 604800000) + 1;
+    return { label: monthStart.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }), weekIndex };
+  });
   const selectedContributions = contributionData?.[contributionYear];
-  const contributionWeeks = selectedContributions?.weeks || fallbackWeeks;
-  const contributionTotal = selectedContributions?.total ?? (contributionYear === 2026 ? 203 : 34);
+  const contributionTotal = selectedContributions?.total ?? 0;
   return (
     <section id="github" className="editorial-section">
       <div className="section-header reveal"><h2>08 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
@@ -158,12 +163,18 @@ export function GitHubSection() {
       <div className="contribution-panel reveal">
         <div className="contribution-header"><strong>{contributionTotal} contributions in {contributionYear}</strong><span>activity map</span></div>
         <div className="contribution-scroll">
-          <div className="contribution-months" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+          <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${contributionYear}-${label}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
           <div className="contribution-grid" aria-label="Contribution activity heatmap">
-            {contributionWeeks.map((week, weekIndex) => week.map((level, dayIndex) => <span key={`${weekIndex}-${dayIndex}`} className={`contribution-cell level-${level}`} title={`${level} contribution intensity`} />))}
+            {contributionWeeks.map((week, weekIndex) => week.map((level, dayIndex) => {
+              const date = new Date(calendarStart);
+              date.setUTCDate(calendarStart.getUTCDate() + (weekIndex * 7) + dayIndex);
+              const dateKey = date.toISOString().slice(0, 10);
+              const count = yearDays[dateKey]?.count || 0;
+              return <span key={dateKey} className={`contribution-cell level-${level}`} title={`${count} contribution${count === 1 ? '' : 's'} on ${dateKey}`} />;
+            }))}
           </div>
         </div>
-        <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span><div className="contribution-years"><button type="button" className={contributionYear === 2026 ? 'active' : ''} onClick={() => setContributionYear(2026)}>2026</button><button type="button" className={contributionYear === 2025 ? 'active' : ''} onClick={() => setContributionYear(2025)}>2025</button></div></div>
+        <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span></div>
       </div>
     </section>
   );
