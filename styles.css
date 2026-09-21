@@ -208,7 +208,7 @@ main#main-content { min-width: 0; }
 .section-header-actions { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: flex-end; gap: 1rem; }
 .section-header-actions a, .section-header-actions button { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 10px; text-decoration: none; }
 .section-header-actions a:hover, .section-header-actions button:hover { color: var(--foreground); }
-.section-heading { color: var(--accent); }
+.section-heading { color: var(--foreground); }
 .section-header > span, .section-header > a, .section-header > button { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 10px; text-decoration: none; }
 .section-header > a:hover, .section-header > button:hover { color: var(--foreground); }
 .section-intro { max-width: 34rem; margin: -0.75rem 0 2rem; color: var(--text-secondary); font-size: 13px; }
