@@ -98,6 +98,7 @@ export const projects = [
     webpSmall: '/resources/reset-800.webp',
     imageWidth: 315,
     imageHeight: 250,
+    previewFit: 'contain',
     alt: 'Reset: Endless Horror Screenshot',
     date: 'February 2026',
     url: 'https://deckode.itch.io/reset-the-endless-horror',
@@ -227,6 +228,11 @@ export const caseStudies = {
     imageHeight: 607,
     alt: 'PNP ITMS Internship Attendance System project preview',
     actions: [['Live project', 'https://pnp-itms-internship-attendance.vercel.app/']],
+    meta: [
+      ['Role', 'Full-Stack Developer'],
+      ['Status', 'Active development'],
+      ['Stack', 'React · Vite · Express · Supabase'],
+    ],
     blocks: [
       ['My role', 'Full-Stack Developer. I owned the user journeys, data model, React interface, Express API, authorization model, integrations, testing, and deployment preparation.'],
       ['The challenge', 'Internship administration was spread across disconnected processes, making attendance, DTR processing, document review, evaluations, and reporting difficult to coordinate.'],
@@ -253,7 +259,11 @@ export const caseStudies = {
     alt: 'AgapAI platform interface showing emergency and health features',
     actions: [
       ['Live demo', 'https://download-agapai.vercel.app/', 'primary'],
-      ['Source code', 'https://github.com/olayresjames', 'ghost'],
+    ],
+    meta: [
+      ['Role', 'Product designer & full-stack developer'],
+      ['Status', 'Current build'],
+      ['Stack', 'React Native · Expo · Firebase · Gemini'],
     ],
     blocks: [
       ['My role', 'Product designer and full-stack developer. I shaped the product direction, interface, and connected user flows across the mobile and admin experiences.'],
@@ -276,6 +286,11 @@ export const caseStudies = {
     imageHeight: 631,
     alt: 'Foliofy interface for organizing image collections and exporting documents',
     actions: [['Live project', 'https://foliofy-omega.vercel.app/', 'primary']],
+    meta: [
+      ['Role', 'Product designer & frontend developer'],
+      ['Status', 'Shipped PWA'],
+      ['Stack', 'JavaScript · IndexedDB · docx.js · jsPDF'],
+    ],
     blocks: [
       ['My role', 'Product designer and frontend developer. I shaped the workflow, interface hierarchy, responsive behavior, and client-side implementation.'],
       ['The problem', 'Image collections are easy to gather but tedious to organize and convert into a presentable deliverable without switching between tools.'],

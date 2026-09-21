@@ -22,7 +22,11 @@ export default function CaseStudyPage({ study }) {
         <div className="case-actions">
           {study.actions.map(([label, url]) => <a key={label} className="text-button" href={url} target="_blank" rel="noopener noreferrer">{label} <span aria-hidden="true">↗</span></a>)}
         </div>
+        {study.meta && <dl className="case-meta">
+          {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+        </dl>}
         <div className="case-hero"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></div>
+        <p className="case-section-label">project breakdown</p>
         <div className="case-grid">
           {study.blocks.map(([title, copy]) => <section className="case-block" key={title}><h2>{title}</h2><p>{copy}</p></section>)}
         </div>

@@ -23,29 +23,31 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       onClick={active ? undefined : onActivate}
       onKeyDown={activateWithKeyboard}
     >
+      <button
+        type="button"
+        className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''}`}
+        aria-label={`Preview ${project.name}`}
+        onClick={event => {
+          event.stopPropagation();
+          if (active) onPreview({ src: project.webp || project.image, alt: project.alt });
+          else onActivate();
+        }}
+      >
+        <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" />
+        <span className="deck-preview-kicker">{project.featured ? 'featured case study' : project.date === 'Current' ? 'current build' : 'selected work'}</span>
+        <span className="deck-preview-label">preview <span aria-hidden="true">↗</span></span>
+      </button>
       <div className="deck-tags">
         <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
         <span>{project.date}</span>
       </div>
 
       <div className="deck-heading">
-        <button
-          type="button"
-          className="deck-thumbnail"
-          tabIndex={active ? 0 : -1}
-          aria-label={`Preview ${project.name}`}
-          onClick={event => {
-            event.stopPropagation();
-            if (active) onPreview({ src: project.webp || project.image, alt: project.alt });
-            else onActivate();
-          }}
-        >
-          <ResponsiveImage item={project} sizes="72px" />
-        </button>
         <h3>{project.name}</h3>
       </div>
 
       <p className="deck-description">{project.summary || project.description}</p>
+      {project.proof && <p className="deck-proof">{project.proof}</p>}
       <p className="deck-technologies">{project.technologies.join(' · ')}</p>
 
       <div className="deck-links" aria-hidden={!active}>
@@ -73,7 +75,7 @@ export default function Projects({ onPreview }) {
   };
 
   return (
-    <section id="projects" className="editorial-section wide-section">
+    <section id="projects" className="editorial-section wide-section projects-section">
       <div className="section-header reveal">
         <h2>02 — projects</h2>
         <a href="/projects">all projects →</a>

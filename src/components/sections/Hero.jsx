@@ -26,6 +26,14 @@ export default function Hero() {
           <h1 className="reveal">Rafhael James Olayres</h1>
           <p className="hero-lede reveal">I’m a full-stack developer and IT student building practical web, mobile, and AI-powered products.</p>
           <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System, studying at Pamantasan ng Lungsod ng Valenzuela, and completing an internship with the Camp Crame ITMS Office under SPMT.</p>
+          <div className="about-details reveal">
+            <div><span>working across</span><strong>React, React Native, Firebase, Supabase, and AI integrations</strong></div>
+            <div><span>open to</span><strong>Internships, freelance work, and thoughtful collaborations</strong></div>
+          </div>
+          <div className="hero-actions reveal">
+            <a className="button button-primary" href="#projects">view selected work <span aria-hidden="true">↗</span></a>
+            <a className="button button-secondary" href="/resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf">download résumé <span aria-hidden="true">↓</span></a>
+          </div>
           <div className="text-links reveal" aria-label="Social links">
             <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
             <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
