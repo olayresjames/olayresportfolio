@@ -959,3 +959,54 @@ body { font-size: 18px; }
   .sidebar-secondary a { font-size: 11px; }
   .sidebar-contact-copy { font-size: 11px; }
 }
+
+/* Mobile presentation pass — intentionally scoped below 767px. */
+@media (max-width: 767px) {
+  .mobile-nav { height: 4rem; padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right)); }
+  .mobile-menu { inset: 4rem 0 0; overflow-y: auto; padding: 1rem max(1rem, env(safe-area-inset-left)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)); }
+  .mobile-links a { min-height: 48px; align-items: center; font-size: 15px; }
+
+  .hero { padding-top: 2.25rem; }
+  .hero-grid { gap: 1.5rem; }
+  .portrait-wrap { width: min(16rem, 78vw); height: min(17rem, 82vw); }
+  .portrait-wrap img { width: min(17rem, 82vw); height: min(17rem, 82vw); }
+  .hero-copy h1 { margin-bottom: 1rem; }
+  .hero-actions { gap: 0.5rem; margin-top: 1.25rem; }
+  .hero-actions .button { flex: 1 1 100%; justify-content: center; min-height: 44px; }
+  .stats-row { margin-top: 2rem; }
+
+  .filter-row { gap: 0.5rem; margin-bottom: 1.25rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none; }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-row button { min-height: 40px; white-space: nowrap; }
+  .project-deck { height: 31rem; margin-inline: 0; }
+  .deck-card { width: calc(100% - 0.5rem); min-height: 0; height: 100%; padding: 1rem; }
+  .deck-card.is-left,
+  .deck-card.is-right { opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, -50%) scale(0.96); }
+  .deck-card.featured.is-center,
+  .deck-card.featured.is-center:hover,
+  .deck-card.is-center:hover { transform: translate(-50%, -50%); }
+  .deck-preview { height: clamp(8.5rem, 44vw, 11rem); }
+  .deck-links { gap: 0.5rem 0.8rem; }
+  .deck-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .deck-controls { width: 100%; margin-top: 0.5rem; }
+  .deck-controls button { min-height: 48px; }
+
+  .case-study { width: min(100% - 2rem, 42rem); padding: 3rem 0; }
+  .case-study > h1 { font-size: clamp(2.5rem, 13vw, 4rem); }
+  .case-actions { flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 2rem; }
+  .case-actions .text-button { display: inline-flex; align-items: center; min-height: 44px; }
+  .case-hero { max-height: min(62vh, 28rem); }
+  .case-hero img { max-height: min(62vh, 28rem); }
+  .case-section-label { margin-top: 2.25rem; }
+
+  .all-project-card { grid-template-columns: 1fr; }
+  .all-project-image { width: 100%; aspect-ratio: 16 / 9; }
+  .all-project-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contact-section .text-links a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+@media (max-width: 430px) {
+  .hero-copy h1 { font-size: clamp(2.6rem, 14vw, 3.2rem); }
+  .deck-card { width: 100%; }
+  .all-project-image { width: 100%; }
+}
