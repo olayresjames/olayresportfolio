@@ -989,10 +989,9 @@ body { font-size: 18px; }
   body { font-size: 18px; }
   .editorial-section, .wide-section { width: min(56rem, calc(100% - 3rem)); margin-left: auto; margin-right: auto; }
   .wide-section { width: min(70rem, calc(100% - 3rem)); }
-  .sidebar-secondary { position: absolute; right: 1.5rem; bottom: 10.7rem; left: 1.5rem; margin: 0; padding: 0.75rem 0; border-top: 1px solid var(--border); border-bottom: 0; }
-  .sidebar-secondary { position: static; flex-shrink: 0; margin: 0; }
+  .sidebar-secondary { position: absolute; right: 1.5rem; bottom: 13rem; left: 1.5rem; z-index: 2; margin: 0; padding: 0.75rem 0; border-top: 1px solid var(--border); border-bottom: 0; background: var(--background); }
   .sidebar-secondary a { line-height: 1.35; }
-  .sidebar-tools { position: absolute; right: 1.5rem; bottom: 0.8rem; left: 1.5rem; gap: 0.5rem; margin: 0; padding-top: 0.8rem; background: var(--background); }
+  .sidebar-tools { position: absolute; right: 1.5rem; bottom: 0.8rem; left: 1.5rem; z-index: 3; gap: 0.5rem; margin: 0; padding-top: 0.8rem; background: var(--background); }
   .sidebar-contact-copy { line-height: 1.3; }
   .sidebar-email { font-size: 10px; }
   .sidebar-identity { gap: 0.08rem; padding-bottom: 1rem; }

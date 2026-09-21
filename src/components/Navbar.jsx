@@ -85,11 +85,11 @@ export default function Navbar() {
           <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
         </div>
         <div className="sidebar-tools">
-          <div className="sidebar-controls"><ThemeControl /></div>
-          <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <p className="sidebar-contact-copy">For work, collabs &amp; everything<br />else, reach me at</p>
           <a className="sidebar-email" href="mailto:olayres.rafhaeljames@gmail.com"><span aria-hidden="true">✉</span> olayres.rafhaeljames@gmail.com</a>
+          <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => setPaletteOpen(true)}>command palette <kbd>{paletteShortcut}</kbd></button>
+          <div className="sidebar-controls"><ThemeControl /></div>
         </div>
       </aside>
 
@@ -100,9 +100,9 @@ export default function Navbar() {
       <div id="mobile-navigation" className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
         <nav aria-label="Mobile navigation">{navList('mobile-links')}</nav>
         <div className="mobile-menu-footer">
-          <div className="sidebar-controls"><ThemeControl /></div>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => { setMenuOpen(false); setPaletteOpen(true); }}>command palette <kbd>{paletteShortcut}</kbd></button>
+          <div className="sidebar-controls"><ThemeControl /></div>
         </div>
       </div>
       <AskMe open={askMeOpen} onClose={() => setAskMeOpen(false)} />
