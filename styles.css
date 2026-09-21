@@ -12,8 +12,8 @@
   --accent: #374151;
   --accent-soft: #eef2f7;
   --mono-glow: #111827;
-  --shadow-rest: 0 8px 22px -14px rgba(36, 52, 75, 0.28);
-  --shadow-hover: 0 18px 36px -20px rgba(36, 52, 75, 0.42);
+  --shadow-rest: 0 8px 22px -14px rgba(17, 24, 39, 0.24);
+  --shadow-hover: 0 18px 36px -20px rgba(17, 24, 39, 0.38);
   --font-ui: 'Geist', system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
   --font-serif: 'Source Serif 4', Georgia, serif;
@@ -29,8 +29,8 @@
   --border-strong: #3a3a42;
   --text-secondary: #a0a0a8;
   --text-tertiary: #8a8a92;
-  --accent: #f08a7d;
-  --accent-soft: #3a2020;
+  --accent: #e4e4e7;
+  --accent-soft: #26262a;
   --mono-glow: #f4f4f5;
   --shadow-rest: none;
   --shadow-hover: none;
@@ -305,11 +305,11 @@ main#main-content { min-width: 0; }
   0%, 65%, 96%, 100% { opacity: 0; } 66%, 95% { opacity: 1; }
 }
 @keyframes portrait-glitch {
-  0% { transform: translate(0) skew(0); filter: drop-shadow(4px 0 #ef476f) drop-shadow(-4px 0 #00c2ff); }
-  25% { transform: translate(5px, -2px) skew(1deg); filter: drop-shadow(-6px 2px #ef476f) drop-shadow(5px -2px #00c2ff); }
-  50% { transform: translate(-4px, 3px) skew(-1.5deg); filter: drop-shadow(6px -3px #ef476f) drop-shadow(-5px 2px #00c2ff); }
-  75% { transform: translate(2px, 1px) skew(2deg); filter: drop-shadow(-3px -2px #ef476f) drop-shadow(4px 3px #00c2ff); }
-  100% { transform: translate(-3px, -2px) skew(-1deg); filter: drop-shadow(5px 1px #ef476f) drop-shadow(-5px -1px #00c2ff); }
+  0% { transform: translate(0) skew(0); filter: drop-shadow(4px 0 var(--foreground)) drop-shadow(-4px 0 var(--text-secondary)); }
+  25% { transform: translate(5px, -2px) skew(1deg); filter: drop-shadow(-6px 2px var(--foreground)) drop-shadow(5px -2px var(--text-secondary)); }
+  50% { transform: translate(-4px, 3px) skew(-1.5deg); filter: drop-shadow(6px -3px var(--foreground)) drop-shadow(-5px 2px var(--text-secondary)); }
+  75% { transform: translate(2px, 1px) skew(2deg); filter: drop-shadow(-3px -2px var(--foreground)) drop-shadow(4px 3px var(--text-secondary)); }
+  100% { transform: translate(-3px, -2px) skew(-1deg); filter: drop-shadow(5px 1px var(--foreground)) drop-shadow(-5px -1px var(--text-secondary)); }
 }
 @keyframes portrait-scan { 0% { transform: translateY(-8%); } 50% { transform: translateY(5%); } 100% { transform: translateY(-3%); } }
 @keyframes portrait-color-split { 0% { transform: translateX(-5%); clip-path: inset(0 0 68% 0); } 35% { transform: translateX(5%); clip-path: inset(22% 0 42% 0); } 70% { transform: translateX(-3%); clip-path: inset(64% 0 12% 0); } 100% { transform: translateX(4%); clip-path: inset(8% 0 78% 0); } }

@@ -34,7 +34,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
         }}
       >
         <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" />
-        <span className="deck-preview-kicker">{project.featured ? 'featured case study' : project.date === 'Current' ? 'current build' : 'selected work'}</span>
+        {(project.featured || project.date === 'Current') && <span className="deck-preview-kicker">{project.featured ? 'featured case study' : 'current build'}</span>}
         <span className="deck-preview-label">preview <span aria-hidden="true">↗</span></span>
       </button>
       <div className="deck-tags">
