@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import usePlatformShortcuts from '../hooks/usePlatformShortcuts';
 
 const commands = [
+  ['Ask me anything', 'ask-me'],
   ['About', '#about'],
   ['Projects', '#projects'],
   ['Experience', '#experience'],
@@ -12,7 +14,8 @@ const commands = [
   ['Contact', '#contact'],
 ];
 
-export default function CommandPalette({ open, onClose }) {
+export default function CommandPalette({ open, onClose, onAskMe }) {
+  const { askShortcut } = usePlatformShortcuts();
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
@@ -32,6 +35,10 @@ export default function CommandPalette({ open, onClose }) {
   const select = command => {
     if (!command) return;
     onClose();
+    if (command[1] === 'ask-me') {
+      onAskMe();
+      return;
+    }
     if (command[1].startsWith('/')) {
       window.location.href = command[1];
       return;
@@ -66,7 +73,7 @@ export default function CommandPalette({ open, onClose }) {
         <div className="command-results" role="listbox">
           {filtered.map((command, index) => (
             <button key={command[1]} type="button" role="option" aria-selected={active === index} className={active === index ? 'active' : ''} onMouseEnter={() => setActive(index)} onClick={() => select(command)}>
-              <span>{command[0]}</span><span>jump ↵</span>
+              <span>{command[0]}</span><span>{command[1] === 'ask-me' ? askShortcut : 'jump ↵'}</span>
             </button>
           ))}
           {!filtered.length && <p className="command-empty">No matching section.</p>}

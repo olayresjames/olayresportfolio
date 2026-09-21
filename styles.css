@@ -9,8 +9,8 @@
   --border-strong: #bcc6d5;
   --text-secondary: #536174;
   --text-tertiary: #68778a;
-  --accent: #b42318;
-  --accent-soft: #fff0ed;
+  --accent: #374151;
+  --accent-soft: #eef2f7;
   --mono-glow: #111827;
   --shadow-rest: 0 8px 22px -14px rgba(36, 52, 75, 0.28);
   --shadow-hover: 0 18px 36px -20px rgba(36, 52, 75, 0.42);
@@ -34,6 +34,22 @@
   --mono-glow: #f4f4f5;
   --shadow-rest: none;
   --shadow-hover: none;
+}
+
+:root[data-theme='light'] {
+  --background: #f8fafc;
+  --foreground: #111827;
+  --surface: #ffffff;
+  --surface-secondary: #eef2f7;
+  --border: #d9e0e9;
+  --border-strong: #aeb9c8;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --accent: #374151;
+  --accent-soft: #eef2f7;
+  --mono-glow: #111827;
+  --shadow-rest: 0 8px 22px -14px rgba(15, 23, 42, 0.26);
+  --shadow-hover: 0 18px 36px -20px rgba(15, 23, 42, 0.38);
 }
 
 html {
@@ -274,8 +290,8 @@ main#main-content { min-width: 0; }
 .portrait-rotator:hover img:nth-child(2) { animation-name: portrait-cycle-two; }
 .portrait-rotator:hover img:nth-child(3) { animation-name: portrait-cycle-three; }
 .portrait-rotator::before, .portrait-rotator::after { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0; }
-.portrait-rotator::before { background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(239, 71, 111, 0.18) 5px 6px, transparent 6px 11px); mix-blend-mode: screen; }
-.portrait-rotator::after { background: linear-gradient(90deg, rgba(239, 71, 111, 0.2), transparent 35%, rgba(0, 194, 255, 0.22)); mix-blend-mode: screen; }
+.portrait-rotator::before { background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, var(--foreground) 18%, transparent) 5px 6px, transparent 6px 11px); mix-blend-mode: screen; }
+.portrait-rotator::after { background: linear-gradient(90deg, color-mix(in srgb, var(--foreground) 20%, transparent), transparent 35%, color-mix(in srgb, var(--text-secondary) 22%, transparent)); mix-blend-mode: screen; }
 .portrait-rotator:hover { animation: portrait-glitch 75ms steps(2, end) infinite; }
 .portrait-rotator:hover::before { opacity: 1; animation: portrait-scan 140ms steps(2, end) infinite; }
 .portrait-rotator:hover::after { opacity: 1; animation: portrait-color-split 110ms steps(2, end) infinite; }
@@ -526,6 +542,36 @@ footer p { margin: 0; }
 .command-results button.active { color: var(--foreground); background: var(--surface-secondary); }
 .command-empty { padding: 1rem; color: var(--text-tertiary); font-size: 12px; }
 .command-footer { display: flex; gap: 1rem; padding: 0.55rem 1rem; border-top: 1px solid var(--border); color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; }
+
+/* Ask me assistant */
+.ask-me-sidebar-link { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; color: var(--text-tertiary); font-family: var(--font-mono); font-size: 10px; text-align: left; }
+.ask-me-sidebar-link:hover { color: var(--foreground); }
+.ask-me-layer { position: fixed; inset: 0; z-index: 600; display: flex; align-items: flex-end; justify-content: flex-end; padding: 1rem; pointer-events: none; }
+.ask-me-panel { display: flex; flex-direction: column; width: min(27rem, calc(100vw - 2rem)); height: min(42rem, calc(100vh - 2rem)); overflow: hidden; pointer-events: auto; border: 1px solid var(--border-strong); border-radius: 16px; background: var(--background); box-shadow: 0 24px 70px color-mix(in srgb, var(--foreground) 22%, transparent); }
+.ask-me-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ask-me-kicker, .ask-me-message-label, .ask-me-hint { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
+.ask-me-header h2 { margin: 0.25rem 0 0; font-size: 1.35rem; font-weight: 500; letter-spacing: -0.04em; }
+.ask-me-close { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; color: var(--text-secondary); font-size: 1.5rem; line-height: 1; }
+.ask-me-close:hover { color: var(--foreground); border-color: var(--foreground); }
+.ask-message-list { flex: 1; overflow-y: auto; padding: 1rem; overscroll-behavior: contain; }
+.ask-message { max-width: 92%; margin-bottom: 1rem; }
+.ask-message-user { margin-left: auto; text-align: right; }
+.ask-message-label { display: block; margin-bottom: 0.25rem; }
+.ask-message p { margin: 0; padding: 0.7rem 0.8rem; border: 1px solid var(--border); border-radius: 10px; color: var(--text-secondary); background: var(--surface); font-size: 13px; line-height: 1.55; text-align: left; }
+.ask-message-copy p + p { margin-top: 0.45rem; }
+.ask-message-user p { color: var(--background); background: var(--foreground); border-color: var(--foreground); }
+.ask-message-links { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; margin-top: 0.5rem; text-align: left; }
+.ask-message-links a { color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
+.ask-message-links a:hover { color: var(--foreground); }
+.ask-suggestions { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1rem 0.85rem; }
+.ask-suggestions button { padding: 0.45rem 0.6rem; border: 1px solid var(--border-strong); border-radius: 999px; color: var(--text-secondary); background: var(--surface); font-family: var(--font-mono); font-size: 9px; text-align: left; }
+.ask-suggestions button:hover { color: var(--foreground); border-color: var(--foreground); }
+.ask-me-form { display: flex; gap: 0.5rem; padding: 0.75rem; border-top: 1px solid var(--border); background: var(--surface); }
+.ask-me-form input { min-width: 0; flex: 1; padding: 0.7rem 0.75rem; border: 1px solid var(--border-strong); border-radius: 8px; outline: 0; color: var(--foreground); background: var(--background); font-size: 13px; }
+.ask-me-form input:focus { border-color: var(--foreground); box-shadow: 0 0 0 2px color-mix(in srgb, var(--foreground) 12%, transparent); }
+.ask-me-form button { min-width: 60px; border-radius: 8px; color: var(--background); background: var(--foreground); font-family: var(--font-mono); font-size: 10px; }
+.ask-me-form button:hover { background: var(--accent); }
+.ask-me-hint { margin: 0; padding: 0 0.85rem 0.75rem; text-align: right; }
 
 /* Modals */
 .modal-overlay { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; padding: 1rem; background: rgba(0, 0, 0, 0.78); opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 200ms ease; }
@@ -958,6 +1004,37 @@ body { font-size: 18px; }
   .sidebar-secondary { gap: 0.28rem; }
   .sidebar-secondary a { font-size: 11px; }
   .sidebar-contact-copy { font-size: 11px; }
+}
+
+@media (max-width: 767px) {
+  .ask-me-layer { align-items: flex-end; padding: 0; }
+  .ask-me-panel { width: 100%; height: min(84vh, 42rem); border-right: 0; border-bottom: 0; border-radius: 16px 16px 0 0; }
+  .ask-message { max-width: 96%; }
+  .ask-me-form { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+}
+
+/* Ask me — full-screen command surface */
+.ask-me-layer { align-items: stretch; justify-content: stretch; padding: 0; pointer-events: auto; background: color-mix(in srgb, var(--background) 64%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.ask-me-panel { position: relative; width: 100%; height: 100%; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.ask-me-header { position: absolute; top: 32vh; right: 11vw; left: 11vw; z-index: 1; display: block; padding: 0; border: 0; background: transparent; }
+.ask-me-kicker { display: none; }
+.ask-me-header h2 { margin: 0; color: var(--foreground); font-family: var(--font-mono); font-size: clamp(2.3rem, 4.7vw, 4.2rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.08em; }
+.ask-me-close { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 2; width: 44px; height: 44px; border-color: color-mix(in srgb, var(--foreground) 25%, transparent); color: var(--text-secondary); background: color-mix(in srgb, var(--background) 55%, transparent); }
+.ask-me-close:hover { background: var(--surface); }
+.ask-message-list { position: absolute; right: 11vw; bottom: 7.5rem; left: 11vw; max-height: 24vh; padding: 0; }
+.ask-me-form { position: absolute; top: calc(32vh + 6rem); right: 11vw; left: 11vw; display: block; padding: 0; border: 0; background: transparent; }
+.ask-me-form input { width: 100%; padding: 0 0 0.8rem; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--foreground) 35%, transparent); border-radius: 0; outline: 0; color: var(--foreground); background: transparent; font-family: var(--font-mono); font-size: clamp(1rem, 1.5vw, 1.35rem); }
+.ask-me-form input:focus { border-color: var(--foreground); box-shadow: none; }
+.ask-me-form button { position: absolute; right: 0; bottom: 0.4rem; min-width: 44px; height: 44px; color: var(--text-secondary); background: transparent; font-size: 0; }
+.ask-me-form button::after { content: '↵'; font-size: 1.2rem; }
+.ask-me-form button:hover { color: var(--foreground); background: transparent; }
+
+@media (max-width: 767px) {
+  .ask-me-panel { height: 100%; }
+  .ask-me-header { top: 22vh; right: 1.25rem; left: 1.25rem; }
+  .ask-me-header h2 { font-size: clamp(2rem, 9vw, 3rem); }
+  .ask-me-form { top: calc(22vh + 6.5rem); right: 1.25rem; left: 1.25rem; }
+  .ask-message-list { right: 1.25rem; bottom: 7.5rem; left: 1.25rem; max-height: 24vh; }
 }
 
 /* Mobile presentation pass — intentionally scoped below 767px. */
