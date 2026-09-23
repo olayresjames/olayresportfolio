@@ -39,6 +39,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       </button>
       <div className="deck-tags">
         <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
+        {project.venue && <span>{project.venue}</span>}
         <span>{project.date}</span>
       </div>
 

@@ -9,8 +9,11 @@ const projectTopics = projects.map(project => {
   const study = caseStudyFor(project);
   const projectWords = project.name.toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 3);
   const extraKeywords = {
-    agapai: ['emergency', 'sos', 'senior', 'seniors', 'guardian', 'guardians', 'rescue', 'health monitoring', 'gemini'],
+    agapai: ['emergency', 'sos', 'senior', 'seniors', 'guardian', 'guardians', 'rescue', 'health monitoring', 'gemini', 'capstone'],
     'pnp-idtms': ['pnp', 'internship', 'attendance', 'dtr', 'database', 'camp crame', 'supabase'],
+    'pais-2': ['pnp', 'internship', 'personnel', 'assignment', 'hr', 'uniformed', 'civilian', 'camp crame'],
+    'camp-navi': ['camp crame', 'geofencing', 'navigation', 'security', 'checkpoints', 'routes'],
+    'pnp-assignment-system': ['pnp', 'survey', 'preferred locations', 'assignment', 'uniformed personnel', 'movement'],
     foliofy: ['documents', 'document', 'word', 'pdf', 'images', 'image collections', 'indexeddb', 'export'],
     reset: ['horror', 'game', 'time loop', 'itch'],
     pagpag: ['card game', 'game logic', 'gameplay'],

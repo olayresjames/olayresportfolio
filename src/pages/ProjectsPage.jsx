@@ -12,6 +12,7 @@ function ProjectRow({ project }) {
       <div className="all-project-content">
         <div className="all-project-tags">
           <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
+          {project.venue && <span>{project.venue}</span>}
           <span>{project.date}</span>
         </div>
         <h2>{project.name}</h2>

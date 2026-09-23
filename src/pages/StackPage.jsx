@@ -14,17 +14,29 @@ const iconPaths = {
 };
 
 const iconSlugs = {
-  TypeScript: 'typescript', JavaScript: 'javascript', 'HTML5 & CSS3': 'html5', Python: 'python',
-  'React.js': 'react', 'React Native + Expo': 'react', 'Tailwind CSS': 'tailwindcss', Vite: 'vite',
-  Firebase: 'firebase', Supabase: 'supabase', MySQL: 'mysql', PostgreSQL: 'postgresql', 'REST APIs': 'fastapi',
-  'Google Gemini API': 'googlegemini', 'OpenAI API': 'openai', 'API integration': 'postman',
-  'Git & GitHub': 'github', 'VS Code': 'visualstudiocode', Postman: 'postman', npm: 'npm',
+  TypeScript: 'typescript', JavaScript: 'javascript', 'HTML5 & CSS3': 'html5', Python: 'python', C: 'c', 'C++': 'cplusplus', 'C#': 'dotnet', PHP: 'php',
+  'React.js': 'react', 'React Native + Expo': 'react', 'React Router': 'reactrouter', 'Tailwind CSS': 'tailwindcss', Vite: 'vite', PWA: 'pwa',
+  'Node.js': 'nodedotjs', Express: 'express', Firebase: 'firebase', Supabase: 'supabase', MySQL: 'mysql', PostgreSQL: 'postgresql', 'REST APIs': 'fastapi',
+  'Google Gemini API': 'googlegemini', 'API integration': 'postman',
+  'Git & GitHub': 'github', Postman: 'postman', npm: 'npm',
   'CI/CD (Vercel)': 'vercel',
+};
+
+const skillIconPaths = {
+  'OpenAI API': 'M12 3v18M3 12h18M5.5 6.5l13 11M18.5 6.5l-13 11',
+  'VS Code': 'M8 5l-4 3v8l4 3 8-4v-6L8 5zm0 0v14m8-10 4 3v6l-4 3',
+  IndexedDB: 'M5 7c0-2 14-2 14 0v10c0 2-14 2-14 0zM5 7c0 2 14 2 14 0M5 12c0 2 14 2 14 0',
+  'docx.js': 'M7 3h7l4 4v14H7zM14 3v5h5M9 13h6M9 17h6',
+  jsPDF: 'M6 4h9l3 3v13H6zM15 4v4h4M8 14h8M8 17h5',
+  FullCalendar: 'M5 5h14v14H5zM8 3v4M16 3v4M5 9h14',
+  Tkinter: 'M4 5h16v14H4zM4 9h16M8 7h.01M11 7h.01M14 7h.01',
+  Pygame: 'M7 14l-2 4M17 14l2 4M9 10h6M12 8v4M9 10v4M7 12h4',
 };
 
 function SkillIcon({ group, skill }) {
   const slug = skill && iconSlugs[skill];
-  return <span className="stack-skill-icon" aria-hidden="true">{slug ? <img src={`https://cdn.simpleicons.org/${slug}`} alt="" /> : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={iconPaths[group]} /></svg>}</span>;
+  const path = skillIconPaths[skill] || iconPaths[group];
+  return <span className="stack-skill-icon" aria-hidden="true">{slug ? <img src={`https://cdn.simpleicons.org/${slug}`} alt="" /> : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d={path} /></svg>}</span>;
 }
 
 export default function StackPage() {
