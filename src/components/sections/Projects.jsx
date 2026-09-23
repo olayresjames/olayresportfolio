@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { projects } from '../../data/siteData';
 import ResponsiveImage from '../ResponsiveImage';
 
-const filters = [['all', 'all'], ['ai', 'ai'], ['fullstack', 'full-stack'], ['frontend', 'frontend']];
+const filters = [['all', 'all'], ['ai', 'ai'], ['fullstack', 'full-stack'], ['frontend', 'frontend'], ['game', 'games']];
 
 function DeckCard({ project, position, onActivate, onPreview }) {
   const active = position === 'center';

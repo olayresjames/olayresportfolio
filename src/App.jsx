@@ -19,6 +19,7 @@ export default function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/experiences" element={<ExperiencesPage />} />
         <Route path="/stack" element={<StackPage />} />
+        <Route path={caseStudies.legendOfCee.path} element={<CaseStudyPage study={caseStudies.legendOfCee} />} />
         <Route path={caseStudies.agapai.path} element={<CaseStudyPage study={caseStudies.agapai} />} />
         <Route path={caseStudies.foliofy.path} element={<CaseStudyPage study={caseStudies.foliofy} />} />
         <Route path={caseStudies.pnp.path} element={<CaseStudyPage study={caseStudies.pnp} />} />

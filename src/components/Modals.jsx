@@ -5,6 +5,12 @@ export function Lightbox({ preview, onClose }) {
   const close = useCallback(() => onClose(), [onClose]);
   const modalRef = useModal(Boolean(preview), close);
   if (!preview) return null;
+  const items = preview.items || [preview];
+  const currentIndex = preview.index ?? 0;
+  const hasNavigation = items.length > 1;
+  const current = items[currentIndex] || items[0];
+  const move = direction => preview.onNavigate?.((currentIndex + direction + items.length) % items.length);
+
   return (
     <div
       ref={modalRef}
@@ -14,12 +20,23 @@ export function Lightbox({ preview, onClose }) {
       aria-modal="true"
       aria-labelledby="lightbox-title"
       onMouseDown={event => event.target === event.currentTarget && onClose()}
+      onKeyDown={event => {
+        if (!hasNavigation) return;
+        if (event.key === 'ArrowLeft') move(-1);
+        if (event.key === 'ArrowRight') move(1);
+      }}
     >
-      <h2 id="lightbox-title" className="sr-only">Image preview</h2>
+      <h2 id="lightbox-title" className="sr-only">{current.caption || 'Image preview'}</h2>
       <button className="lightbox-close-btn" aria-label="Close image preview" onClick={onClose}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
       </button>
-      <img src={preview.src} alt={preview.alt} tabIndex="-1" />
+      {hasNavigation && <button type="button" className="lightbox-nav lightbox-prev" aria-label="Previous image" onClick={() => move(-1)}>‹</button>}
+      <figure className="lightbox-figure">
+        <img src={current.src} alt={current.alt} tabIndex="-1" />
+        {current.caption && <figcaption>{current.caption}</figcaption>}
+      </figure>
+      {hasNavigation && <button type="button" className="lightbox-nav lightbox-next" aria-label="Next image" onClick={() => move(1)}>›</button>}
+      {hasNavigation && <span className="lightbox-counter" aria-live="polite">{currentIndex + 1} / {items.length}</span>}
     </div>
   );
 }

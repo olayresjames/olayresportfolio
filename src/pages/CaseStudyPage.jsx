@@ -1,8 +1,25 @@
 import ResponsiveImage from '../components/ResponsiveImage';
 import ThemeControl from '../components/ThemeControl';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { useState } from 'react';
+import { Lightbox } from '../components/Modals';
 
 export default function CaseStudyPage({ study }) {
+  const [previewIndex, setPreviewIndex] = useState(null);
+  const caseImages = [study, ...(study.artGallery || []), ...(study.gallery || [])].map(item => ({
+    src: item.image,
+    alt: item.alt,
+    caption: item.caption,
+  }));
+  const openPreview = index => setPreviewIndex(index);
+  const closePreview = () => setPreviewIndex(null);
+  const preview = previewIndex === null ? null : {
+    ...caseImages[previewIndex],
+    items: caseImages,
+    index: previewIndex,
+    onNavigate: setPreviewIndex,
+  };
+
   usePageMeta({
     title: study.pageTitle,
     description: study.description,
@@ -25,13 +42,32 @@ export default function CaseStudyPage({ study }) {
         {study.meta && <dl className="case-meta">
           {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         </dl>}
-        <div className="case-hero"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></div>
+        <div className="case-hero"><button type="button" className="case-image-trigger" onClick={() => openPreview(0)} aria-label="Open cover art in full view"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></button></div>
         <p className="case-section-label">project breakdown</p>
         <div className="case-grid">
           {study.blocks.map(([title, copy]) => <section className="case-block" key={title}><h2>{title}</h2><p>{copy}</p></section>)}
         </div>
         <p className="case-footer"><a className="text-button" href="/#projects">← Back to selected projects</a></p>
+        {study.artGallery?.length > 0 && <section className="case-gallery case-art-gallery" aria-labelledby="case-art-heading">
+          <p className="case-section-label" id="case-art-heading">visual language</p>
+          <div className="case-gallery-grid case-art-grid">
+            {study.artGallery.map((item, index) => <figure key={item.image} className="case-gallery-item">
+              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(index + 1)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
+              <figcaption>{item.caption}</figcaption>
+            </figure>)}
+          </div>
+        </section>}
+        {study.gallery?.length > 0 && <section className="case-gallery" aria-labelledby="case-gallery-heading">
+          <p className="case-section-label" id="case-gallery-heading">gameplay screenshots</p>
+          <div className="case-gallery-grid">
+            {study.gallery.map((item, index) => <figure key={item.image} className="case-gallery-item">
+              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(1 + (study.artGallery?.length || 0) + index)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
+              <figcaption>{item.caption}</figcaption>
+            </figure>)}
+          </div>
+        </section>}
       </main>
+      <Lightbox preview={preview} onClose={closePreview} />
     </>
   );
 }

@@ -1,3 +1,47 @@
+const legendOfCeeScreenshots = [
+  ['Screenshot 2026-09-23 145910.png', 'Opening area and player HUD'],
+  ['Screenshot 2026-09-23 145933.png', 'Outdoor exploration with dynamic lighting'],
+  ['Screenshot 2026-09-23 150002.png', 'NPC interaction in the overworld'],
+  ['Screenshot 2026-09-23 150034.png', 'Tile-based map navigation'],
+  ['Screenshot 2026-09-23 151017.png', 'Interior environment'],
+  ['Screenshot 2026-09-23 151202.png', 'Combat encounter'],
+  ['Screenshot 2026-09-23 151216.png', 'Enemy encounter and map geometry'],
+  ['Screenshot 2026-09-23 151231.png', 'Dungeon exploration'],
+  ['Screenshot 2026-09-23 152023.png', 'Environmental interaction'],
+  ['Screenshot 2026-09-23 152049.png', 'Dialogue and world state'],
+  ['Screenshot 2026-09-23 152238.png', 'Combat arena'],
+  ['Screenshot 2026-09-23 152711.png', 'Map transition and exploration'],
+  ['Screenshot 2026-09-23 152854.png', 'Late-game environment'],
+  ['Screenshot 2026-09-23 153010.png', 'Final encounter setup'],
+  ['Screenshot 2026-09-23 153036.png', 'Final boss arena'],
+  ['Screenshot 2026-09-23 153115.png', 'Boss battle scene'],
+  ['Screenshot 2026-09-23 153745.png', 'Late-game combat sequence'],
+  ['Screenshot 2026-09-23 153756.png', 'Boss encounter progression'],
+  ['Screenshot 2026-09-23 153807.png', 'Closing gameplay moment'],
+].map(([file, caption]) => ({
+  image: `/resources/Legend Of Cee/in game screenshots/${file}`,
+  imageWidth: 1365,
+  imageHeight: 767,
+  alt: `Legend Of Cee ${caption.toLowerCase()}`,
+  caption,
+}));
+
+const legendOfCeeArt = [
+  ['final boss.png', 'Final boss concept', 596, 364],
+  ['NPCs 1.png', 'NPC character concepts', 440, 408],
+  ['NPCS 2.png', 'NPC dialogue characters', 340, 174],
+  ['NPCs 3.png', 'Additional NPC designs', 350, 180],
+  ['Monster.png', 'Monster designs', 612, 444],
+  ['player - spritesheet 1.png', 'Player sprite sheet', 672, 160],
+  ['tilesets.png', 'Tile set and environment pieces', 654, 99],
+].map(([file, caption, imageWidth, imageHeight]) => ({
+  image: `/resources/Legend Of Cee/${file}`,
+  imageWidth,
+  imageHeight,
+  alt: `Legend Of Cee ${caption.toLowerCase()}`,
+  caption,
+}));
+
 export const projects = [
   {
     id: 'pnp-idtms',
@@ -197,6 +241,23 @@ export const projects = [
     url: 'https://github.com/olayresjames/Sword-Phantasia',
   },
   {
+    id: 'legend-of-cee',
+    name: 'Legend Of Cee: Shadows Of The Ruined King',
+    category: 'game',
+    tag: 'Java · OOP project',
+    tagClass: 'tag-fullstack',
+    linkLabel: 'View case study',
+    description: 'A pixel-art 2D RPG built in Java with tile-based exploration, combat, NPC dialogue, dynamic lighting, persistence, and scripted cutscenes.',
+    proof: 'Second-year, first-semester Object-Oriented Programming project.',
+    technologies: ['Java', 'Swing', 'AWT', 'Java 2D', 'Java Sound'],
+    image: '/resources/Legend Of Cee/COVER ART.jpg',
+    imageWidth: 556,
+    imageHeight: 312,
+    alt: 'Legend Of Cee: Shadows Of The Ruined King cover art',
+    date: '2nd year · 1st sem',
+    caseStudyUrl: '/legend-of-cee-case-study.html',
+  },
+  {
     id: 'suriel',
     name: "Suriel's Cafe Platform",
     category: 'fullstack',
@@ -270,6 +331,45 @@ export const education = [
 ];
 
 export const caseStudies = {
+  legendOfCee: {
+    path: '/legend-of-cee-case-study.html',
+    title: 'Legend Of Cee: Shadows Of The Ruined King',
+    pageTitle: 'Legend Of Cee Case Study | Rafhael James Olayres',
+    description: 'A Java Swing and AWT pixel-art RPG project focused on reliable rendering, collision, persistence, lighting, and cutscene systems.',
+    kicker: 'Object-oriented programming project · 2nd year, 1st semester',
+    lede: 'A pixel-art 2D RPG built in Java that grew from a learning exercise into a packaged Windows game prototype with exploration, combat, dialogue, lighting, saving, and scripted story sequences.',
+    image: '/resources/Legend Of Cee/COVER ART.jpg',
+    imageWidth: 556,
+    imageHeight: 312,
+    alt: 'Legend Of Cee: Shadows Of The Ruined King cover art',
+    actions: [
+      ['Watch the inspiration playlist', 'https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq'],
+    ],
+    meta: [
+      ['Role', 'Java game developer'],
+      ['Platform', 'Windows desktop'],
+      ['Stack', 'Java · Swing · AWT · Java 2D · Java Sound'],
+    ],
+    blocks: [
+      ['Project details', 'A 2D pixel-art RPG for Windows desktop, written in Java with Swing, AWT, Java 2D, and Java Sound. The game renders at a 960 x 576 logical resolution, uses scaled tile-based assets, and focuses on gameplay systems, rendering stability, collision, persistence, and debugging.'],
+      ['Project context', 'Legend Of Cee was my second-year, first-semester Object-Oriented Programming project. It began as a Java RPG learning exercise and developed into a complete playable prototype with a packaged Windows release.'],
+      ['The challenge', 'The game had the core ingredients of an RPG, but movement, rendering, map transitions, entity state, lighting, saving, and cutscenes could fail in ways that were difficult to see from the surface.'],
+      ['Goals', 'Make movement and collision predictable across outdoor areas, interiors, and dungeons; remove visual artifacts; keep entities safe per map; make save and load understandable; preserve the pixel-art style; and package the result as a runnable Windows game.'],
+      ['Tile-based world', 'The game uses 16 x 16 source tiles rendered at 3x scale on a 960 x 576 logical game surface. World coordinates stay separate from screen coordinates so the camera can follow the player while the world extends beyond the viewport.'],
+      ['Stable frame rendering', 'The renderer was reorganized around complete frame buffers: clear the buffer, draw the map, sort and draw entities, apply lighting, draw cutscenes and UI, then publish the finished frame for Swing to paint. This removed stale-tile ghosting and partially drawn frames.'],
+      ['Collision and hitboxes', 'Movement checks use projected, immutable entity bounds instead of temporarily mutating live rectangles. The projected position is tested against tile flags, map boundaries, other entities, objects, and interactive tiles so visible edges and physical boundaries agree.'],
+      ['Entity lifecycle', 'Map-specific entity arrays are cleared and repopulated at the right time. Spawn logic uses the active map data, keeps monsters off invalid terrain, and preserves important object placement so the world remains traversable after transitions and loads.'],
+      ['Dynamic lighting', 'The darkness filter is rebuilt as the player or camera moves. The light center is calculated from world position transformed into the current screen position, with edge clamping so the player remains correctly illuminated at map boundaries.'],
+      ['Loading and persistence', 'A visible loading state makes file I/O understandable instead of making Load Game appear frozen. The pause menu supports Resume and Save Game, saving the current state to save.dat with a confirmation message and compatibility handling for older data.'],
+      ['Cutscenes and dialogue', 'The final boss encounter uses a cutscene state machine for camera movement, dialogue, player restoration, and battle setup. A missing textbox was traced to dialogue being drawn through a graphics reference from the previous back buffer; rendering it in the active frame UI pass fixed the issue.'],
+      ['Debugging process', 'I separated bugs into three questions: is the game state changing correctly, is the world and entity data correct for the current map, and is the current frame drawing that state to the active buffer? This made it easier to distinguish gameplay bugs from rendering bugs.'],
+      ['Result', 'Movement and collision are more dependable, entities load per map, decorative boundaries remain non-walkable, lighting follows the player, loading provides feedback, saving confirms its result, cutscene dialogue renders in the correct frame, and the project can be distributed as a Windows executable with a bundled runtime.'],
+      ['What I learned', 'Rendering order is part of gameplay reliability. Collision is easier to reason about when checks use projections. Visual boundaries and physical boundaries can be separate. Persistence needs user-facing feedback. Small regression checks for saves, lighting, compilation, and packaged startup are valuable.'],
+      ['Inspiration', 'The project was inspired by Ryisnow\'s Java RPG development playlist. The implementation and game content were developed independently, and the project is not affiliated with or endorsed by Ryisnow.'],
+    ],
+    gallery: legendOfCeeScreenshots,
+    artGallery: legendOfCeeArt,
+  },
   pnp: {
     path: '/pnp-idtms-case-study.html',
     title: 'PNP ITMS Internship Attendance System',
