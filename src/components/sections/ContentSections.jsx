@@ -189,11 +189,73 @@ export function GitHubSection() {
   );
 }
 
+export function SocialMedia() {
+  const profiles = [
+    ['01', 'Facebook', 'jmsolyrs', 'https://www.facebook.com/jmsolyrs'],
+    ['02', 'Instagram', '@jmsolyrs', 'https://www.instagram.com/jmsolyrs/?hl=en'],
+  ];
+
+  return (
+    <section id="social" className="editorial-section">
+      <div className="section-header reveal"><h2>09 — social media</h2><span>find me elsewhere</span></div>
+      <p className="section-intro reveal">A few places to follow along outside of the portfolio.</p>
+      <div className="social-grid reveal">
+        {profiles.map(([number, platform, handle, href]) => (
+          <a className="social-card" key={platform} href={href} target="_blank" rel="noreferrer">
+            <span className="social-card-number">{number}</span>
+            <span className="social-card-copy"><span>{platform}</span><strong>{handle}</strong></span>
+            <span className="social-card-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Hobbies() {
+  const songs = [
+    ['motion', 'https://youtu.be/p_kUmmd3PVg'],
+    ['sincity', 'https://youtu.be/_CUu6VfzuFY'],
+    ['get that', 'https://youtu.be/NU2d52qCEbc'],
+    ['baguvix · esskid ft. tuz', 'https://youtu.be/BHmWAR5VSrU'],
+    ['bara bara · esskid and tuz', 'https://youtu.be/SOD2YxGD1tc'],
+  ];
+
+  return (
+    <section id="hobbies" className="editorial-section hobbies-section">
+      <div className="section-header reveal"><h2>10 — hobbies</h2><span>music / esskid</span></div>
+      <div className="hobby-intro reveal">
+        <div>
+          <p className="hobby-kicker">outside the build</p>
+          <h3>I sometimes make music as <em>esskid</em>.</h3>
+          <p>I drop songs on SoundCloud and YouTube from time to time, usually with friends and collaborators.</p>
+        </div>
+        <div className="text-links hobby-platforms" aria-label="esskid music profiles">
+          <a href="https://soundcloud.com/esskid" target="_blank" rel="noreferrer">soundcloud ↗</a>
+          <a href="https://www.youtube.com/@esskidwsg" target="_blank" rel="noreferrer">youtube ↗</a>
+        </div>
+      </div>
+      <div className="featured-songs reveal">
+        <div className="featured-songs-header"><span>featured songs</span><span>esskid / youtube</span></div>
+        <ol>
+          {songs.map(([title, href], index) => (
+            <li key={title}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <a href={href} target="_blank" rel="noreferrer">{title} <span aria-hidden="true">↗</span></a>
+              {index === songs.length - 1 && <small>our first officially recorded song</small>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
 export function Contact() {
   return (
     <section id="contact" className="editorial-section contact-section">
       <div className="halftone halftone-footer" aria-hidden="true" />
-      <p className="section-heading reveal">09 — contact</p>
+      <p className="section-heading reveal">11 — contact</p>
       <h2 className="reveal">Let’s build something useful.</h2>
       <p className="reveal">I’m open to internships, freelance work, and thoughtful collaborations.</p>
       <div className="text-links reveal">

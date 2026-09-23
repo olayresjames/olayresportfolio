@@ -11,6 +11,8 @@ const commands = [
   ['Certifications', '#certifications'],
   ['Gallery', '#gallery'],
   ['GitHub', '#github'],
+  ['Social media', '#social'],
+  ['Hobbies', '#hobbies'],
   ['Contact', '#contact'],
 ];
 

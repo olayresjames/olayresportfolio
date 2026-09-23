@@ -13,7 +13,9 @@ const links = [
   ['06', 'certifications', 'certifications'],
   ['07', 'gallery', 'gallery'],
   ['08', 'github', 'github'],
-  ['09', 'contact', 'contact'],
+  ['09', 'social', 'social'],
+  ['10', 'hobbies', 'hobbies'],
+  ['11', 'contact', 'contact'],
 ];
 
 export default function Navbar() {
