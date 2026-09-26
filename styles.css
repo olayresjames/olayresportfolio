@@ -207,7 +207,7 @@ kbd { padding: 0.08rem 0.3rem; border: 1px solid var(--border-strong); border-ra
 main#main-content { min-width: 0; }
 .editorial-section {
   position: relative;
-  width: min(42rem, calc(100% - 2rem));
+  width: min(56rem, calc(100% - 2rem));
   margin: 0 auto;
   padding: 3.5rem 0;
   border-bottom: 1px solid var(--border);
