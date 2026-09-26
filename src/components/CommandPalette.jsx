@@ -28,8 +28,12 @@ export default function CommandPalette({ open, onClose, onAskMe }) {
     setQuery('');
     setActive(0);
     document.body.classList.add('overlay-open');
+    document.documentElement.classList.add('overlay-open');
     window.requestAnimationFrame(() => inputRef.current?.focus());
-    return () => document.body.classList.remove('overlay-open');
+    return () => {
+      document.body.classList.remove('overlay-open');
+      document.documentElement.classList.remove('overlay-open');
+    };
   }, [open]);
 
   if (!open) return null;
