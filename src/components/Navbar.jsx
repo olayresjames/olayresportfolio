@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CommandPalette from './CommandPalette';
 import ThemeControl from './ThemeControl';
 import AskMe from './AskMe';
+import { ResumeModal } from './Modals';
 import usePlatformShortcuts from '../hooks/usePlatformShortcuts';
 
 const links = [
@@ -22,6 +23,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [askMeOpen, setAskMeOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const { paletteShortcut, askShortcut } = usePlatformShortcuts();
   const [activeSection, setActiveSection] = useState('about');
 
@@ -60,6 +62,7 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
   const openAskMe = () => { setMenuOpen(false); setPaletteOpen(false); setAskMeOpen(true); };
+  const openResume = () => { setMenuOpen(false); setPaletteOpen(false); setAskMeOpen(false); setResumeOpen(true); };
   const navList = className => (
     <ul className={className}>
       {links.map(([number, label, id]) => (
@@ -82,7 +85,7 @@ export default function Navbar() {
         </div>
         <nav aria-label="Primary navigation">{navList('sidebar-links')}</nav>
         <div className="sidebar-secondary">
-          <a href="/resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf">resume ↓</a>
+          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↓</button>
           <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
           <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
         </div>
@@ -102,6 +105,7 @@ export default function Navbar() {
       <div id="mobile-navigation" className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
         <nav aria-label="Mobile navigation">{navList('mobile-links')}</nav>
         <div className="mobile-menu-footer">
+          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↓</button>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => { setMenuOpen(false); setPaletteOpen(true); }}>command palette <kbd>{paletteShortcut}</kbd></button>
           <div className="sidebar-controls"><ThemeControl /></div>
@@ -109,6 +113,7 @@ export default function Navbar() {
       </div>
       <AskMe open={askMeOpen} onClose={() => setAskMeOpen(false)} />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} onAskMe={openAskMe} />
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </>
   );
 }

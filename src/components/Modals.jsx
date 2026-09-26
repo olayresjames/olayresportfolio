@@ -59,15 +59,15 @@ export function ResumeModal({ open, onClose }) {
         <div className="resume-wrapper-header">
           <span id="resume-view-title" className="resume-title">Resume</span>
           <div className="resume-header-actions">
-            <a href="/resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf" className="resume-download-link">Download PDF ↓</a>
+            <a href="/resources/olayres-resume-2026.pdf" download="Rafhael_James_Olayres_Resume_2026.pdf" className="resume-download-link">Download 2026 PDF ↓</a>
             <button className="resume-close-button" aria-label="Close resume preview" onClick={onClose}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
             </button>
           </div>
         </div>
-        <object data="/resources/olayres-resume.pdf" type="application/pdf">
-          <iframe src="/resources/olayres-resume.pdf" title="Rafhael James Olayres resume">
-            <p className="resume-fallback">Your browser does not support embedded PDFs. <a href="/resources/olayres-resume.pdf" download>Download the PDF</a>.</p>
+        <object data="/resources/olayres-resume-2026.pdf" type="application/pdf">
+          <iframe src="/resources/olayres-resume-2026.pdf" title="Rafhael James Olayres 2026 resume">
+            <p className="resume-fallback">Your browser does not support embedded PDFs. <a href="/resources/olayres-resume-2026.pdf" download>Download the 2026 PDF</a>.</p>
           </iframe>
         </object>
       </div>

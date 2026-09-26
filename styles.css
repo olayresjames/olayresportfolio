@@ -151,8 +151,9 @@ button { border: 0; background: none; cursor: pointer; }
 .sidebar-links a span { color: var(--text-tertiary); }
 .sidebar-links a:hover, .sidebar-links a.active, .sidebar-links a.active span { color: var(--foreground); }
 .sidebar-secondary { display: grid; gap: 0.45rem; padding: 1.3rem 0; }
-.sidebar-secondary a { width: fit-content; color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-decoration: none; }
-.sidebar-secondary a:hover { color: var(--foreground); }
+.sidebar-secondary a, .resume-nav-trigger { width: fit-content; color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-decoration: none; }
+.resume-nav-trigger { padding: 0; text-align: left; }
+.sidebar-secondary a:hover, .resume-nav-trigger:hover { color: var(--foreground); }
 .sidebar-tools { display: grid; gap: 0.65rem; margin-top: auto; }
 .theme-control, .command-hint {
   display: flex;

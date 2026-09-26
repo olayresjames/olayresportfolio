@@ -169,7 +169,7 @@ export const askMeTopics = [
     phrases: ['show me your resume', 'download your resume'],
     priority: 4,
     answer: 'You can download my résumé from the portfolio navigation or use the link below.',
-    links: [{ label: 'Download résumé', href: '/resources/olayres-resume.pdf' }],
+    links: [{ label: 'Download 2026 résumé', href: '/resources/olayres-resume-2026.pdf' }],
   },
 ];
 

@@ -32,7 +32,7 @@ export default function Hero() {
           </div>
           <div className="hero-actions reveal">
             <a className="button button-primary" href="#projects">view selected work <span aria-hidden="true">↗</span></a>
-            <a className="button button-secondary" href="/resources/olayres-resume.pdf" download="Rafhael_James_Olayres_Resume.pdf">download résumé <span aria-hidden="true">↓</span></a>
+            <a className="button button-secondary" href="/resources/olayres-resume-2026.pdf" download="Rafhael_James_Olayres_Resume_2026.pdf">download résumé <span aria-hidden="true">↓</span></a>
           </div>
           <div className="text-links reveal" aria-label="Social links">
             <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
