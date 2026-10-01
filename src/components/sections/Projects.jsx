@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import AppLink from '../AppLink';
 import { projects } from '../../data/siteData';
 import ResponsiveImage from '../ResponsiveImage';
 
@@ -52,7 +53,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       <p className="deck-technologies">{project.technologies.join(' · ')}</p>
 
       <div className="deck-links" aria-hidden={!active}>
-        {project.caseStudyUrl && <a tabIndex={active ? 0 : -1} href={project.caseStudyUrl} onClick={event => event.stopPropagation()}>case study ↗</a>}
+        {project.caseStudyUrl && <AppLink tabIndex={active ? 0 : -1} to={project.caseStudyUrl} onClick={event => event.stopPropagation()}>case study ↗</AppLink>}
         {project.liveUrl && <a tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" onClick={event => event.stopPropagation()}>live demo ↗</a>}
         {project.url && <a tabIndex={active ? 0 : -1} href={project.url} target="_blank" rel="noreferrer" onClick={event => event.stopPropagation()}>{project.linkLabel?.toLowerCase() || 'view project'} ↗</a>}
       </div>
@@ -79,7 +80,7 @@ export default function Projects({ onPreview }) {
     <section id="projects" className="editorial-section wide-section projects-section">
       <div className="section-header reveal">
         <h2>02 — projects</h2>
-        <a href="/projects">all projects →</a>
+        <AppLink to="/projects">all projects →</AppLink>
       </div>
       <p className="section-intro reveal">Products, experiments, and interfaces spanning civic technology, AI integration, web platforms, and games.</p>
       <div className="filter-row reveal" role="group" aria-label="Filter projects">

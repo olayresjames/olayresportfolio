@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const portraits = [
     ['/resources/id-picture-v2.png', 'Black shirt portrait of Rafhael James Olayres'],
     ['/resources/hero-portrait-black-cutout.png', 'Black shirt portrait of Rafhael James Olayres'],
@@ -32,7 +32,7 @@ export default function Hero() {
           </div>
           <div className="hero-actions reveal">
             <a className="button button-primary" href="#projects">view selected work <span aria-hidden="true">↗</span></a>
-            <a className="button button-secondary" href="/resources/olayres-resume-2026.pdf" download="Rafhael_James_Olayres_Resume_2026.pdf">download résumé <span aria-hidden="true">↓</span></a>
+            <button className="button button-secondary" type="button" onClick={onOpenResume}>view résumé <span aria-hidden="true">↗</span></button>
           </div>
           <div className="text-links reveal" aria-label="Social links">
             <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>

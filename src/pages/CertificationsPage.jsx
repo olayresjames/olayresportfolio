@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AppLink from '../components/AppLink';
 import { awards, certifications } from '../data/siteData';
 import ThemeControl from '../components/ThemeControl';
 import { Lightbox } from '../components/Modals';
@@ -43,8 +44,8 @@ export default function CertificationsPage() {
     <>
       <a className="skip-link" href="#certifications-page">Skip to certifications</a>
       <header className="case-nav">
-        <a href="/" className="identity-name">James Olayres</a>
-        <div><ThemeControl /><a href="/#certifications">home ↩</a></div>
+        <AppLink to="/" className="identity-name">James Olayres</AppLink>
+        <div><ThemeControl /><AppLink to="/#certifications">home ↩</AppLink></div>
       </header>
       <main id="certifications-page" className="certifications-page">
         <div className="halftone certifications-page-halftone" aria-hidden="true" />
@@ -63,7 +64,7 @@ export default function CertificationsPage() {
             {awards.map(award => <AwardCard key={award.title} award={award} onPreview={setPreview} />)}
           </div>
         </section>
-        <p className="certifications-page-footer"><a href="/#certifications">← back to portfolio</a></p>
+        <p className="certifications-page-footer"><AppLink to="/#certifications">← back to portfolio</AppLink></p>
       </main>
       <Lightbox preview={preview} onClose={() => setPreview(null)} />
     </>

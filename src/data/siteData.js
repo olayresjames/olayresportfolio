@@ -350,6 +350,12 @@ export const caseStudies = {
       ['Platform', 'Windows desktop'],
       ['Stack', 'Java · Swing · AWT · Java 2D · Java Sound'],
     ],
+    architecture: [
+      { label: 'input', title: 'Player controls', description: 'Keyboard input updates movement and interaction state for the active game world.' },
+      { label: 'world', title: 'Maps and entities', description: 'Tile maps, collision bounds, objects, and map-specific entities define the current scene.' },
+      { label: 'render', title: 'Complete frame pipeline', description: 'Java 2D draws the map, entities, lighting, cutscenes, and UI into the current frame.' },
+      { label: 'persist', title: 'Save data', description: 'The pause menu stores game state in save.dat and confirms the result to the player.' }
+    ],
     blocks: [
       ['Project details', 'A 2D pixel-art RPG for Windows desktop, written in Java with Swing, AWT, Java 2D, and Java Sound. The game renders at a 960 x 576 logical resolution, uses scaled tile-based assets, and focuses on gameplay systems, rendering stability, collision, persistence, and debugging.'],
       ['Project context', 'Legend Of Cee was my second-year, first-semester Object-Oriented Programming project. It began as a Java RPG learning exercise and developed into a complete playable prototype with a packaged Windows release.'],
@@ -387,6 +393,12 @@ export const caseStudies = {
       ['Status', 'Active development'],
       ['Stack', 'React · Vite · Express · Supabase'],
     ],
+    architecture: [
+      { label: 'roles', title: 'Role-aware workflows', description: 'Administrators, supervisors, and interns use workflows tailored to their responsibilities.' },
+      { label: 'pwa', title: 'React application', description: 'The responsive PWA brings attendance, records, evaluations, and operations into one workspace.' },
+      { label: 'api', title: 'Express service layer', description: 'The REST API handles authenticated requests and applies authorization rules to each workflow.' },
+      { label: 'data', title: 'Supabase data layer', description: 'Postgres, Storage, and Row Level Security protect structured records and private files.' }
+    ],
     blocks: [
       ['My role', 'Full-Stack Developer. I owned the user journeys, data model, React interface, Express API, authorization model, integrations, testing, and deployment preparation.'],
       ['The challenge', 'Internship administration was spread across disconnected processes, making attendance, DTR processing, document review, evaluations, and reporting difficult to coordinate.'],
@@ -419,6 +431,12 @@ export const caseStudies = {
       ['Status', 'Current build'],
       ['Stack', 'React Native · Expo · Firebase · Gemini'],
     ],
+    architecture: [
+      { label: 'people', title: 'Senior and guardian experiences', description: 'Mobile workflows give seniors and guardians access to emergency and health support.' },
+      { label: 'mobile', title: 'React Native and Expo', description: 'The cross-platform app connects the people using the service with its support workflows.' },
+      { label: 'realtime', title: 'Firebase services', description: 'Firebase-backed data connects app activity with current support and health information.' },
+      { label: 'response', title: 'AI and responder support', description: 'SOS dispatch, health monitoring, and the Gemini-powered assistant support the broader care loop.' }
+    ],
     blocks: [
       ['My role', 'Product designer and full-stack developer. I shaped the product direction, interface, and connected user flows across the mobile and admin experiences.'],
       ['The problem', 'Senior citizens, guardians, and local responders needed a clearer way to coordinate urgent help and ongoing health support.'],
@@ -444,6 +462,12 @@ export const caseStudies = {
       ['Role', 'Product designer & frontend developer'],
       ['Status', 'Shipped PWA'],
       ['Stack', 'JavaScript · IndexedDB · docx.js · jsPDF'],
+    ],
+    architecture: [
+      { label: 'images', title: 'Image collection', description: 'Users bring the images they want to arrange into a finished document.' },
+      { label: 'workspace', title: 'Browser-side editor', description: 'The workspace organizes the collection and prepares its document layout.' },
+      { label: 'storage', title: 'IndexedDB persistence', description: 'Project data stays available in the browser between editing sessions.' },
+      { label: 'export', title: 'Word and PDF generation', description: 'docx.js and jsPDF produce downloadable documents directly in the browser.' }
     ],
     blocks: [
       ['My role', 'Product designer and frontend developer. I shaped the workflow, interface hierarchy, responsive behavior, and client-side implementation.'],

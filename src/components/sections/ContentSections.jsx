@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import AppLink from '../AppLink';
 import { certifications, education, experiences, galleryItems, skillGroups } from '../../data/siteData';
 
 export function Experience({ onOpenResume }) {
@@ -24,7 +25,7 @@ export function Experience({ onOpenResume }) {
   ];
   return (
     <section id="experience" className="editorial-section">
-      <div className="section-header reveal"><h2>03 — experience</h2><div className="section-header-actions"><a href="/experiences">full experience →</a><button className="text-button" type="button" onClick={onOpenResume}>view résumé ↗</button></div></div>
+      <div className="section-header reveal"><h2>03 — experience</h2><div className="section-header-actions"><AppLink to="/experiences">full experience →</AppLink><button className="text-button" type="button" onClick={onOpenResume}>view résumé ↗</button></div></div>
       <div className="timeline">
         {experiences.map(entry => (
           <article className="timeline-entry reveal" key={entry.title}>
@@ -56,7 +57,7 @@ export function Education() {
 export function Skills() {
   return (
     <section id="stack" className="editorial-section">
-      <div className="section-header reveal"><h2>05 — stack</h2><a href="/stack">expanded stack →</a></div>
+      <div className="section-header reveal"><h2>05 — stack</h2><AppLink to="/stack">expanded stack →</AppLink></div>
       <div className="stack-list reveal">
         {skillGroups.map(([group, skills]) => (
           <div className="stack-row" key={group}><h3>{group}</h3><p>{skills.join(' · ')}</p></div>
@@ -69,7 +70,7 @@ export function Skills() {
 export function Certifications({ onPreview }) {
   return (
     <section id="certifications" className="editorial-section">
-      <div className="section-header reveal"><h2>06 — certifications</h2><a href="/certifications">all certifications →</a></div>
+      <div className="section-header reveal"><h2>06 — certifications</h2><AppLink to="/certifications">all certifications →</AppLink></div>
       <p className="section-intro reveal">Credentials across frontend development and Python computing—each verifiable at its source.</p>
       <div className="certification-grid reveal">
         {certifications.slice(0, 3).map(certificate => (
@@ -91,7 +92,7 @@ export function Certifications({ onPreview }) {
 export function Gallery({ onPreview }) {
   return (
     <section id="gallery" className="editorial-section">
-      <div className="section-header reveal"><h2>07 — gallery</h2><a href="/gallery">full gallery →</a></div>
+      <div className="section-header reveal"><h2>07 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
       <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
       <div className="portfolio-gallery-grid reveal">
         {galleryItems.slice(0, 3).map((item, index) => (

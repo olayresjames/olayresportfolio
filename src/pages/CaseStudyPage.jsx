@@ -1,4 +1,6 @@
 import ResponsiveImage from '../components/ResponsiveImage';
+import AppLink from '../components/AppLink';
+import CaseStudySystemMap from '../components/CaseStudySystemMap';
 import ThemeControl from '../components/ThemeControl';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useState } from 'react';
@@ -31,7 +33,7 @@ export default function CaseStudyPage({ study }) {
   return (
     <>
       <a className="skip-link" href="#case-content">Skip to content</a>
-      <header className="case-nav"><a href="/" className="identity-name">James Olayres</a><div><ThemeControl /><a href="/#projects">projects ↩</a></div></header>
+      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><ThemeControl /><AppLink to="/#projects">projects ↩</AppLink></div></header>
       <main id="case-content" className="case-study">
         <span className="case-kicker">{study.kicker}</span>
         <h1>{study.title}</h1>
@@ -43,11 +45,12 @@ export default function CaseStudyPage({ study }) {
           {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         </dl>}
         <div className="case-hero"><button type="button" className="case-image-trigger" onClick={() => openPreview(0)} aria-label="Open cover art in full view"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></button></div>
+        {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
         <p className="case-section-label">project breakdown</p>
         <div className="case-grid">
           {study.blocks.map(([title, copy]) => <section className="case-block" key={title}><h2>{title}</h2><p>{copy}</p></section>)}
         </div>
-        <p className="case-footer"><a className="text-button" href="/#projects">← Back to selected projects</a></p>
+        <p className="case-footer"><AppLink className="text-button" to="/#projects">← Back to selected projects</AppLink></p>
         {study.artGallery?.length > 0 && <section className="case-gallery case-art-gallery" aria-labelledby="case-art-heading">
           <p className="case-section-label" id="case-art-heading">visual language</p>
           <div className="case-gallery-grid case-art-grid">

@@ -1,4 +1,5 @@
 import ThemeControl from '../components/ThemeControl';
+import AppLink from '../components/AppLink';
 import { skillGroups } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -45,7 +46,7 @@ export default function StackPage() {
   return (
     <>
       <a className="skip-link" href="#stack-page">Skip to stack</a>
-      <header className="case-nav"><a href="/" className="identity-name">James Olayres</a><div><ThemeControl /><a href="/#stack">home ↩</a></div></header>
+      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><ThemeControl /><AppLink to="/#stack">home ↩</AppLink></div></header>
       <main id="stack-page" className="stack-page">
         <div className="halftone stack-page-halftone" aria-hidden="true" />
         <header className="stack-page-header"><p className="section-heading">tools, systems, and practice</p><h1>stack</h1><p>A closer look at the technologies and working practices behind my projects.</p></header>
@@ -57,7 +58,7 @@ export default function StackPage() {
             </section>
           ))}
         </div>
-        <p className="stack-page-footer"><a href="/#stack">← back to portfolio</a></p>
+        <p className="stack-page-footer"><AppLink to="/#stack">← back to portfolio</AppLink></p>
       </main>
     </>
   );

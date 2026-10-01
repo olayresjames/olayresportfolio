@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AppLink from '../components/AppLink';
 import ThemeControl from '../components/ThemeControl';
 import { Lightbox } from '../components/Modals';
 import { galleryItems } from '../data/siteData';
@@ -25,8 +26,8 @@ export default function GalleryPage() {
     <>
       <a className="skip-link" href="#gallery-page">Skip to gallery</a>
       <header className="case-nav">
-        <a href="/" className="identity-name">James Olayres</a>
-        <div><ThemeControl /><a href="/#about">home ↩</a></div>
+        <AppLink to="/" className="identity-name">James Olayres</AppLink>
+        <div><ThemeControl /><AppLink to="/#about">home ↩</AppLink></div>
       </header>
       <main id="gallery-page" className="gallery-page">
         <div className="halftone gallery-page-halftone" aria-hidden="true" />
@@ -36,7 +37,7 @@ export default function GalleryPage() {
           <p>Selected moments, artifacts, and milestones from the work behind the projects.</p>
         </header>
         <div className="gallery-page-list">{galleryItems.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} onPreview={setPreview} />)}</div>
-        <p className="gallery-page-footer"><a href="/#about">← back to portfolio</a></p>
+        <p className="gallery-page-footer"><AppLink to="/#about">← back to portfolio</AppLink></p>
       </main>
       <Lightbox preview={preview} onClose={() => setPreview(null)} />
     </>

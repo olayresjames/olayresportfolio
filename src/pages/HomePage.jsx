@@ -22,7 +22,7 @@ export default function HomePage() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
       <main id="main-content">
-        <Hero />
+        <Hero onOpenResume={() => setResumeOpen(true)} />
         <Projects onPreview={setPreview} />
         <Experience onOpenResume={() => setResumeOpen(true)} />
         <Education />

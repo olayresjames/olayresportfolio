@@ -1,4 +1,5 @@
 import ResponsiveImage from '../components/ResponsiveImage';
+import AppLink from '../components/AppLink';
 import ThemeControl from '../components/ThemeControl';
 import { projects } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -19,7 +20,7 @@ function ProjectRow({ project }) {
         <p>{project.summary || project.description}</p>
         <p className="all-project-tech">{project.technologies.join(' · ')}</p>
         <div className="all-project-links">
-          {project.caseStudyUrl && <a href={project.caseStudyUrl}>case study ↗</a>}
+          {project.caseStudyUrl && <AppLink to={project.caseStudyUrl}>case study ↗</AppLink>}
           {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">live demo ↗</a>}
           {project.url && <a href={project.url} target="_blank" rel="noreferrer">{project.linkLabel?.toLowerCase() || 'view project'} ↗</a>}
         </div>
@@ -39,8 +40,8 @@ export default function ProjectsPage() {
     <>
       <a className="skip-link" href="#projects-page">Skip to projects</a>
       <header className="case-nav">
-        <a href="/" className="identity-name">James Olayres</a>
-        <div><ThemeControl /><a href="/#projects">home ↩</a></div>
+        <AppLink to="/" className="identity-name">James Olayres</AppLink>
+        <div><ThemeControl /><AppLink to="/#projects">home ↩</AppLink></div>
       </header>
       <main id="projects-page" className="projects-page">
         <div className="halftone projects-page-halftone" aria-hidden="true" />
@@ -52,7 +53,7 @@ export default function ProjectsPage() {
         <div className="all-projects-list">
           {projects.map(project => <ProjectRow key={project.id} project={project} />)}
         </div>
-        <p className="projects-page-footer"><a href="/#projects">← back to portfolio</a></p>
+        <p className="projects-page-footer"><AppLink to="/#projects">← back to portfolio</AppLink></p>
       </main>
     </>
   );
