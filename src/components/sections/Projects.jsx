@@ -64,7 +64,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
 export default function Projects({ onPreview }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeIndex, setActiveIndex] = useState(0);
-  const visible = projects.filter(project => activeFilter === 'all' || project.category === activeFilter);
+  const visible = projects.filter(project => activeFilter === 'all' || (project.categories || [project.category]).includes(activeFilter));
 
   useEffect(() => setActiveIndex(0), [activeFilter]);
 
