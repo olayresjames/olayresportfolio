@@ -27,7 +27,14 @@ for (const year of [currentYear - 1, currentYear]) {
   const payload = await response.json();
   if (!response.ok || payload.errors) throw new Error(JSON.stringify(payload.errors || payload));
   const calendar = payload.data.user.contributionsCollection.contributionCalendar;
-  result[year] = { total: calendar.totalContributions, weeks: calendar.weeks.map(week => week.contributionDays.map(day => levelMap[day.contributionLevel])) };
+  result[year] = {
+    total: calendar.totalContributions,
+    weeks: calendar.weeks.map(week => week.contributionDays.map(day => ({
+      date: day.date,
+      count: day.contributionCount,
+      level: levelMap[day.contributionLevel],
+    }))),
+  };
 }
 
 await mkdir('public', { recursive: true });

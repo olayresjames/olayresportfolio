@@ -1,9 +1,11 @@
 import { awards, caseStudies, certifications, education, experiences, projects, skillGroups } from './siteData';
 
-const normalize = value => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+#.\s]/g, ' ').replace(/\s+/g, ' ').trim();
-const words = value => new Set(normalize(value).split(' ').filter(word => word.length > 2));
+const normalize = value => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+#.\s]/g, ' ').replace(/\s+/g, ' ').trim();
+const stopWords = new Set(['a', 'about', 'an', 'and', 'are', 'can', 'could', 'do', 'does', 'for', 'from', 'have', 'how', 'i', 'in', 'is', 'it', 'me', 'my', 'of', 'on', 'or', 'please', 'show', 'tell', 'that', 'the', 'this', 'to', 'what', 'when', 'where', 'which', 'who', 'why', 'with', 'would', 'you', 'your']);
+const words = value => new Set(normalize(value).split(' ').filter(word => word.length > 1 && !stopWords.has(word)));
 const caseStudyFor = project => Object.values(caseStudies).find(study => study.path === project.caseStudyUrl);
 const blockValue = (study, labels) => study?.blocks.find(([label]) => labels.includes(label))?.[1];
+const listWords = values => values.length < 2 ? values.join('') : `${values.slice(0, -1).join(', ')} and ${values[values.length - 1]}`;
 
 const projectTopics = projects.map(project => {
   const study = caseStudyFor(project);
@@ -35,6 +37,8 @@ const projectTopics = projects.map(project => {
 
   return {
     id: project.id,
+    name: project.name,
+    technologies: project.technologies || [],
     keywords: [project.id, ...projectWords, ...extraKeywords, ...project.technologies],
     phrases: [project.name, ...(extraKeywords.filter(keyword => keyword.includes(' ')))],
     priority: 3,
@@ -63,7 +67,8 @@ export const askMeTopics = [
   },
   {
     id: 'skills',
-    keywords: ['skill', 'skills', 'stack', 'technology', 'technologies', 'tools', 'tech', 'framework', 'backend', 'frontend'],
+    name: 'skills and tools',
+    keywords: ['skill', 'skills', 'stack', 'technology', 'technologies', 'tools', 'tech', 'framework', 'backend', 'frontend', ...skillGroups.flatMap(([, skills]) => skills)],
     phrases: ['what do you use', 'what technologies'],
     priority: 2,
     answer: `My current stack includes ${skillList}.`,
@@ -174,17 +179,98 @@ export const askMeTopics = [
 ];
 
 export function scoreTopic(topic, query, queryWords) {
-  let score = topic.priority || 1;
-  for (const phrase of topic.phrases || []) if (query.includes(normalize(phrase))) score += 10;
+  let score = 0;
+  for (const phrase of topic.phrases || []) {
+    const normalizedPhrase = normalize(phrase);
+    if (normalizedPhrase && (query === normalizedPhrase || query.includes(normalizedPhrase))) score += query === normalizedPhrase ? 14 : 10;
+  }
   for (const keyword of topic.keywords || []) {
     const normalizedKeyword = normalize(keyword);
-    if (normalizedKeyword.includes(' ') ? query.includes(normalizedKeyword) : queryWords.has(normalizedKeyword)) score += normalizedKeyword.includes(' ') ? 6 : 2;
+    if (normalizedKeyword.includes(' ') ? query.includes(normalizedKeyword) : queryWords.has(normalizedKeyword)) score += normalizedKeyword.includes(' ') ? 6 : 3;
   }
-  return score;
+  return score ? score + (topic.priority || 1) * 0.25 : 0;
 }
 
-export function getAskMeAnswer(message) {
+const starterSuggestions = ['What projects have you built?', 'What is in your tech stack?', 'Tell me about AgapAI', 'How can I contact you?'];
+
+function suggestionsFor(topic) {
+  if (!topic) return starterSuggestions;
+  if (topic.name && topic.technologies?.length) return [`What technologies did you use for ${topic.name}?`, `Tell me more about ${topic.name}`, 'Show me another project'];
+  const suggestions = {
+    projects: ['Tell me about AgapAI', 'What is in your tech stack?', 'Show me your résumé'],
+    skills: ['Tell me about AgapAI', 'Show me selected projects', 'Show me your résumé'],
+    role: ['What projects have you built?', 'What is in your tech stack?', 'Where can I see your experience?'],
+    experience: ['What did you build at your internship?', 'Show me the PNP IDTMS project', 'Show me your résumé'],
+    education: ['What projects have you built?', 'What technologies do you use?', 'How can I contact you?'],
+    availability: ['What kind of work are you open to?', 'How can I contact you?', 'Show me your projects'],
+    contact: ['Are you available for work?', 'Show me your résumé', 'What projects have you built?'],
+  };
+  return suggestions[topic.id] || starterSuggestions;
+}
+
+const makeAnswer = (topic, answer = topic.answer, links = topic.links || []) => ({
+  id: topic.id,
+  topicId: topic.id,
+  answer,
+  links,
+  suggestions: suggestionsFor(topic),
+});
+
+function getContextualAnswer(query, previousTopicId) {
+  const previousTopic = askMeTopics.find(topic => topic.id === previousTopicId);
+  if (!previousTopic) return null;
+  const namedProject = projectTopics.find(topic => query.includes(normalize(topic.name)) || query.includes(normalize(topic.id)));
+  if (namedProject && namedProject.id !== previousTopic.id) return null;
+
+  const wantsTechnology = /\b(tech|technology|technologies|stack|framework|language|languages|tools)\b/.test(query);
+  if (wantsTechnology && previousTopic.technologies?.length) {
+    return makeAnswer(previousTopic, `${previousTopic.name} uses ${listWords(previousTopic.technologies)}.`, previousTopic.links);
+  }
+
+  const specificCategories = new Set(['availability', 'contact', 'experience', 'education', 'certifications', 'recognition', 'location', 'resume', 'role', 'ai', 'mobile', 'pnp-details']);
+  const queryWords = words(query);
+  const changesTopic = askMeTopics.some(topic => topic.id !== previousTopic.id && specificCategories.has(topic.id) && scoreTopic(topic, query, queryWords) >= 3);
+  if (changesTopic) return null;
+
+  const wantsDemo = /\b(demo|live site|website|link)\b/.test(query);
+  if (wantsDemo && previousTopic.name) {
+    const demoLink = previousTopic.links?.find(link => /demo|live/i.test(link.label));
+    if (demoLink) return makeAnswer(previousTopic, `Here is the live demo for ${previousTopic.name}.`, [demoLink]);
+    return makeAnswer(previousTopic, `I don’t have a live demo listed for ${previousTopic.name}. You can still explore its case study or repository.`, previousTopic.links);
+  }
+
+  const asksForMore = /\b(more|details|detail|elaborate|expand|explain|again|that|this|it)\b/.test(query);
+  if (asksForMore && query.split(' ').length <= 6) {
+    return makeAnswer(previousTopic, `Here’s more about ${previousTopic.name || previousTopic.id}:\n\n${previousTopic.answer}`);
+  }
+  return null;
+}
+
+export function getAskMeAnswer(message, context = {}) {
+  if (typeof message !== 'string') {
+    return { id: 'input-error', answer: 'I couldn’t read that question. Please try typing it again.', suggestions: starterSuggestions };
+  }
+  if (message.length > 300) {
+    return { id: 'input-error', answer: 'That question is a bit long for this portfolio guide. Try shortening it to 300 characters or fewer.', suggestions: starterSuggestions };
+  }
   const query = normalize(message);
+  if (!query) {
+    return { id: 'input-error', answer: 'Type a question or choose one of the prompts below to get started.', suggestions: starterSuggestions };
+  }
+
+  if (/^(hi|hello|hey|good morning|good afternoon|good evening|kumusta|kamusta)$/.test(query)) {
+    return { id: 'greeting', answer: 'Hi! I can help you explore the projects, skills, experience, and contact details in this portfolio. What would you like to know?', suggestions: starterSuggestions };
+  }
+  if (/^(thanks|thank you|thx|salamat|thanks a lot)$/.test(query)) {
+    return { id: 'thanks', answer: 'You’re welcome. Want to explore a project or ask about something else?', suggestions: starterSuggestions };
+  }
+  if (/^(help|what can i ask|what can you do|topics)$/.test(query)) {
+    return { id: 'help', answer: 'Ask about a project, a technology, experience, education, availability, or contact details. You can also choose a prompt below.', suggestions: starterSuggestions };
+  }
+
+  const contextualAnswer = getContextualAnswer(query, context?.previousTopicId);
+  if (contextualAnswer) return contextualAnswer;
+
   const queryWords = words(message);
   const ranked = askMeTopics.map(topic => ({ topic, score: scoreTopic(topic, query, queryWords) })).sort((a, b) => b.score - a.score);
   const best = ranked[0];
@@ -192,14 +278,16 @@ export function getAskMeAnswer(message) {
   if (!best || best.score < 3) {
     return {
       id: 'fallback',
-      answer: 'I can answer about my projects, case studies, technologies, AI and mobile work, experience, education, certifications, résumé, availability, location, and contact details. Try asking about AgapAI, Foliofy, PNP IDTMS, or my stack.',
+      answer: 'I couldn’t find that detail in the portfolio yet. I can answer questions about projects, technologies, experience, education, availability, and contact details. Try adding a project name or choosing a prompt below.',
       links: [{ label: 'View projects', href: '#projects' }],
+      suggestions: starterSuggestions,
     };
   }
 
-  const related = ranked.find(item => item.topic.id !== best.topic.id && item.score >= Math.max(5, best.score * 0.62));
-  const answer = related ? `${best.topic.answer}\n\nRelated: ${related.topic.answer}` : best.topic.answer;
+  const asksForMultiple = /\b(and|also|compare|difference|versus|vs)\b/.test(query);
+  const related = asksForMultiple ? ranked.slice(1).find(item => item.score >= 4.5) : null;
+  const answer = related ? `${best.topic.answer}\n\nAlso relevant — ${related.topic.name || related.topic.id}: ${related.topic.answer}` : best.topic.answer;
   const links = [...(best.topic.links || []), ...(related?.topic.links || [])].filter((link, index, list) => list.findIndex(item => item.href === link.href) === index);
 
-  return { id: best.topic.id, answer, links };
+  return { ...makeAnswer(best.topic, answer, links), suggestions: suggestionsFor(best.topic) };
 }

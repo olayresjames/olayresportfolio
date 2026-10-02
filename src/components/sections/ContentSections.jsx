@@ -107,8 +107,12 @@ export function Gallery({ onPreview }) {
 }
 
 export function GitHubSection() {
-  const contributionYear = new Date().getUTCFullYear();
+  const currentYear = new Date().getUTCFullYear();
   const [contributionData, setContributionData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
+  const [tooltipDate, setTooltipDate] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState(null);
   useEffect(() => {
     fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});
   }, []);
@@ -119,15 +123,23 @@ export function GitHubSection() {
     ['Reset', 'polish game interface interactions', '2026', 'release'],
     ['Portfolio', 'refine visual system and content', '2025', 'main'],
   ];
+  const availableYears = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
+  const contributionYear = availableYears.includes(selectedYear)
+    ? selectedYear
+    : availableYears.includes(currentYear) ? currentYear : availableYears[0] || currentYear;
+  const selectedContributions = contributionData?.[contributionYear];
   const firstDay = new Date(`${contributionYear}-01-01T00:00:00Z`);
-  const contributionWeeksData = contributionData?.[contributionYear]?.weeks || [];
   const yearDays = {};
   let dayOffset = 0;
-  contributionWeeksData.forEach(week => {
-    week.forEach(level => {
+  (selectedContributions?.weeks || []).forEach(week => {
+    week.forEach(day => {
+      if (day && typeof day === 'object' && day.date) {
+        yearDays[day.date] = { level: day.level || 0, count: day.count ?? null };
+        return;
+      }
       const date = new Date(firstDay);
       date.setUTCDate(firstDay.getUTCDate() + dayOffset);
-      yearDays[date.toISOString().slice(0, 10)] = { level };
+      yearDays[date.toISOString().slice(0, 10)] = { level: day || 0, count: null };
       dayOffset += 1;
     });
   });
@@ -140,16 +152,93 @@ export function GitHubSection() {
   const contributionWeeks = Array.from({ length: weekCount }, (_, weekIndex) => Array.from({ length: 7 }, (_, dayIndex) => {
     const date = new Date(calendarStart);
     date.setUTCDate(calendarStart.getUTCDate() + (weekIndex * 7) + dayIndex);
-    const entry = yearDays[date.toISOString().slice(0, 10)];
-    return entry ? entry.level : 0;
+    const dateKey = date.toISOString().slice(0, 10);
+    return { dateKey, level: yearDays[dateKey]?.level || 0 };
   }));
   const monthLabels = Array.from({ length: 12 }, (_, monthIndex) => {
     const monthStart = new Date(Date.UTC(contributionYear, monthIndex, 1));
     const weekIndex = Math.floor((monthStart - calendarStart) / 604800000) + 1;
     return { label: monthStart.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }), weekIndex };
   });
-  const selectedContributions = contributionData?.[contributionYear];
   const contributionTotal = selectedContributions?.total ?? 0;
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const statsEnd = contributionYear === currentYear ? new Date(`${todayKey}T00:00:00Z`) : lastDay;
+  let longestStreak = 0;
+  let activeDays = 0;
+  let runningStreak = 0;
+  for (let date = new Date(firstDay); date <= statsEnd; date.setUTCDate(date.getUTCDate() + 1)) {
+    const entry = yearDays[date.toISOString().slice(0, 10)];
+    if ((entry?.count ?? entry?.level ?? 0) > 0) {
+      activeDays += 1;
+      runningStreak += 1;
+      longestStreak = Math.max(longestStreak, runningStreak);
+    } else {
+      runningStreak = 0;
+    }
+  }
+  let currentStreak = null;
+  if (contributionYear === currentYear) {
+    const cursor = new Date(`${todayKey}T00:00:00Z`);
+    if ((yearDays[todayKey]?.count ?? yearDays[todayKey]?.level ?? 0) === 0) cursor.setUTCDate(cursor.getUTCDate() - 1);
+    currentStreak = 0;
+    while (cursor >= firstDay && (yearDays[cursor.toISOString().slice(0, 10)]?.count ?? yearDays[cursor.toISOString().slice(0, 10)]?.level ?? 0) > 0) {
+      currentStreak += 1;
+      cursor.setUTCDate(cursor.getUTCDate() - 1);
+    }
+  }
+  const selectedDay = yearDays[selectedDate];
+  const tooltipDay = tooltipDate ? yearDays[tooltipDate] : null;
+  const selectedDateLabel = new Date(`${selectedDate}T00:00:00Z`).toLocaleDateString('en-US', {
+    weekday: 'long', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  });
+  const tooltipDateObject = tooltipDate ? new Date(`${tooltipDate}T00:00:00Z`) : null;
+  const tooltipDayNumber = tooltipDateObject?.getUTCDate();
+  const ordinalSuffix = tooltipDayNumber == null ? '' : tooltipDayNumber % 100 >= 11 && tooltipDayNumber % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[tooltipDayNumber % 10] || 'th');
+  const tooltipDateLabel = tooltipDateObject && `${tooltipDateObject.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })} ${tooltipDayNumber}${ordinalSuffix}`;
+  const tooltipMessage = tooltipDay?.count == null
+    ? `${tooltipDay?.level ? 'Activity recorded' : 'No contributions'} on ${tooltipDateLabel}.`
+    : `${tooltipDay.count} contribution${tooltipDay.count === 1 ? '' : 's'} on ${tooltipDateLabel}.`;
+  const showContributionTooltip = (dateKey, target) => {
+    const panel = target.closest('.contribution-panel');
+    if (!panel) return;
+    const panelRect = panel.getBoundingClientRect();
+    const cellRect = target.getBoundingClientRect();
+    const halfTooltipWidth = Math.min(132, Math.max(0, panelRect.width / 2 - 8));
+    const centerX = cellRect.left + (cellRect.width / 2) - panelRect.left;
+    const left = Math.min(Math.max(centerX, halfTooltipWidth + 8), panelRect.width - halfTooltipWidth - 8);
+    const below = cellRect.top - panelRect.top < 56;
+    setSelectedDate(dateKey);
+    setTooltipDate(dateKey);
+    setTooltipPosition({ left, top: below ? cellRect.bottom - panelRect.top + 8 : cellRect.top - panelRect.top - 8, below });
+  };
+  const closeContributionTooltip = () => {
+    setTooltipDate(null);
+    setTooltipPosition(null);
+  };
+  const hideContributionTooltip = target => {
+    if (target.matches(':hover') || target === document.activeElement) return;
+    closeContributionTooltip();
+  };
+  const selectContributionYear = year => {
+    setSelectedYear(year);
+    setSelectedDate(year === currentYear ? todayKey : `${year}-01-01`);
+    closeContributionTooltip();
+  };
+  const moveSelectedDate = (event, dateKey) => {
+    const dayOffsets = { ArrowUp: -1, ArrowDown: 1, ArrowLeft: -7, ArrowRight: 7 };
+    if (event.key === 'Escape') {
+      closeContributionTooltip();
+      return;
+    }
+    if (!(event.key in dayOffsets)) return;
+    event.preventDefault();
+    const nextDate = new Date(`${dateKey}T00:00:00Z`);
+    nextDate.setUTCDate(nextDate.getUTCDate() + dayOffsets[event.key]);
+    const nextDateKey = nextDate.toISOString().slice(0, 10);
+    if (nextDate.getUTCFullYear() !== contributionYear) return;
+    setSelectedDate(nextDateKey);
+    document.querySelector(`[data-contribution-date="${nextDateKey}"]`)?.focus();
+  };
   return (
     <section id="github" className="editorial-section">
       <div className="section-header reveal"><h2>08 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
@@ -172,18 +261,37 @@ export function GitHubSection() {
         </ol>
       </div>
       <div className="contribution-panel reveal">
-        <div className="contribution-header"><strong>{contributionTotal} contributions in {contributionYear}</strong><span>activity map</span></div>
-        <div className="contribution-scroll">
+        <div className="contribution-toolbar">
+          <div className="contribution-heading">
+            <div className="contribution-header"><strong>{contributionTotal.toLocaleString()} contributions in {contributionYear}</strong><span>activity map</span></div>
+            <p>Hover or select a day to inspect activity</p>
+          </div>
+          {availableYears.length > 1 && <div className="contribution-years" role="group" aria-label="Contribution year">
+            {availableYears.map(year => <button key={year} type="button" className={year === contributionYear ? 'active' : ''} aria-pressed={year === contributionYear} onClick={() => selectContributionYear(year)}>{year}</button>)}
+          </div>}
+        </div>
+        <div className="contribution-stats" role="group" aria-label="Contribution streak statistics">
+          <div className="contribution-stat"><strong>{currentStreak === null ? '—' : currentStreak}<span>{currentStreak === null ? '' : 'd'}</span></strong><small>current streak</small></div>
+          <div className="contribution-stat"><strong>{longestStreak}<span>d</span></strong><small>longest streak</small></div>
+          <div className="contribution-stat"><strong>{activeDays}</strong><small>active days</small></div>
+        </div>
+        <div className="contribution-detail" aria-live="polite">
+          <div><span>selected day</span><strong>{selectedDateLabel}</strong></div>
+          <strong>{selectedDay?.count == null ? (selectedDay?.level ? 'Activity recorded' : 'No contributions') : `${selectedDay.count} contribution${selectedDay.count === 1 ? '' : 's'}`}</strong>
+        </div>
+        <div className="contribution-scroll" onScroll={closeContributionTooltip}>
           <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${contributionYear}-${label}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
-          <div className="contribution-grid" aria-label="Contribution activity heatmap">
-            {contributionWeeks.map((week, weekIndex) => week.map((level, dayIndex) => {
-              const date = new Date(calendarStart);
-              date.setUTCDate(calendarStart.getUTCDate() + (weekIndex * 7) + dayIndex);
-              const dateKey = date.toISOString().slice(0, 10);
-              return <span key={dateKey} className={`contribution-cell level-${level}`} title={`${level ? 'Active' : 'No'} contribution activity on ${dateKey}`} />;
+          <div className="contribution-grid" role="group" aria-label={`Contribution activity in ${contributionYear}`}>
+            {contributionWeeks.map(week => week.map(({ dateKey, level }) => {
+              if (Number(dateKey.slice(0, 4)) !== contributionYear) return <span key={dateKey} className="contribution-cell level-0" aria-hidden="true" />;
+              const entry = yearDays[dateKey];
+              const dayCount = entry?.count;
+              const dayDescription = dayCount == null ? (level ? 'Activity recorded' : 'No contributions') : `${dayCount} contribution${dayCount === 1 ? '' : 's'}`;
+              return <button key={dateKey} type="button" className={`contribution-cell level-${level}${selectedDate === dateKey ? ' is-selected' : ''}`} data-contribution-date={dateKey} aria-label={`${dateKey}: ${dayDescription}`} aria-pressed={selectedDate === dateKey} tabIndex={selectedDate === dateKey ? 0 : -1} onMouseEnter={event => showContributionTooltip(dateKey, event.currentTarget)} onMouseLeave={event => { if (!event.relatedTarget?.closest?.('.contribution-grid button.contribution-cell')) hideContributionTooltip(event.currentTarget); }} onFocus={event => showContributionTooltip(dateKey, event.currentTarget)} onBlur={event => hideContributionTooltip(event.currentTarget)} onClick={event => showContributionTooltip(dateKey, event.currentTarget)} onKeyDown={event => moveSelectedDate(event, dateKey)} />;
             }))}
           </div>
         </div>
+        {tooltipDate && tooltipPosition && <div className={`contribution-tooltip${tooltipPosition.below ? ' is-below' : ''}`} style={{ left: tooltipPosition.left, top: tooltipPosition.top }} aria-hidden="true">{tooltipMessage}</div>}
         <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span></div>
       </div>
     </section>
