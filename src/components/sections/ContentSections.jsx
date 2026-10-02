@@ -107,7 +107,7 @@ export function Gallery({ onPreview }) {
 }
 
 export function GitHubSection() {
-  const contributionYear = 2026;
+  const contributionYear = new Date().getUTCFullYear();
   const [contributionData, setContributionData] = useState(null);
   useEffect(() => {
     fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});

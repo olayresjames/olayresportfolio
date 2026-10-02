@@ -16,8 +16,9 @@ const query = `query($login: String!, $from: DateTime!, $to: DateTime!) {
 
 const levelMap = { NONE: 0, FIRST_QUARTILE: 1, SECOND_QUARTILE: 2, THIRD_QUARTILE: 3, FOURTH_QUARTILE: 4 };
 const result = {};
+const currentYear = new Date().getUTCFullYear();
 
-for (const year of [2025, 2026]) {
+for (const year of [currentYear - 1, currentYear]) {
   const response = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: { Authorization: `bearer ${token}`, 'Content-Type': 'application/json' },
