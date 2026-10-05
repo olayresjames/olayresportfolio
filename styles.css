@@ -405,7 +405,7 @@ main#main-content { min-width: 0; }
 .deck-card.is-center .deck-thumbnail:hover img { transform: scale(1.04); }
 .deck-heading h3 { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.03em; }
 .deck-description { min-height: 3.8rem; margin: 0.75rem 0 0; color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
-.deck-proof { margin: 0.65rem 0 0; color: var(--foreground); font-family: var(--font-mono); font-size: 10px; line-height: 1.5; }
+.deck-proof { margin: 0.65rem 0 0; color: var(--foreground); font-family: var(--font-mono); font-size: 12px; line-height: 1.5; }
 .deck-technologies { margin: 0.85rem 0 0; color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; line-height: 1.7; text-transform: uppercase; letter-spacing: 0.05em; }
 .deck-links { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
 .deck-links a { color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-decoration-line: underline; text-underline-offset: 3px; }
@@ -440,7 +440,7 @@ main#main-content { min-width: 0; }
 .experience-preview-current { display: grid; place-items: center; aspect-ratio: 4 / 3; color: var(--foreground); font-family: var(--font-mono); font-size: 1.8rem; text-transform: uppercase; }
 .experience-preview-card > span, .experience-page-copy > span { display: block; margin-top: 0.7rem; color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
 .experience-preview-card h3 { margin: 0.35rem 0 0; font-size: 14px; line-height: 1.25; }
-.experience-preview-card p { margin: 0.4rem 0 0; color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; line-height: 1.45; }
+.experience-preview-card p { margin: 0.4rem 0 0; color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
 .experiences-page { position: relative; width: min(56rem, calc(100% - 2rem)); margin: 0 auto; padding: 5rem 0; }
 .experiences-page-halftone { position: absolute; top: -2rem; right: -5rem; width: 19rem; height: 16rem; -webkit-mask-image: radial-gradient(circle at center, #000 0, transparent 70%); mask-image: radial-gradient(circle at center, #000 0, transparent 70%); }
 .experiences-page-header { position: relative; z-index: 1; width: min(42rem, 100%); margin-bottom: 3rem; }
@@ -1312,4 +1312,65 @@ body { font-size: 18px; }
   .stats-row div:first-child,
   .stats-row div:nth-child(3) { padding-inline: 0; border-right: 0; border-bottom: 1px solid var(--border); }
   .stats-row div:last-child { border-bottom: 0; }
+}
+
+/* Mobile readability and touch targets */
+@media (max-width: 767px) {
+  .portfolio-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+  .portfolio-gallery-card:nth-child(n) { grid-column: 1 / -1; transform: none; }
+  .mobile-nav .menu-toggle,
+  .section-header > span,
+  .section-header > a,
+  .section-header > button { font-size: 12px; }
+  .hero-actions .button { font-size: 11px; }
+  .about-details span,
+  .timeline-entry time,
+  .timeline-entry .timeline-org,
+  .education-entry time,
+  .education-entry .education-school,
+  .experience-page-copy > span,
+  .experience-page-copy .experience-page-org,
+  .stack-row h3,
+  .stack-detail-group header > div > span,
+  .social-card-number,
+  .social-card-copy > span,
+  .hobby-kicker,
+  .featured-songs-header,
+  .featured-songs li > span,
+  .featured-songs small,
+  .case-meta dt,
+  .case-section-label { font-size: 11px; }
+  .about-details strong { font-size: 0.9rem; }
+  .stats-row dt { font-size: 11px; }
+  .case-meta dd { font-size: 14px; }
+  .filter-row button { min-height: 44px; font-size: 11px; }
+  .deck-tags,
+  .deck-technologies,
+  .deck-controls span { font-size: 10px; }
+  .deck-controls button,
+  .deck-links a { font-size: 12px; }
+  .case-system-map-track button { font-size: 11px; }
+  .case-system-map-node { font-size: 10px; }
+  .hobby-intro p:not(.hobby-kicker) { font-size: 16px; }
+  .ask-me-title-copy > p { font-size: 14px; }
+  .ask-message p { font-size: 15px; }
+  .ask-message-links a { font-size: 12px; }
+  .ask-suggestions button { min-height: 44px; font-size: 12px; }
+  .ask-me-compose-row button { font-size: 11px; }
+  .ask-me-form input,
+  .command-input-row input { font-size: 16px; }
+  .ask-me-form-meta,
+  .contribution-header,
+  .contribution-footer { font-size: 10px; }
+  .contribution-detail span { font-size: 10px; }
+  .contribution-detail strong { font-size: 13px; }
+  .command-results button { min-height: 44px; }
+  .contribution-years button { min-height: 44px; }
+  .contribution-stat small { font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  .ask-me-reset { min-height: 44px; font-size: 10px; }
+  .ask-me-close { width: 44px; height: 44px; }
+  .ask-me-form-meta { flex-wrap: wrap; }
 }
