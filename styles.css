@@ -1197,7 +1197,7 @@ body { font-size: 18px; }
   .filter-row { gap: 0.5rem; margin-bottom: 1.25rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none; }
   .filter-row::-webkit-scrollbar { display: none; }
   .filter-row button { min-height: 40px; white-space: nowrap; }
-  .project-deck { height: 31rem; margin-inline: 0; }
+  .project-deck { height: 31rem; margin-inline: 0; touch-action: pan-y; }
   .deck-card { width: calc(100% - 0.5rem); min-height: 0; height: 100%; padding: 1rem; }
   .deck-card.is-left,
   .deck-card.is-right { opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, -50%) scale(0.96); }

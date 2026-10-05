@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AppLink from '../AppLink';
 import { projects } from '../../data/siteData';
 import ResponsiveImage from '../ResponsiveImage';
@@ -64,11 +64,52 @@ function DeckCard({ project, position, onActivate, onPreview }) {
 export default function Projects({ onPreview }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStart = useRef(null);
+  const suppressClick = useRef(false);
+  const swipeResetTimer = useRef(null);
   const visible = projects.filter(project => activeFilter === 'all' || (project.categories || [project.category]).includes(activeFilter));
 
-  useEffect(() => setActiveIndex(0), [activeFilter]);
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [activeFilter]);
+
+  useEffect(() => () => window.clearTimeout(swipeResetTimer.current), []);
 
   const move = direction => setActiveIndex(index => (index + direction + visible.length) % visible.length);
+  const handleTouchStart = event => {
+    if (event.touches.length !== 1) {
+      touchStart.current = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+  const handleTouchEnd = event => {
+    if (!touchStart.current) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.current.x;
+    const deltaY = touch.clientY - touchStart.current.y;
+    touchStart.current = null;
+
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+
+    move(deltaX < 0 ? 1 : -1);
+    suppressClick.current = true;
+    window.clearTimeout(swipeResetTimer.current);
+    swipeResetTimer.current = window.setTimeout(() => {
+      suppressClick.current = false;
+    }, 400);
+  };
+  const handleDeckClickCapture = event => {
+    if (!suppressClick.current) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClick.current = false;
+    window.clearTimeout(swipeResetTimer.current);
+  };
   const positionFor = index => {
     if (index === activeIndex) return 'center';
     if (index === (activeIndex - 1 + visible.length) % visible.length) return 'left';
@@ -87,7 +128,14 @@ export default function Projects({ onPreview }) {
         {filters.map(([value, label]) => <button key={value} type="button" aria-pressed={activeFilter === value} onClick={() => setActiveFilter(value)}>{label}</button>)}
       </div>
 
-      <div className="project-deck reveal" aria-live="polite">
+      <div
+        className="project-deck reveal"
+        aria-live="polite"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={() => { touchStart.current = null; }}
+        onClickCapture={handleDeckClickCapture}
+      >
         {visible.map((project, index) => (
           <DeckCard key={project.id} project={project} position={positionFor(index)} onActivate={() => setActiveIndex(index)} onPreview={onPreview} />
         ))}
