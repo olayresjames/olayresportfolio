@@ -1,14 +1,11 @@
-import { awards, caseStudies, certifications, education, experiences, projects, skillGroups } from './siteData';
+import { awards, certifications, education, experiences, projects, skillGroups } from './siteData';
 
 const normalize = value => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+#.\s]/g, ' ').replace(/\s+/g, ' ').trim();
 const stopWords = new Set(['a', 'about', 'an', 'and', 'are', 'can', 'could', 'do', 'does', 'for', 'from', 'have', 'how', 'i', 'in', 'is', 'it', 'me', 'my', 'of', 'on', 'or', 'please', 'show', 'tell', 'that', 'the', 'this', 'to', 'what', 'when', 'where', 'which', 'who', 'why', 'with', 'would', 'you', 'your']);
 const words = value => new Set(normalize(value).split(' ').filter(word => word.length > 1 && !stopWords.has(word)));
-const caseStudyFor = project => Object.values(caseStudies).find(study => study.path === project.caseStudyUrl);
-const blockValue = (study, labels) => study?.blocks.find(([label]) => labels.includes(label))?.[1];
 const listWords = values => values.length < 2 ? values.join('') : `${values.slice(0, -1).join(', ')} and ${values[values.length - 1]}`;
 
 const projectTopics = projects.map(project => {
-  const study = caseStudyFor(project);
   const projectWords = project.name.toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 3);
   const extraKeywords = {
     agapai: ['emergency', 'sos', 'senior', 'seniors', 'guardian', 'guardians', 'rescue', 'health monitoring', 'gemini', 'capstone'],
@@ -26,14 +23,10 @@ const projectTopics = projects.map(project => {
 
   let answer = `${project.name}: ${project.summary || project.description}`;
   if (project.proof) answer += ` ${project.proof}`;
-  if (study) {
-    const role = blockValue(study, ['My role']);
-    const problem = blockValue(study, ['The problem', 'The challenge']);
-    const solution = blockValue(study, ['What I built', 'The solution']);
-    if (role) answer += `\n\nRole: ${role}`;
-    if (problem) answer += `\n\nProblem: ${problem}`;
-    if (solution) answer += `\n\nBuilt: ${solution}`;
-  }
+  const facts = Object.fromEntries(project.facts || []);
+  if (facts.Role) answer += `\n\nRole: ${facts.Role}`;
+  if (facts.Problem || facts.Challenge) answer += `\n\nProblem: ${facts.Problem || facts.Challenge}`;
+  if (facts.Built || facts.Solution) answer += `\n\nBuilt: ${facts.Built || facts.Solution}`;
 
   return {
     id: project.id,

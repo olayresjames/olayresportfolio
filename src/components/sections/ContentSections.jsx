@@ -1,28 +1,9 @@
 import { useEffect, useState } from 'react';
 import AppLink from '../AppLink';
-import { certifications, education, experiences, galleryItems, skillGroups } from '../../data/siteData';
+import { certifications, education, experiences, featuredSongs, galleryItems, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
 
 export function Experience({ onOpenResume }) {
-  const _entries = [
-    {
-      year: '2026',
-      role: 'IT Intern',
-      organization: 'Camp Crame ITMS Office · SPMT',
-      description: 'Supporting information technology operations while gaining practical experience in a professional government environment.',
-    },
-    {
-      year: '2023—2027',
-      role: 'BS Information Technology',
-      organization: 'Pamantasan ng Lungsod ng Valenzuela',
-      description: 'Developing a foundation across software engineering, networking, databases, game development, and emerging technologies.',
-    },
-    {
-      year: 'Now',
-      role: 'Independent Developer',
-      organization: 'AgapAI and selected client work',
-      description: 'Designing and shipping useful web and mobile products with a focus on AI integration and user-centered workflows.',
-    },
-  ];
+
   return (
     <section id="experience" className="editorial-section">
       <div className="section-header reveal"><h2>03 — experience</h2><div className="section-header-actions"><AppLink to="/experiences">full experience →</AppLink><button className="text-button" type="button" onClick={onOpenResume}>view résumé ↗</button></div></div>
@@ -108,21 +89,43 @@ export function Gallery({ onPreview }) {
 
 export function GitHubSection() {
   const currentYear = new Date().getUTCFullYear();
+  const todayKey = new Date().toISOString().slice(0, 10);
   const [contributionData, setContributionData] = useState(null);
+  const [contributionStatus, setContributionStatus] = useState('loading');
+  const [contributionAttempt, setContributionAttempt] = useState(0);
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
+  const [selectedDate, setSelectedDate] = useState(todayKey);
   const [tooltipDate, setTooltipDate] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
   useEffect(() => {
-    fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});
-  }, []);
-  const projectUpdates = [
-    { name: 'PNP IDTMS', summary: 'Internship attendance and records in one workflow.', status: 'current project', href: '/pnp-idtms-case-study.html' },
-    { name: 'AgapAI', summary: 'Emergency support connecting seniors, guardians, and responders.', status: 'case study', href: '/agapai-case-study.html' },
-    { name: 'Foliofy', summary: 'Organize image collections and export Word or PDF documents.', status: 'case study', href: '/foliofy-case-study.html' },
-    { name: 'Reset', summary: 'A time-loop horror game with interactive encounters.', status: 'play the game', href: 'https://deckode.itch.io/reset-the-endless-horror' },
-    { name: 'Portfolio', summary: 'Selected work, experiments, and the process behind them.', status: 'this site', href: '#about' },
-  ];
+    const controller = new AbortController();
+    fetch('/github-contributions.json', { signal: controller.signal })
+      .then(response => {
+        if (!response.ok) throw new Error('Contribution data unavailable');
+        return response.json();
+      })
+      .then(data => {
+        const hasYearData = data && typeof data === 'object' && !Array.isArray(data)
+          && Object.entries(data).some(([year, entry]) => /^\d{4}$/.test(year) && entry && typeof entry === 'object' && Array.isArray(entry.weeks));
+        if (!hasYearData) throw new Error('Contribution data has an unexpected format');
+        setContributionData(data);
+        setContributionStatus('ready');
+      })
+      .catch(error => {
+        if (error?.name !== 'AbortError') setContributionStatus('error');
+      });
+    return () => controller.abort();
+  }, [contributionAttempt]);
+
+  useEffect(() => {
+    if (contributionStatus !== 'ready') return;
+    const years = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
+    const resolvedYear = years.includes(currentYear) ? currentYear : years[0];
+    if (!resolvedYear) return;
+    setSelectedYear(resolvedYear);
+    setSelectedDate(resolvedYear === currentYear ? todayKey : `${resolvedYear}-01-01`);
+  }, [contributionData, contributionStatus, currentYear, todayKey]);
+
   const availableYears = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
   const contributionYear = availableYears.includes(selectedYear)
     ? selectedYear
@@ -161,7 +164,6 @@ export function GitHubSection() {
     return { label: monthStart.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }), weekIndex };
   });
   const contributionTotal = selectedContributions?.total ?? 0;
-  const todayKey = new Date().toISOString().slice(0, 10);
   const statsEnd = contributionYear === currentYear ? new Date(`${todayKey}T00:00:00Z`) : lastDay;
   let longestStreak = 0;
   let activeDays = 0;
@@ -250,7 +252,7 @@ export function GitHubSection() {
       <div className="project-updates reveal" aria-label="Selected projects">
         <div className="project-updates-header"><span>selected work</span><span>projects, case studies, and demos</span></div>
         <ol>
-          {projectUpdates.map(update => {
+          {selectedProjectUpdates.map(update => {
             const content = (
               <>
                 <span className="project-update-copy"><strong>{update.name}</strong><span>{update.summary}</span></span>
@@ -273,13 +275,15 @@ export function GitHubSection() {
       <div className="contribution-panel reveal">
         <div className="contribution-toolbar">
           <div className="contribution-heading">
-            <div className="contribution-header"><strong>{contributionTotal.toLocaleString()} contributions in {contributionYear}</strong><span>activity map</span></div>
-            <p>Hover or select a day to inspect activity</p>
+            <div className="contribution-header"><strong>{contributionStatus === 'ready' ? `${contributionTotal.toLocaleString()} contributions in ${contributionYear}` : contributionStatus === 'loading' ? `Loading activity for ${contributionYear}` : 'Activity data unavailable'}</strong><span>activity map</span></div>
+            <p>{contributionStatus === 'ready' ? 'Hover or select a day to inspect activity' : contributionStatus === 'loading' ? 'Loading contribution history…' : 'GitHub activity could not be loaded. Try again later.'}</p>
           </div>
           {availableYears.length > 1 && <div className="contribution-years" role="group" aria-label="Contribution year">
             {availableYears.map(year => <button key={year} type="button" className={year === contributionYear ? 'active' : ''} aria-pressed={year === contributionYear} onClick={() => selectContributionYear(year)}>{year}</button>)}
           </div>}
         </div>
+        {contributionStatus === 'ready' ? (
+          <>
         <div className="contribution-stats" role="group" aria-label="Contribution streak statistics">
           <div className="contribution-stat"><strong>{currentStreak === null ? '—' : currentStreak}<span>{currentStreak === null ? '' : 'd'}</span></strong><small>current streak</small></div>
           <div className="contribution-stat"><strong>{longestStreak}<span>d</span></strong><small>longest streak</small></div>
@@ -303,23 +307,27 @@ export function GitHubSection() {
         </div>
         {tooltipDate && tooltipPosition && <div className={`contribution-tooltip${tooltipPosition.below ? ' is-below' : ''}`} style={{ left: tooltipPosition.left, top: tooltipPosition.top }} aria-hidden="true">{tooltipMessage}</div>}
         <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span></div>
+          </>
+        ) : (
+          <p className="contribution-state" role={contributionStatus === 'error' ? 'alert' : 'status'}>
+            {contributionStatus === 'loading' ? 'Loading contribution history...' : <>GitHub activity is temporarily unavailable. <button type="button" className="text-button" onClick={() => { setContributionStatus('loading'); setContributionAttempt(attempt => attempt + 1); }}>Try again</button></>}
+          </p>
+        )}
+
       </div>
     </section>
   );
 }
 
 export function SocialMedia() {
-  const profiles = [
-    ['01', 'Facebook', 'jmsolyrs', 'https://www.facebook.com/jmsolyrs'],
-    ['02', 'Instagram', '@jmsolyrs', 'https://www.instagram.com/jmsolyrs/?hl=en'],
-  ];
+
 
   return (
     <section id="social" className="editorial-section">
       <div className="section-header reveal"><h2>09 — social media</h2><span>find me elsewhere</span></div>
       <p className="section-intro reveal">A few places to follow along outside of the portfolio.</p>
       <div className="social-grid reveal">
-        {profiles.map(([number, platform, handle, href]) => (
+        {socialProfiles.map(([number, platform, handle, href]) => (
           <a className="social-card" key={platform} href={href} target="_blank" rel="noreferrer">
             <span className="social-card-number">{number}</span>
             <span className="social-card-copy"><span>{platform}</span><strong>{handle}</strong></span>
@@ -332,13 +340,7 @@ export function SocialMedia() {
 }
 
 export function Hobbies() {
-  const songs = [
-    ['motion', 'https://youtu.be/p_kUmmd3PVg'],
-    ['sincity', 'https://youtu.be/_CUu6VfzuFY'],
-    ['get that', 'https://youtu.be/NU2d52qCEbc'],
-    ['baguvix · esskid ft. tuz', 'https://youtu.be/BHmWAR5VSrU'],
-    ['bara bara · esskid and tuz', 'https://youtu.be/SOD2YxGD1tc'],
-  ];
+
 
   return (
     <section id="hobbies" className="editorial-section hobbies-section">
@@ -357,11 +359,11 @@ export function Hobbies() {
       <div className="featured-songs reveal">
         <div className="featured-songs-header"><span>featured songs</span><span>esskid / youtube</span></div>
         <ol>
-          {songs.map(([title, href], index) => (
+          {featuredSongs.map(([title, href], index) => (
             <li key={title}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <a href={href} target="_blank" rel="noreferrer">{title} <span aria-hidden="true">↗</span></a>
-              {index === songs.length - 1 && <small>our first officially recorded song</small>}
+              {index === featuredSongs.length - 1 && <small>our first officially recorded song</small>}
             </li>
           ))}
         </ol>

@@ -1,14 +1,16 @@
-import { useLayoutEffect, useRef } from 'react';
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import CaseStudyPage from './pages/CaseStudyPage';
-import NotFoundPage from './pages/NotFoundPage';
-import ProjectsPage from './pages/ProjectsPage';
-import CertificationsPage from './pages/CertificationsPage';
-import GalleryPage from './pages/GalleryPage';
-import ExperiencesPage from './pages/ExperiencesPage';
-import StackPage from './pages/StackPage';
-import { caseStudies } from './data/siteData';
+import RouteErrorBoundary from './components/RouteErrorBoundary';
+import { caseStudyPaths } from './data/routes';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const CertificationsPage = lazy(() => import('./pages/CertificationsPage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const ExperiencesPage = lazy(() => import('./pages/ExperiencesPage'));
+const StackPage = lazy(() => import('./pages/StackPage'));
+const CaseStudyRoute = lazy(() => import('./pages/CaseStudyRoute'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function RouteEffects() {
   const { pathname, hash } = useLocation();
@@ -35,22 +37,32 @@ function RouteEffects() {
   return null;
 }
 
+function routeElement(element) {
+  return (
+    <RouteErrorBoundary>
+      <Suspense fallback={<div className="route-loading" role="status">Loading page…</div>}>
+        {element}
+      </Suspense>
+    </RouteErrorBoundary>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <RouteEffects />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/certifications" element={<CertificationsPage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/experiences" element={<ExperiencesPage />} />
-        <Route path="/stack" element={<StackPage />} />
-        <Route path={caseStudies.legendOfCee.path} element={<CaseStudyPage study={caseStudies.legendOfCee} />} />
-        <Route path={caseStudies.agapai.path} element={<CaseStudyPage study={caseStudies.agapai} />} />
-        <Route path={caseStudies.foliofy.path} element={<CaseStudyPage study={caseStudies.foliofy} />} />
-        <Route path={caseStudies.pnp.path} element={<CaseStudyPage study={caseStudies.pnp} />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/" element={routeElement(<HomePage />)} />
+        <Route path="/projects" element={routeElement(<ProjectsPage />)} />
+        <Route path="/certifications" element={routeElement(<CertificationsPage />)} />
+        <Route path="/gallery" element={routeElement(<GalleryPage />)} />
+        <Route path="/experiences" element={routeElement(<ExperiencesPage />)} />
+        <Route path="/stack" element={routeElement(<StackPage />)} />
+        <Route path={caseStudyPaths.legendOfCee} element={routeElement(<CaseStudyRoute studyKey="legendOfCee" />)} />
+        <Route path={caseStudyPaths.agapai} element={routeElement(<CaseStudyRoute studyKey="agapai" />)} />
+        <Route path={caseStudyPaths.foliofy} element={routeElement(<CaseStudyRoute studyKey="foliofy" />)} />
+        <Route path={caseStudyPaths.pnp} element={routeElement(<CaseStudyRoute studyKey="pnp" />)} />
+        <Route path="*" element={routeElement(<NotFoundPage />)} />
       </Routes>
     </BrowserRouter>
   );

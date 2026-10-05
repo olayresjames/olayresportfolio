@@ -13,12 +13,16 @@ npm run dev
 
 ```bash
 npm run lint
+npm run lint:css
+npm run typecheck
 npm run test
 npm run build
 npm run preview
 ```
 
-Pull requests to `main` run lint, tests, and a production build in GitHub Actions.
+Pull requests to `main` run JavaScript and CSS linting, data type checks, tests, and a production build in GitHub Actions.
+
+The type check currently covers the shared portfolio and case-study data modules. Page-wide JavaScript typing can be added incrementally.
 
 ## Image assets
 
@@ -30,9 +34,11 @@ npm run optimize:images
 
 Keep the source files and generated WebP files together so browsers without WebP support can use the originals.
 
-Portfolio content lives in `src/data/siteData.js`. Static images, certificates, and the resume are served from `public/resources`.
+Shared portfolio content lives in `src/data/siteData.js`; full case-study content lives in `src/data/caseStudyData.js`. Static images, certificates, and the current resume are served from `public/resources`.
 
-The existing case-study URLs are preserved:
+The case-study pages are available at:
 
+- `/legend-of-cee-case-study.html`
+- `/pnp-idtms-case-study.html`
 - `/agapai-case-study.html`
 - `/foliofy-case-study.html`
