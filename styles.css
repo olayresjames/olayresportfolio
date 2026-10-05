@@ -494,17 +494,18 @@ main#main-content { min-width: 0; }
 .github-mark { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--border-strong); border-radius: 8px; font-family: var(--font-mono); font-size: 10px; }
 .github-panel h3 { margin: 0; font-size: 13px; font-weight: 600; }
 .github-panel p { margin: 0.2rem 0 0; color: var(--text-secondary); font-size: 12px; }
-.commit-history { margin-top: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-secondary); }
-.commit-history-header { display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
-.commit-history ol { position: relative; display: grid; gap: 0.15rem; margin: 0; padding: 0.75rem 0 0; list-style: none; }
-.commit-history ol::before { content: ''; position: absolute; top: 0.85rem; bottom: 0.85rem; left: 0.25rem; width: 1px; background: var(--border-strong); }
-.commit-history li { position: relative; display: grid; grid-template-columns: 0.8rem minmax(0, 1fr) auto auto; gap: 0.75rem; align-items: center; min-height: 2.35rem; }
-.commit-node { position: relative; z-index: 1; width: 0.55rem; height: 0.55rem; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface-secondary); }
-.commit-copy { display: flex; min-width: 0; align-items: baseline; gap: 0.55rem; }
-.commit-copy strong { color: var(--foreground); font-size: 12px; font-weight: 600; white-space: nowrap; }
-.commit-copy > span { overflow: hidden; color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.commit-branch, .commit-history time { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; white-space: nowrap; }
-.commit-branch { padding: 0.12rem 0.35rem; border: 1px solid var(--border-strong); border-radius: 999px; }
+.project-updates { margin-top: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-secondary); }
+.project-updates-header { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); color: var(--text-tertiary); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.project-updates ol { position: relative; display: grid; gap: 0.15rem; margin: 0; padding: 0.75rem 0 0; list-style: none; }
+.project-updates ol::before { content: ''; position: absolute; top: 1.25rem; bottom: 1.25rem; left: 0.25rem; width: 1px; background: var(--border-strong); }
+.project-updates li { position: relative; display: grid; grid-template-columns: 0.8rem minmax(0, 1fr); gap: 0.75rem; align-items: center; min-height: 3.25rem; }
+.project-update-node { position: relative; z-index: 1; width: 0.55rem; height: 0.55rem; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface-secondary); }
+.project-update-link { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center; min-width: 0; padding: 0.45rem 0.5rem; border-radius: 7px; text-decoration: none; }
+.project-update-link:hover { background: color-mix(in srgb, var(--foreground) 5%, transparent); }
+.project-update-copy { display: flex; min-width: 0; align-items: baseline; gap: 0.65rem; }
+.project-update-copy strong { color: var(--foreground); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.project-update-copy > span { color: var(--text-secondary); font-size: 14px; line-height: 1.45; }
+.project-update-status { padding: 0.2rem 0.5rem; border: 1px solid var(--border-strong); border-radius: 999px; color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; white-space: nowrap; }
 .contribution-panel { position: relative; margin-top: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); }
 .contribution-toolbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
 .contribution-heading { min-width: 0; }
@@ -886,8 +887,10 @@ footer p { margin: 0; }
   .experience-page-card { grid-template-columns: 1fr; gap: 1rem; }
   .stack-page { padding: 3.5rem 0; }
   .stack-detail-grid { grid-template-columns: 1fr; }
-  .commit-history li { grid-template-columns: 0.8rem minmax(0, 1fr) auto auto; gap: 0.55rem; }
-  .commit-copy { display: grid; gap: 0.1rem; }
+  .project-updates li { gap: 0.55rem; }
+  .project-update-link { gap: 0.5rem; padding-inline: 0.35rem; }
+  .project-update-copy { display: grid; gap: 0.15rem; }
+  .project-update-copy > span { font-size: 13px; }
   .contribution-toolbar { align-items: flex-start; }
   .stack-row { grid-template-columns: 1fr; gap: 0.4rem; }
   .case-grid { grid-template-columns: 1fr; }

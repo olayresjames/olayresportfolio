@@ -116,12 +116,12 @@ export function GitHubSection() {
   useEffect(() => {
     fetch('/github-contributions.json').then(response => response.ok ? response.json() : Promise.reject(new Error('Contribution data unavailable'))).then(setContributionData).catch(() => {});
   }, []);
-  const commits = [
-    ['PNP IDTMS', 'build internship attendance workflow', 'now', 'main'],
-    ['AgapAI', 'connect emergency support flows', '2026', 'feature/dispatch'],
-    ['Foliofy', 'ship browser-side document exports', '2026', 'main'],
-    ['Reset', 'polish game interface interactions', '2026', 'release'],
-    ['Portfolio', 'refine visual system and content', '2025', 'main'],
+  const projectUpdates = [
+    { name: 'PNP IDTMS', summary: 'Internship attendance and records in one workflow.', status: 'current project', href: '/pnp-idtms-case-study.html' },
+    { name: 'AgapAI', summary: 'Emergency support connecting seniors, guardians, and responders.', status: 'case study', href: '/agapai-case-study.html' },
+    { name: 'Foliofy', summary: 'Organize image collections and export Word or PDF documents.', status: 'case study', href: '/foliofy-case-study.html' },
+    { name: 'Reset', summary: 'A time-loop horror game with interactive encounters.', status: 'play the game', href: 'https://deckode.itch.io/reset-the-endless-horror' },
+    { name: 'Portfolio', summary: 'Selected work, experiments, and the process behind them.', status: 'this site', href: '#about' },
   ];
   const availableYears = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
   const contributionYear = availableYears.includes(selectedYear)
@@ -247,17 +247,27 @@ export function GitHubSection() {
         <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
         <span aria-hidden="true">↗</span>
       </a>
-      <div className="commit-history reveal" aria-label="Selected commit history">
-        <div className="commit-history-header"><span>selected activity</span><span>latest commits</span></div>
+      <div className="project-updates reveal" aria-label="Selected projects">
+        <div className="project-updates-header"><span>selected work</span><span>projects, case studies, and demos</span></div>
         <ol>
-          {commits.map(([project, message, date, branch]) => (
-            <li key={`${project}-${message}`}>
-              <span className="commit-node" aria-hidden="true" />
-              <div className="commit-copy"><strong>{project}</strong><span>{message}</span></div>
-              <span className="commit-branch">{branch}</span>
-              <time>{date}</time>
-            </li>
-          ))}
+          {projectUpdates.map(update => {
+            const content = (
+              <>
+                <span className="project-update-copy"><strong>{update.name}</strong><span>{update.summary}</span></span>
+                <span className="project-update-status">{update.status}</span>
+              </>
+            );
+            const link = update.href.startsWith('/') && !update.href.startsWith('/#')
+              ? <AppLink className="project-update-link" to={update.href}>{content}</AppLink>
+              : <a className="project-update-link" href={update.href} target={update.href.startsWith('http') ? '_blank' : undefined} rel={update.href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>;
+
+            return (
+              <li key={update.name}>
+                <span className="project-update-node" aria-hidden="true" />
+                {link}
+              </li>
+            );
+          })}
         </ol>
       </div>
       <div className="contribution-panel reveal">
