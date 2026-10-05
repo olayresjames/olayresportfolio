@@ -7,36 +7,26 @@ const filters = [['all', 'all'], ['ai', 'ai'], ['fullstack', 'full-stack'], ['fr
 
 function DeckCard({ project, position, onActivate, onPreview }) {
   const active = position === 'center';
-  const activateWithKeyboard = event => {
-    if (!active && (event.key === 'Enter' || event.key === ' ')) {
-      event.preventDefault();
-      onActivate();
-    }
-  };
 
   return (
     <article
       className={`deck-card is-${position} ${project.featured ? 'featured' : ''}`}
-      role={active ? 'group' : 'button'}
-      tabIndex={position === 'hidden' ? -1 : 0}
-      aria-label={active ? `${project.name}, selected project` : `Show ${project.name}`}
+      aria-label={`${project.name}${active ? ', selected project' : ''}`}
       aria-hidden={position === 'hidden'}
-      onClick={active ? undefined : onActivate}
-      onKeyDown={activateWithKeyboard}
     >
       <button
         type="button"
         className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''}`}
-        aria-label={`Preview ${project.name}`}
-        onClick={event => {
-          event.stopPropagation();
+        aria-label={`${active ? 'Preview' : 'Select'} ${project.name}`}
+        tabIndex={position === 'hidden' ? -1 : 0}
+        onClick={() => {
           if (active) onPreview({ src: project.webp || project.image, alt: project.alt });
           else onActivate();
         }}
       >
         <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" />
         {(project.featured || project.date === 'Current') && <span className="deck-preview-kicker">{project.featured ? 'featured case study' : 'current build'}</span>}
-        <span className="deck-preview-label">preview <span aria-hidden="true">↗</span></span>
+        <span className="deck-preview-label">{active ? 'preview' : 'select'} <span aria-hidden="true">↗</span></span>
       </button>
       <div className="deck-tags">
         <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
@@ -130,7 +120,6 @@ export default function Projects({ onPreview }) {
 
       <div
         className="project-deck reveal"
-        aria-live="polite"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onTouchCancel={() => { touchStart.current = null; }}
@@ -144,6 +133,9 @@ export default function Projects({ onPreview }) {
       <div className="deck-controls reveal">
         <button type="button" onClick={() => move(-1)} aria-label="Previous project">← prev</button>
         <span><strong>{String(activeIndex + 1).padStart(2, '0')}</strong> / {String(visible.length).padStart(2, '0')}</span>
+        <span className="sr-only" aria-live="polite" aria-atomic="true">
+          {visible[activeIndex]?.name}, project {activeIndex + 1} of {visible.length}
+        </span>
         <button type="button" onClick={() => move(1)} aria-label="Next project">next →</button>
       </div>
     </section>

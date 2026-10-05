@@ -20,6 +20,8 @@ const legendOfCeeScreenshots = [
   ['Screenshot 2026-09-23 153807.png', 'Closing gameplay moment'],
 ].map(([file, caption]) => ({
   image: `/resources/Legend Of Cee/in game screenshots/${file}`,
+  webp: `/resources/Legend Of Cee/in game screenshots/${file.replace(/\.png$/, '.webp')}`,
+  webpSmall: `/resources/Legend Of Cee/in game screenshots/${file.replace(/\.png$/, '-800.webp')}`,
   imageWidth: 1365,
   imageHeight: 767,
   alt: `Legend Of Cee ${caption.toLowerCase()}`,
@@ -54,6 +56,8 @@ export const projects = [
     proof: 'Full-stack project developer under the Special Project Management Team.',
     technologies: ['React', 'Database', 'Attendance Tracking', 'Vercel'],
     image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png',
+    webp: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.webp',
+    webpSmall: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW-800.webp',
     imageWidth: 1365,
     imageHeight: 607,
     alt: 'PNP Internship Database Tracking Management System preview',
@@ -72,6 +76,8 @@ export const projects = [
     proof: 'Internship project for the PNP ITMS Office, focused on personnel, assignment, and administrative workflows.',
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Express', 'Supabase'],
     image: '/resources/PAIS 2.0 PREVIEW.png',
+    webp: '/resources/PAIS 2.0 PREVIEW.webp',
+    webpSmall: '/resources/PAIS 2.0 PREVIEW-800.webp',
     imageWidth: 1365,
     imageHeight: 629,
     alt: 'PAIS 2.0 personnel and assignment information system preview',
@@ -90,6 +96,8 @@ export const projects = [
     proof: 'Internship project translating campus movement, checkpoints, and perimeter monitoring into one operational view.',
     technologies: ['Geofencing', 'Navigation', 'Security Operations'],
     image: '/resources/CAMP-NAVI PREVIEW.png',
+    webp: '/resources/CAMP-NAVI PREVIEW.webp',
+    webpSmall: '/resources/CAMP-NAVI PREVIEW-800.webp',
     imageWidth: 1672,
     imageHeight: 941,
     alt: 'CAMP-NAVI geofencing and navigation dashboard preview',
@@ -108,6 +116,8 @@ export const projects = [
     proof: 'Internship project connecting personnel responses with a clearer assignment and placement workflow.',
     technologies: ['Survey Workflow', 'Data Collection', 'Assignment Planning'],
     image: '/resources/PNP ASSIGNMENT SYSTEM PREVIEW.png',
+    webp: '/resources/PNP ASSIGNMENT SYSTEM PREVIEW.webp',
+    webpSmall: '/resources/PNP ASSIGNMENT SYSTEM PREVIEW-800.webp',
     imageWidth: 1672,
     imageHeight: 941,
     alt: 'PNP Assignment System survey and placement dashboard preview',
@@ -305,6 +315,7 @@ export const awards = [
     title: "Reset: People's Choice Award",
     category: 'Digital Game Category · First Place',
     image: "/resources/Certificates/[AWARD]RESET - PEOPLE'S CHOICE AWARD IN DIGITAL GAME CATEGORY - FIRST PLACE.jpg",
+    webp: "/resources/Certificates/[AWARD]RESET - PEOPLE'S CHOICE AWARD IN DIGITAL GAME CATEGORY - FIRST PLACE.webp",
     alt: "Reset People's Choice Award in Digital Game Category certificate",
   },
 ];
@@ -317,8 +328,8 @@ export const galleryItems = [
 ];
 
 export const experiences = [
-  { year: 'Current', title: 'PNP — Internship Database Tracking Management System', organization: 'Full-Stack Project Developer · Special Project Management Team · Camp Crame, Quezon City', description: 'Developing the PNP internship database and tracking management system as a full-stack project developer.', image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png', alt: 'PNP Internship Database Tracking Management System project preview' },
-  { year: '2023 — Present', title: 'Freelance Web Development', organization: 'Independent developer', description: 'Designing and developing websites and digital experiences for real-world needs.', image: '/resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).png', alt: 'Freelance web development work' },
+  { year: 'Current', title: 'PNP — Internship Database Tracking Management System', organization: 'Full-Stack Project Developer · Special Project Management Team · Camp Crame, Quezon City', description: 'Developing the PNP internship database and tracking management system as a full-stack project developer.', image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png', webp: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.webp', alt: 'PNP Internship Database Tracking Management System project preview' },
+  { year: '2023 — Present', title: 'Freelance Web Development', organization: 'Independent developer', description: 'Designing and developing websites and digital experiences for real-world needs.', image: '/resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).png', webp: '/resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).webp', alt: 'Freelance web development work' },
   { year: '2018 — 2022', title: 'GTA Modding Scene', organization: 'Community projects', description: 'Exploring game modification, scripting, and community-driven digital creation.', image: '/resources/Experiences/GTA MODDING COMMUNITY (2018-2022).jpg', alt: 'GTA modding community work' },
   { year: '2017 — 2020', title: 'Pokémon GBA and GBC ROM Hacking', organization: 'Independent projects', description: 'Learning game systems, editing, and creative problem-solving through Pokémon ROM hacking.', image: '/resources/Experiences/POKEMON ROM HACKING (2017-2020).jpg', alt: 'Pokémon ROM hacking project' },
 ];
@@ -386,6 +397,8 @@ export const caseStudies = {
     kicker: 'Full-stack case study · active development',
     lede: 'A role-aware platform that centralizes attendance, daily time records, intern documents, evaluations, project tracking, and staff workflows for PNP ITMS.',
     image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png',
+    webp: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.webp',
+    webpSmall: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW-800.webp',
     imageWidth: 1365,
     imageHeight: 607,
     alt: 'PNP ITMS Internship Attendance System project preview',

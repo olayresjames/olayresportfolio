@@ -286,9 +286,9 @@ main#main-content { min-width: 0; }
 .portrait-rotator img { opacity: 0; transition: opacity 120ms steps(1, end); }
 .portrait-rotator img.is-primary { opacity: 1; }
 .portrait-rotator:hover img { animation-duration: 1.25s; animation-iteration-count: infinite; animation-timing-function: steps(1, end); }
-.portrait-rotator:hover img:nth-child(1) { animation-name: portrait-cycle-one; }
-.portrait-rotator:hover img:nth-child(2) { animation-name: portrait-cycle-two; }
-.portrait-rotator:hover img:nth-child(3) { animation-name: portrait-cycle-three; }
+.portrait-rotator:hover picture:nth-child(1) img { animation-name: portrait-cycle-one; }
+.portrait-rotator:hover picture:nth-child(2) img { animation-name: portrait-cycle-two; }
+.portrait-rotator:hover picture:nth-child(3) img { animation-name: portrait-cycle-three; }
 .portrait-rotator::before, .portrait-rotator::after { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0; }
 .portrait-rotator::before { background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, var(--foreground) 18%, transparent) 5px 6px, transparent 6px 11px); mix-blend-mode: screen; }
 .portrait-rotator::after { background: linear-gradient(90deg, color-mix(in srgb, var(--foreground) 20%, transparent), transparent 35%, color-mix(in srgb, var(--text-secondary) 22%, transparent)); mix-blend-mode: screen; }
@@ -377,8 +377,8 @@ main#main-content { min-width: 0; }
   transform-origin: center;
 }
 .deck-card.is-center { z-index: 4; opacity: 1; transform: translate(-50%, -50%); }
-.deck-card.is-left { z-index: 2; opacity: 0.72; cursor: pointer; transform: translate(calc(-50% - 15rem), calc(-50% + 1.4rem)) rotate(-14deg) scale(0.9); }
-.deck-card.is-right { z-index: 2; opacity: 0.72; cursor: pointer; transform: translate(calc(-50% + 15rem), calc(-50% + 1.4rem)) rotate(14deg) scale(0.9); }
+.deck-card.is-left { z-index: 2; opacity: 0.72; transform: translate(calc(-50% - 15rem), calc(-50% + 1.4rem)) rotate(-14deg) scale(0.9); }
+.deck-card.is-right { z-index: 2; opacity: 0.72; transform: translate(calc(-50% + 15rem), calc(-50% + 1.4rem)) rotate(14deg) scale(0.9); }
 .deck-card.is-hidden { z-index: 0; opacity: 0; pointer-events: none; transform: translate(-50%, -45%) scale(0.78); }
 .deck-card.is-left:hover { opacity: 0.9; transform: translate(calc(-50% - 14.5rem), calc(-50% + 1rem)) rotate(-12deg) scale(0.91); }
 .deck-card.is-right:hover { opacity: 0.9; transform: translate(calc(-50% + 14.5rem), calc(-50% + 1rem)) rotate(12deg) scale(0.91); }
@@ -631,6 +631,7 @@ footer p { margin: 0; }
 .ask-message-links a { color: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
 .ask-message-links a:hover { color: var(--foreground); }
 .ask-message-reaction { display: grid; justify-items: start; gap: 0.45rem; margin: 0.6rem 0 0 0.2rem; }
+.ask-message-reaction picture { display: block; max-width: 100%; }
 .ask-message-reaction img { display: block; width: auto; height: auto; max-width: min(18rem, 100%); max-height: min(12rem, 45vh); border: 1px solid var(--border); border-radius: 9px; object-fit: contain; background: var(--surface-secondary); }
 .ask-message-reaction-auto { gap: 0.4rem; margin-top: 0.15rem; margin-bottom: 0.65rem; }
 .ask-message p.ask-message-reaction-caption { width: fit-content; padding: 0.35rem 0.55rem; border: 0; border-radius: 7px; color: var(--text-tertiary); background: var(--surface-secondary); font-size: 11px; font-style: italic; line-height: 1.4; }

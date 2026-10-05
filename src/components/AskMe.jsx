@@ -3,9 +3,9 @@ import { getAskMeAnswer } from '../data/askMeData';
 
 const MAX_QUESTION_LENGTH = 300;
 const reactionGifs = {
-  friendly: { src: '/resources/gif%20replys/handshake.gif', alt: 'A man offers a casual handshake' },
-  pointing: { src: '/resources/gif%20replys/druski-pointing.gif', alt: 'A man points toward the viewer' },
-  clarify: { src: '/resources/gif%20replys/what%20do%20you%20mean%20by%20that.gif', alt: 'A man gives a skeptical look beneath the words “what do you mean by that?”' },
+  friendly: { src: '/resources/gif%20replys/handshake.gif', webp: '/resources/gif%20replys/handshake.webp', alt: 'A man offers a casual handshake' },
+  pointing: { src: '/resources/gif%20replys/druski-pointing.gif', webp: '/resources/gif%20replys/druski-pointing.webp', alt: 'A man points toward the viewer' },
+  clarify: { src: '/resources/gif%20replys/what%20do%20you%20mean%20by%20that.gif', webp: '/resources/gif%20replys/what%20do%20you%20mean%20by%20that.webp', alt: 'A man gives a skeptical look beneath the words “what do you mean by that?”' },
   shrug: { src: '/resources/gif%20replys/druski-shrug.gif', alt: 'A man shrugs while another person looks on' },
   error: { src: '/resources/gif%20replys/crash%20out.gif', alt: 'A man reacts dramatically while holding a drink' },
 };
@@ -54,7 +54,10 @@ function Message({ message, onClose, onReactionLoad, onSuggestion, showSuggestio
       <span className="ask-message-label">{message.role === 'assistant' ? 'portfolio guide' : 'you'}</span>
       {message.reaction?.auto && <div className="ask-message-reaction ask-message-reaction-auto">
         <p className="ask-message-reaction-caption">{message.reaction.caption}</p>
-        <img src={message.reaction.src} alt={message.reaction.alt} loading="lazy" decoding="async" onLoad={onReactionLoad} />
+        <picture>
+          {message.reaction.webp && <source srcSet={message.reaction.webp} type="image/webp" />}
+          <img src={message.reaction.src} alt={message.reaction.alt} loading="lazy" decoding="async" onLoad={onReactionLoad} />
+        </picture>
       </div>}
       <div className="ask-message-copy">
         {paragraphs.map((paragraph, index) => <p key={`${message.id}-paragraph-${index}`}>{paragraph}</p>)}
@@ -63,7 +66,10 @@ function Message({ message, onClose, onReactionLoad, onSuggestion, showSuggestio
         {links.map(link => <a key={`${message.id}-${link.href}`} href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener noreferrer' : undefined} onClick={onClose}>{link.label}<span aria-hidden="true"> ↗</span></a>)}
       </div>}
       {message.reaction && !message.reaction.auto && <div className="ask-message-reaction">
-        <img src={message.reaction.src} alt={message.reaction.alt} loading="lazy" decoding="async" onLoad={onReactionLoad} />
+        <picture>
+          {message.reaction.webp && <source srcSet={message.reaction.webp} type="image/webp" />}
+          <img src={message.reaction.src} alt={message.reaction.alt} loading="lazy" decoding="async" onLoad={onReactionLoad} />
+        </picture>
       </div>}
       {suggestions.length > 0 && <div className="ask-suggestions" role="group" aria-label="Suggested questions">
         {suggestions.map(suggestion => <button key={suggestion} type="button" onClick={() => onSuggestion(suggestion)}>{suggestion}<span aria-hidden="true"> ↗</span></button>)}

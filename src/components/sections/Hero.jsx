@@ -1,8 +1,8 @@
 export default function Hero({ onOpenResume }) {
   const portraits = [
-    ['/resources/id-picture-v2.png', 'Black shirt portrait of Rafhael James Olayres'],
-    ['/resources/hero-portrait-black-cutout.png', 'Black shirt portrait of Rafhael James Olayres'],
-    ['/resources/hero-portrait-white-cutout.png', 'White shirt portrait of Rafhael James Olayres'],
+    ['/resources/id-picture-v2.png', '/resources/id-picture-v2.webp', '/resources/id-picture-v2-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
+    ['/resources/hero-portrait-black-cutout.png', '/resources/hero-portrait-black-cutout.webp', '/resources/hero-portrait-black-cutout-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
+    ['/resources/hero-portrait-white-cutout.png', '/resources/hero-portrait-white-cutout.webp', '/resources/hero-portrait-white-cutout-800.webp', 'White shirt portrait of Rafhael James Olayres'],
   ];
 
   return (
@@ -14,7 +14,10 @@ export default function Hero({ onOpenResume }) {
           </div>
           <div className="halftone halftone-portrait" aria-hidden="true" />
           <div className="portrait-rotator" aria-label="Portrait of Rafhael James Olayres">
-            {portraits.map(([src, alt], index) => <img key={src} className={index === 0 ? 'is-primary' : ''} src={src} alt={index === 0 ? alt : ''} width="1254" height="1254" decoding="async" fetchPriority={index === 0 ? 'high' : undefined} aria-hidden={index === 0 ? undefined : 'true'} />)}
+            {portraits.map(([src, webp, webpSmall, alt], index) => <picture key={src}>
+              <source srcSet={`${webpSmall} 800w, ${webp} 1254w`} sizes="(max-width: 768px) 78vw, 332px" type="image/webp" />
+              <img className={index === 0 ? 'is-primary' : ''} src={src} alt={index === 0 ? alt : ''} width="1254" height="1254" decoding="async" fetchPriority={index === 0 ? 'high' : undefined} aria-hidden={index === 0 ? undefined : 'true'} />
+            </picture>)}
           </div>
           <div className="portrait-caption" aria-hidden="true">
             <span>RJO</span>
