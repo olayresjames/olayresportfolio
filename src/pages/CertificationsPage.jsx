@@ -5,14 +5,29 @@ import ThemeControl from '../components/ThemeControl';
 import { Lightbox } from '../components/Modals';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-function CertificationCard({ certificate }) {
+function CertificationCard({ certificate, onPreview }) {
+  const mark = certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase());
   return (
-    <article className="certification-page-card">
-      <div className="certification-icon" aria-hidden="true">fcc</div>
+    <article
+      className={`certification-page-card${certificate.certificateFile ? ' certification-page-card--preview' : ''}`}
+      role={certificate.certificateFile ? 'button' : undefined}
+      tabIndex={certificate.certificateFile ? 0 : undefined}
+      aria-label={certificate.certificateFile ? `View ${certificate.title} certificate` : undefined}
+      onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
+      onKeyDown={certificate.certificateFile ? event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
+        }
+      } : undefined}
+    >
+      <div className="certification-icon" aria-hidden="true">{mark}</div>
       <h2>{certificate.title}</h2>
       <p>{certificate.issuer}</p>
       <span>{certificate.version}</span>
-      <a href={certificate.verify} target="_blank" rel="noreferrer">‹ verify ›</a>
+      <div className="certification-actions">
+        {certificate.certificateFile ? <span>{certificate.certificateFileLabel || 'click to view'}</span> : <a href={certificate.verify} target="_blank" rel="noreferrer">‹ verify ›</a>}
+      </div>
     </article>
   );
 }
@@ -36,7 +51,7 @@ export default function CertificationsPage() {
 
   usePageMeta({
     title: 'Certifications | Rafhael James Olayres',
-    description: 'Verified frontend development and Python certifications earned by Rafhael James Olayres.',
+    description: 'Verified software development credentials and a 2026 hackathon certificate earned by Rafhael James Olayres.',
     path: '/certifications',
   });
 
@@ -52,11 +67,15 @@ export default function CertificationsPage() {
         <header className="certifications-page-header">
           <p className="section-heading">verified credentials</p>
           <h1>certifications</h1>
-          <p>Credentials across frontend development and Python computing—each verifiable at its source.</p>
+          <p>Software development credentials and a 2026 hackathon certificate, with verification links to their sources.</p>
         </header>
+        <p className="certification-category">AppBuildersPH</p>
+        <div className="certification-page-deck">
+          {certifications.filter(certificate => certificate.issuer === 'AppBuildersPH').map(certificate => <CertificationCard key={`${certificate.title}-${certificate.version}`} certificate={certificate} onPreview={setPreview} />)}
+        </div>
         <p className="certification-category">freeCodeCamp</p>
         <div className="certification-page-deck">
-          {certifications.map(certificate => <CertificationCard key={`${certificate.title}-${certificate.version}`} certificate={certificate} />)}
+          {certifications.filter(certificate => certificate.issuer === 'freeCodeCamp').map(certificate => <CertificationCard key={`${certificate.title}-${certificate.version}`} certificate={certificate} onPreview={setPreview} />)}
         </div>
         <section className="awards-section" aria-labelledby="awards-heading">
           <p className="certification-category" id="awards-heading">awards & recognition</p>

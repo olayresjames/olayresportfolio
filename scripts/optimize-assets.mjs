@@ -12,6 +12,11 @@ const stillAssets = [
   'resources/CAMP-NAVI PREVIEW.png',
   'resources/PNP ASSIGNMENT SYSTEM PREVIEW.png',
   'resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).png',
+  'resources/AppbuildersPH Hackaton 2026/Event photos/831277560_1071540725679663_1368969917848350556_n.jpg',
+  'resources/AppbuildersPH Hackaton 2026/Event photos/833322975_1075334208833626_2719532112471684819_n.jpg',
+  'resources/AppbuildersPH Hackaton 2026/Event photos/835357134_1129485376433869_5402630550514437801_n.jpg',
+  'resources/AppbuildersPH Hackaton 2026/Event photos/840346202_1069674935937478_847077860598290348_n.jpg',
+  'resources/AppbuildersPH Hackaton 2026/Event photos/841120454_1079063551580006_2888176752970575677_n.jpg',
   "resources/Certificates/[AWARD]RESET - PEOPLE'S CHOICE AWARD IN DIGITAL GAME CATEGORY - FIRST PLACE.jpg",
   ...Array.from({ length: 19 }, (_, index) => {
     const numbers = ['145910', '145933', '150002', '150034', '151017', '151202', '151216', '151231', '152023', '152049', '152238', '152711', '152854', '153010', '153036', '153115', '153745', '153756', '153807'];

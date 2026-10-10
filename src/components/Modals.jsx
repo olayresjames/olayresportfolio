@@ -33,7 +33,10 @@ export function Lightbox({ preview, onClose }) {
       {hasNavigation && <button type="button" className="lightbox-nav lightbox-prev" aria-label="Previous image" onClick={() => move(-1)}>‹</button>}
       <figure className="lightbox-figure">
         <img src={current.src} alt={current.alt} tabIndex="-1" />
-        {current.caption && <figcaption>{current.caption}</figcaption>}
+        {(current.caption || current.actionHref) && <figcaption>
+          {current.caption && <span>{current.caption}</span>}
+          {current.actionHref && <a href={current.actionHref} target="_blank" rel="noreferrer">{current.actionLabel || 'Verify with issuer'} ↗</a>}
+        </figcaption>}
       </figure>
       {hasNavigation && <button type="button" className="lightbox-nav lightbox-next" aria-label="Next image" onClick={() => move(1)}>›</button>}
       {hasNavigation && <span className="lightbox-counter" aria-live="polite">{currentIndex + 1} / {items.length}</span>}

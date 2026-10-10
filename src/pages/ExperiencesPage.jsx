@@ -8,7 +8,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 function ExperiencePageCard({ entry, index, onPreview }) {
   return (
     <article className="experience-page-card">
-      {entry.image ? <button className="experience-page-image" type="button" onClick={() => onPreview({ src: entry.webp || entry.image, alt: entry.alt })} aria-label={`Preview ${entry.title}`}><picture>{entry.webp && <source srcSet={entry.webp} type="image/webp" />}<img src={entry.image} alt={entry.alt} /></picture></button> : <div className="experience-page-current" aria-hidden="true">now</div>}
+      {entry.image ? <button className="experience-page-image" type="button" onClick={() => onPreview({ src: entry.webp || entry.image, alt: entry.alt })} aria-label={`Preview ${entry.title}`}><picture>{entry.webp && <source srcSet={entry.webp} type="image/webp" />}<img src={entry.image} alt={entry.alt} /></picture></button> : <div className="experience-page-current" aria-hidden="true">{entry.mark || 'now'}</div>}
       <div className="experience-page-copy">
         <span>{entry.year} · {String(index + 1).padStart(2, '0')}</span>
         <h2>{entry.title}</h2>

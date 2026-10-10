@@ -8,6 +8,7 @@ const listWords = values => values.length < 2 ? values.join('') : `${values.slic
 const projectTopics = projects.map(project => {
   const projectWords = project.name.toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 3);
   const extraKeywords = {
+    'point-nemo': ['point nemo', 'hackathon', 'study expedition', 'local first', 'local-first', 'ollama', 'qwen', 'sonar', 'depth zones', 'creature encounters', 'pdf study'],
     agapai: ['emergency', 'sos', 'senior', 'seniors', 'guardian', 'guardians', 'rescue', 'health monitoring', 'gemini', 'capstone'],
     'pnp-idtms': ['pnp', 'internship', 'attendance', 'dtr', 'database', 'camp crame', 'supabase'],
     'pais-2': ['pnp', 'internship', 'personnel', 'assignment', 'hr', 'uniformed', 'civilian', 'camp crame'],
@@ -96,8 +97,8 @@ export const askMeTopics = [
     keywords: ['ai', 'gemini', 'openai', 'artificial intelligence', 'assistant'],
     phrases: ['how do you use ai'],
     priority: 3,
-    answer: 'My AI-related work includes AgapAI, an emergency support platform with a Gemini-powered assistant, and AI/API integration across product workflows. My listed AI tools include Google Gemini API and OpenAI API.',
-    links: [{ label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
+    answer: 'My AI-related work includes AgapAI, an emergency support platform with a Gemini-powered assistant, and Point Nemo, a local-first study app that uses Ollama for question generation by default. Point Nemo keeps document text, prompts, and answers on the user’s computer during its study flow; its default model is qwen2.5:1.5b.',
+    links: [{ label: 'Explore Point Nemo', href: '/point-nemo-case-study.html' }, { label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
   },
   {
     id: 'mobile',
@@ -184,13 +185,13 @@ export function scoreTopic(topic, query, queryWords) {
   return score ? score + (topic.priority || 1) * 0.25 : 0;
 }
 
-const starterSuggestions = ['What projects have you built?', 'What is in your tech stack?', 'Tell me about AgapAI', 'How can I contact you?'];
+const starterSuggestions = ['What projects have you built?', 'What is in your tech stack?', 'Tell me about Point Nemo', 'How can I contact you?'];
 
 function suggestionsFor(topic) {
   if (!topic) return starterSuggestions;
   if (topic.name && topic.technologies?.length) return [`What technologies did you use for ${topic.name}?`, `Tell me more about ${topic.name}`, 'Show me another project'];
   const suggestions = {
-    projects: ['Tell me about AgapAI', 'What is in your tech stack?', 'Show me your résumé'],
+    projects: ['Tell me about Point Nemo', 'What is in your tech stack?', 'Show me your résumé'],
     skills: ['Tell me about AgapAI', 'Show me selected projects', 'Show me your résumé'],
     role: ['What projects have you built?', 'What is in your tech stack?', 'Where can I see your experience?'],
     experience: ['What did you build at your internship?', 'Show me the PNP IDTMS project', 'Show me your résumé'],

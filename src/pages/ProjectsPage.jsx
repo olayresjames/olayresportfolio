@@ -7,8 +7,10 @@ import { usePageMeta } from '../hooks/usePageMeta';
 function ProjectRow({ project }) {
   return (
     <article className="all-project-card">
-      <div className="all-project-image">
-        <ResponsiveImage item={project} sizes="(max-width: 767px) 100vw, 160px" />
+      <div className={`all-project-image${project.image ? '' : ' all-project-image-placeholder'}`} aria-hidden="true">
+        {project.image ? <ResponsiveImage item={project} sizes="(max-width: 767px) 100vw, 160px" /> : (
+          <div className="project-placeholder-copy"><span>{project.name}</span><small>local-first study expedition</small></div>
+        )}
       </div>
       <div className="all-project-content">
         <div className="all-project-tags">

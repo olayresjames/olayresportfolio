@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import AppLink from '../AppLink';
-import { certifications, education, experiences, featuredSongs, galleryItems, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
+import ResponsiveImage from '../ResponsiveImage';
+import { certifications, education, experiences, featuredSongs, galleryGroups, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
 
 export function Experience({ onOpenResume }) {
 
@@ -52,16 +53,29 @@ export function Certifications({ onPreview }) {
   return (
     <section id="certifications" className="editorial-section">
       <div className="section-header reveal"><h2>06 — certifications</h2><AppLink to="/certifications">all certifications →</AppLink></div>
-      <p className="section-intro reveal">Credentials across frontend development and Python computing—each verifiable at its source.</p>
+      <p className="section-intro reveal">Verified credentials in software development and a certificate from AppBuildersPH Hackathon 2026.</p>
       <div className="certification-grid reveal">
         {certifications.slice(0, 3).map(certificate => (
-          <article className="certification-card" key={`${certificate.title}-${certificate.version}`}>
-            <button type="button" className="certification-icon" aria-label={`Preview ${certificate.title} certificate`} onClick={() => onPreview({ src: certificate.image, alt: `${certificate.title} certificate` })}>fcc</button>
+          <article
+            className={`certification-card${certificate.certificateFile ? ' certification-card--preview' : ''}`}
+            key={`${certificate.title}-${certificate.version}`}
+            role={certificate.certificateFile ? 'button' : undefined}
+            tabIndex={certificate.certificateFile ? 0 : undefined}
+            aria-label={certificate.certificateFile ? `View ${certificate.title} certificate` : undefined}
+            onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
+            onKeyDown={certificate.certificateFile ? event => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
+              }
+            } : undefined}
+          >
+            {certificate.image ? <button type="button" className="certification-icon" aria-label={`Preview ${certificate.title} certificate`} onClick={() => onPreview({ src: certificate.image, alt: `${certificate.title} certificate` })}>{certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase())}</button> : <div className="certification-icon" aria-hidden="true">{certificate.mark || certificate.issuer.slice(0, 2).toUpperCase()}</div>}
             <h3>{certificate.title}</h3>
             <p>{certificate.issuer}</p>
             <span className="certification-version">{certificate.version}</span>
             <div className="certification-actions">
-              <a href={certificate.verify} target="_blank" rel="noreferrer">verify ↗</a>
+              {certificate.certificateFile ? <span>{certificate.certificateFileLabel || 'click to view'}</span> : <a href={certificate.verify} target="_blank" rel="noreferrer">verify ↗</a>}
             </div>
           </article>
         ))}
@@ -71,17 +85,25 @@ export function Certifications({ onPreview }) {
 }
 
 export function Gallery({ onPreview }) {
+  const album = galleryGroups[0];
+
   return (
     <section id="gallery" className="editorial-section">
       <div className="section-header reveal"><h2>07 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
       <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
-      <div className="portfolio-gallery-grid reveal">
-        {galleryItems.slice(0, 3).map((item, index) => (
-          <article className="portfolio-gallery-card" key={item.title}>
-            <button className="portfolio-gallery-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt })} aria-label={`Preview ${item.title}`}><img src={item.image} alt={item.alt} /></button>
-            <div className="portfolio-gallery-copy"><span>{String(index + 1).padStart(2, '0')} / gallery</span><h3>{item.title}</h3></div>
-          </article>
-        ))}
+      <div className="portfolio-gallery-album reveal">
+        <header className="portfolio-gallery-album-header">
+          <div><span>Photo album - {String(album.items.length).padStart(2, '0')} photos</span><h3>{album.title}</h3><p>{album.description}</p></div>
+          <AppLink to="/gallery">Open album</AppLink>
+        </header>
+        <div className="portfolio-gallery-grid">
+          {album.items.slice(0, 3).map((item, index) => (
+            <article className="portfolio-gallery-card" key={item.title}>
+              <button className="portfolio-gallery-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt, caption: item.title })} aria-label={`Preview ${item.title}`}><ResponsiveImage item={item} sizes="(max-width: 700px) 90vw, 33vw" /></button>
+              <div className="portfolio-gallery-copy"><span>{String(index + 1).padStart(2, '0')} / {String(album.items.length).padStart(2, '0')}</span><h4>{item.title}</h4></div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

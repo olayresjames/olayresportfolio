@@ -5,8 +5,36 @@ import ResponsiveImage from '../ResponsiveImage';
 
 const filters = [['all', 'all'], ['ai', 'ai'], ['fullstack', 'full-stack'], ['frontend', 'frontend'], ['game', 'games']];
 
+function ProjectIcon({ name }) {
+  const paths = {
+    caseStudy: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M8 13h8M8 17h8" /></>,
+    external: <><path d="M15 3h6v6M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></>,
+    code: <><path d="m16 18 6-6-6-6M8 6l-6 6 6 6M14 4l-4 16" /></>,
+    previous: <><path d="m15 18-6-6 6-6" /></>,
+    next: <><path d="m9 18 6-6-6-6" /></>,
+  };
+
+  return (
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      {paths[name]}
+    </svg>
+  );
+}
+
 function DeckCard({ project, position, onActivate, onPreview }) {
   const active = position === 'center';
+  const previewContent = (
+    <>
+      {project.image ? <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" /> : (
+        <span className="deck-placeholder-copy" aria-hidden="true">
+          <strong>{project.name}</strong>
+          <small>local-first study expedition</small>
+        </span>
+      )}
+      {(project.featured || project.date === 'Current') && <span className="deck-preview-kicker">{project.featured ? 'featured case study' : 'current build'}</span>}
+      {project.image && <span className="deck-preview-label">preview <span aria-hidden="true">↗</span></span>}
+    </>
+  );
 
   return (
     <article
@@ -14,20 +42,23 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       aria-label={`${project.name}${active ? ', selected project' : ''}`}
       aria-hidden={position === 'hidden'}
     >
-      <button
-        type="button"
-        className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''}`}
-        aria-label={`${active ? 'Preview' : 'Select'} ${project.name}`}
-        tabIndex={position === 'hidden' ? -1 : 0}
-        onClick={() => {
-          if (active) onPreview({ src: project.webp || project.image, alt: project.alt });
-          else onActivate();
-        }}
-      >
-        <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" />
-        {(project.featured || project.date === 'Current') && <span className="deck-preview-kicker">{project.featured ? 'featured case study' : 'current build'}</span>}
-        <span className="deck-preview-label">{active ? 'preview' : 'select'} <span aria-hidden="true">↗</span></span>
-      </button>
+      {project.image || !active ? (
+        <button
+          type="button"
+          className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''} ${!project.image ? 'deck-preview-placeholder' : ''}`}
+          aria-label={`${active ? 'Preview' : 'Select'} ${project.name}`}
+          tabIndex={position === 'hidden' ? -1 : 0}
+          onClick={() => {
+            if (active && project.image) onPreview({ src: project.webp || project.image, alt: project.alt });
+            else if (!active) onActivate();
+          }}
+        >
+          {previewContent}
+          {!project.image && <span className="deck-preview-label">select <span aria-hidden="true">↗</span></span>}
+        </button>
+      ) : (
+        <div className="deck-preview deck-preview-placeholder" aria-hidden="true">{previewContent}</div>
+      )}
       <div className="deck-tags">
         <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
         {project.venue && <span>{project.venue}</span>}
@@ -43,9 +74,21 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       <p className="deck-technologies">{project.technologies.join(' · ')}</p>
 
       <div className="deck-links" aria-hidden={!active}>
-        {project.caseStudyUrl && <AppLink tabIndex={active ? 0 : -1} to={project.caseStudyUrl} onClick={event => event.stopPropagation()}>case study ↗</AppLink>}
-        {project.liveUrl && <a tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" onClick={event => event.stopPropagation()}>live demo ↗</a>}
-        {project.url && <a tabIndex={active ? 0 : -1} href={project.url} target="_blank" rel="noreferrer" onClick={event => event.stopPropagation()}>{project.linkLabel?.toLowerCase() || 'view project'} ↗</a>}
+        {project.caseStudyUrl && (
+          <AppLink className="deck-action" tabIndex={active ? 0 : -1} to={project.caseStudyUrl} aria-label={`Open ${project.name} case study`} title="Case study" onClick={event => event.stopPropagation()}>
+            <ProjectIcon name="caseStudy" />
+          </AppLink>
+        )}
+        {project.liveUrl && (
+          <a className="deck-action" tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} live demo`} title="Live demo" onClick={event => event.stopPropagation()}>
+            <ProjectIcon name="external" />
+          </a>
+        )}
+        {project.url && (
+          <a className="deck-action" tabIndex={active ? 0 : -1} href={project.url} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} ${project.linkLabel || 'project link'}`} title={project.linkLabel || 'View project'} onClick={event => event.stopPropagation()}>
+            <ProjectIcon name={/github|source|repository/i.test(`${project.linkLabel || ''} ${project.url}`) ? 'code' : 'external'} />
+          </a>
+        )}
       </div>
     </article>
   );
@@ -131,12 +174,12 @@ export default function Projects({ onPreview }) {
       </div>
 
       <div className="deck-controls reveal">
-        <button type="button" onClick={() => move(-1)} aria-label="Previous project">← prev</button>
+        <button type="button" onClick={() => move(-1)} aria-label="Previous project" title="Previous project"><ProjectIcon name="previous" /></button>
         <span><strong>{String(activeIndex + 1).padStart(2, '0')}</strong> / {String(visible.length).padStart(2, '0')}</span>
         <span className="sr-only" aria-live="polite" aria-atomic="true">
           {visible[activeIndex]?.name}, project {activeIndex + 1} of {visible.length}
         </span>
-        <button type="button" onClick={() => move(1)} aria-label="Next project">next →</button>
+        <button type="button" onClick={() => move(1)} aria-label="Next project" title="Next project"><ProjectIcon name="next" /></button>
       </div>
     </section>
   );

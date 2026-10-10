@@ -38,6 +38,7 @@ Shared portfolio content lives in `src/data/siteData.js`; full case-study conten
 
 The case-study pages are available at:
 
+- `/point-nemo-case-study.html`
 - `/legend-of-cee-case-study.html`
 - `/pnp-idtms-case-study.html`
 - `/agapai-case-study.html`

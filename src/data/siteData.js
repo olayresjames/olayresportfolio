@@ -1,6 +1,7 @@
 import { caseStudyPaths } from './routes.js';
 
 export const selectedProjectUpdates = [
+    { name: 'Point Nemo', summary: 'A local-first study expedition built around course material and turn-based encounters.', status: 'AppBuildersPH Hackathon 2026', href: caseStudyPaths.pointNemo },
     { name: 'PNP IDTMS', summary: 'Internship attendance and records in one workflow.', status: 'current project', href: caseStudyPaths.pnp },
     { name: 'AgapAI', summary: 'Emergency support connecting seniors, guardians, and responders.', status: 'case study', href: caseStudyPaths.agapai },
     { name: 'Foliofy', summary: 'Organize image collections and export Word or PDF documents.', status: 'case study', href: caseStudyPaths.foliofy },
@@ -46,6 +47,29 @@ export const projects = [
     date: 'Current',
     caseStudyUrl: caseStudyPaths.pnp,
     url: 'https://pnp-itms-internship-attendance.vercel.app/',
+  },
+  {
+    id: 'point-nemo',
+    name: 'Point Nemo',
+    category: 'ai',
+    categories: ['ai', 'fullstack'],
+    featured: true,
+    tag: 'Local-first AI · Hackathon',
+    tagClass: 'tag-ai',
+    linkLabel: 'GitHub repository',
+    summary: 'A local-first study expedition where students explore depth zones and turn-based creature encounters using course material extracted from their documents.',
+    proof: 'Built with team pointnemo for AppBuildersPH Hackathon 2026.',
+    technologies: ['React 19', 'Vite 7', 'TypeScript', 'Express 5', 'SQLite', 'Ollama'],
+    image: '/resources/AppbuildersPH%20Hackaton%202026/Screenshot%202026-10-10%20160156.png',
+    webp: '/resources/AppbuildersPH%20Hackaton%202026/Screenshot%202026-10-10%20160156.webp',
+    webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Screenshot%202026-10-10%20160156-800.webp',
+    imageWidth: 1061,
+    imageHeight: 591,
+    alt: 'Point Nemo local study library showing uploaded PDF lessons and recent quizzes',
+    date: '2026',
+    venue: 'AppBuildersPH Hackathon',
+    caseStudyUrl: caseStudyPaths.pointNemo,
+    url: 'https://github.com/Akosidakdok/PointNemo',
   },
   {
     id: 'pais-2',
@@ -286,8 +310,8 @@ export const projects = [
 export const skillGroups = [
   ['Languages', ['TypeScript', 'JavaScript', 'HTML5 & CSS3', 'Python', 'C', 'C++', 'C#', 'PHP']],
   ['Frontend', ['React.js', 'React Native + Expo', 'React Router', 'Tailwind CSS', 'Vite', 'PWA']],
-  ['Backend & DB', ['Node.js', 'Express', 'Firebase', 'Supabase', 'MySQL', 'PostgreSQL', 'REST APIs', 'JWT Authentication']],
-  ['AI / APIs', ['Google Gemini API', 'OpenAI API', 'API integration']],
+  ['Backend & DB', ['Node.js', 'Express', 'Firebase', 'Supabase', 'MySQL', 'PostgreSQL', 'SQLite', 'REST APIs', 'JWT Authentication']],
+  ['AI / APIs', ['Google Gemini API', 'Ollama (local inference)', 'OpenAI API', 'API integration']],
   ['Networking', ['Networking Protocols', 'Subnetting', 'IP Configuration']],
   ['Tools & Workflow', ['Git & GitHub', 'VS Code', 'Postman', 'npm', 'IndexedDB', 'docx.js', 'jsPDF', 'FullCalendar', 'Tkinter', 'Pygame']],
   ['Quality & Delivery', ['Responsive Design', 'Accessibility', 'CI/CD (Vercel)', 'Debugging']],
@@ -295,12 +319,15 @@ export const skillGroups = [
 ];
 
 export const certifications = [
-  ['Responsive Web Design', 'V8', '/resources/Certificates/Legacy Responsive Web Design v8.png', 'https://www.freecodecamp.org/certification/james-olayres/responsive-web-design'],
-  ['JavaScript Algorithms and Data Structures', 'V8', '/resources/Certificates/Legacy javasctipt algorithms and data structures v8.png', 'https://www.freecodecamp.org/certification/james-olayres/javascript-algorithms-and-data-structures-v8'],
-  ['Front End Development Libraries', 'V8', '/resources/Certificates/frontend development libraries v8.png', 'https://www.freecodecamp.org/certification/james-olayres/front-end-development-libraries'],
-  ['Scientific Computing with Python', 'V7', '/resources/Certificates/scientific computing with python.png', 'https://www.freecodecamp.org/certification/james-olayres/scientific-computing-with-python-v7'],
-  ['JavaScript Algorithms and Data Structures', 'Legacy', '/resources/Certificates/Legacy javasctipt algorithms and data structures v7.png', 'https://www.freecodecamp.org/certification/james-olayres/javascript-algorithms-and-data-structures'],
-].map(([title, version, image, verify]) => ({ title, version, image, verify, issuer: 'freeCodeCamp' }));
+  { title: 'AppBuildersPH Hackathon 2026', version: 'certificate', image: undefined, issuer: 'AppBuildersPH', certificateFile: '/resources/Certificates/APPBUILDERSPH%20HACKATHON%202026.png', certificateFileAlt: 'AppBuildersPH Hackathon 2026 certificate for James Olayres', certificateFileLabel: 'click to view ↗', certificateVerifyUrl: 'https://appbuildersph.com/hackathon/participants', certificateVerifyLabel: 'Verify with AppBuildersPH' },
+  ...[
+    ['Responsive Web Design', 'V8', '/resources/Certificates/Legacy Responsive Web Design v8.png', 'https://www.freecodecamp.org/certification/james-olayres/responsive-web-design'],
+    ['JavaScript Algorithms and Data Structures', 'V8', '/resources/Certificates/Legacy javasctipt algorithms and data structures v8.png', 'https://www.freecodecamp.org/certification/james-olayres/javascript-algorithms-and-data-structures-v8'],
+    ['Front End Development Libraries', 'V8', '/resources/Certificates/frontend development libraries v8.png', 'https://www.freecodecamp.org/certification/james-olayres/front-end-development-libraries'],
+    ['Scientific Computing with Python', 'V7', '/resources/Certificates/scientific computing with python.png', 'https://www.freecodecamp.org/certification/james-olayres/scientific-computing-with-python-v7'],
+    ['JavaScript Algorithms and Data Structures', 'Legacy', '/resources/Certificates/Legacy javasctipt algorithms and data structures v7.png', 'https://www.freecodecamp.org/certification/james-olayres/javascript-algorithms-and-data-structures'],
+  ].map(([title, version, image, verify]) => ({ title, version, image, verify, issuer: 'freeCodeCamp' })),
+];
 
 export const awards = [
   {
@@ -313,13 +340,35 @@ export const awards = [
 ];
 
 export const galleryItems = [
+  { title: 'Team at work', caption: 'The pointnemo team building and testing at their hackathon station.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/833322975_1075334208833626_2719532112471684819_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/833322975_1075334208833626_2719532112471684819_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/833322975_1075334208833626_2719532112471684819_n-800.webp', imageWidth: 1920, imageHeight: 1080, alt: 'Pointnemo team at work during the AppBuildersPH Hackathon' },
+  { title: 'Team portrait', caption: 'A team photo from the AppBuildersPH Hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n-800.webp', imageWidth: 1536, imageHeight: 2048, alt: 'Group portrait at the AppBuildersPH Hackathon' },
+  { title: 'Building Point Nemo', caption: 'The team working on Point Nemo during the hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n-800.webp', imageWidth: 1920, imageHeight: 1080, alt: 'Team member working at a computer during the AppBuildersPH Hackathon' },
+  { title: 'Team photo', caption: 'A photo of the team at the hackathon venue.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Pointnemo team photo at the AppBuildersPH Hackathon venue' },
+  { title: 'Team selfie', caption: 'A team selfie during the AppBuildersPH Hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Pointnemo team selfie at the AppBuildersPH Hackathon' },
   { title: 'Reset — Certificate + Trophy', caption: 'A milestone from the Reset game project.', image: '/resources/Gallery/reset-certificate-trophy.jpg', alt: 'Reset certificate and trophy' },
   { title: 'Deckode', caption: 'Behind the scenes from the game development team.', image: '/resources/Gallery/DECKODE.jpg', alt: 'Deckode event photo' },
   { title: 'Best Section', caption: 'A captured moment from the project showcase.', image: '/resources/Gallery/best-section.jpg', alt: 'Best section showcase photo' },
   { title: '3—7', caption: 'Selected documentation from the work.', image: '/resources/Gallery/3-7.jpg', alt: 'Project documentation photo' },
 ];
 
+export const galleryGroups = [
+  {
+    id: 'appbuildersph-hackathon-2026',
+    title: 'AppBuildersPH Hackathon 2026',
+    description: 'A few moments from the pointnemo team building Point Nemo at the hackathon.',
+    byline: 'Team pointnemo / Point Nemo',
+    items: galleryItems.slice(0, 5),
+  },
+  {
+    id: 'selected-moments',
+    title: 'More selected moments',
+    description: 'Additional photos and milestones from projects, showcases, and game development.',
+    items: galleryItems.slice(5),
+  },
+];
+
 export const experiences = [
+  { year: '2026', title: 'AppBuildersPH Hackathon', organization: 'Team pointnemo', description: 'Built Point Nemo, a local-first study expedition that turns uploaded course material into depth-zone exploration and turn-based creature encounters.', mark: 'AP' },
   { year: 'Current', title: 'PNP — Internship Database Tracking Management System', organization: 'Full-Stack Project Developer · Special Project Management Team · Camp Crame, Quezon City', description: 'Developing the PNP internship database and tracking management system as a full-stack project developer.', image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png', webp: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.webp', alt: 'PNP Internship Database Tracking Management System project preview' },
   { year: '2023 — Present', title: 'Freelance Web Development', organization: 'Independent developer', description: 'Designing and developing websites and digital experiences for real-world needs.', image: '/resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).png', webp: '/resources/Experiences/WEBDEV FREELANCING (2023 - PRESENT).webp', alt: 'Freelance web development work' },
   { year: '2018 — 2022', title: 'GTA Modding Scene', organization: 'Community projects', description: 'Exploring game modification, scripting, and community-driven digital creation.', image: '/resources/Experiences/GTA MODDING COMMUNITY (2018-2022).jpg', alt: 'GTA modding community work' },

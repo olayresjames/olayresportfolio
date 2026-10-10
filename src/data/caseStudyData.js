@@ -30,6 +30,22 @@ const legendOfCeeScreenshots = [
   caption,
 }));
 
+const pointNemoScreenshots = [
+  ['Screenshot 2026-10-10 160125.png', 'Study expedition landing page', 1061, 597],
+  ['Screenshot 2026-10-10 160139.png', 'Local-first study concept', 1061, 602],
+  ['Screenshot 2026-10-10 160156.png', 'Local PDF library', 1061, 591],
+  ['Screenshot 2026-10-10 160216.png', 'Document upload checks', 1064, 601],
+  ['Screenshot 2026-10-10 160237.png', 'Sonar question generation', 1062, 599],
+].map((/** @type {[file: string, caption: string, width: number, height: number]} */ [file, caption, imageWidth, imageHeight]) => ({
+  image: `/resources/AppbuildersPH%20Hackaton%202026/${encodeURIComponent(file)}`,
+  webp: `/resources/AppbuildersPH%20Hackaton%202026/${encodeURIComponent(file.replace(/\.png$/, '.webp'))}`,
+  webpSmall: `/resources/AppbuildersPH%20Hackaton%202026/${encodeURIComponent(file.replace(/\.png$/, '-800.webp'))}`,
+  imageWidth,
+  imageHeight,
+  alt: `Point Nemo ${caption.toLowerCase()}`,
+  caption,
+}));
+
 const legendOfCeeArt = [
   ['final boss.png', 'Final boss concept', 596, 364],
   ['NPCs 1.png', 'NPC character concepts', 440, 408],
@@ -47,6 +63,39 @@ const legendOfCeeArt = [
 }));
 
 export const caseStudies = {
+  pointNemo: {
+    path: caseStudyPaths.pointNemo,
+    title: 'Point Nemo',
+    pageTitle: 'Point Nemo Case Study | Rafhael James Olayres',
+    description: 'A local-first study expedition created by team pointnemo for AppBuildersPH Hackathon 2026.',
+    kicker: 'AppBuildersPH Hackathon 2026 · team pointnemo',
+    lede: 'Point Nemo turns a student’s course material into a local-first expedition: travel through depth zones, meet creatures in turn-based encounters, and study from documents processed on the same computer.',
+    actions: [['GitHub repository', 'https://github.com/Akosidakdok/PointNemo']],
+    meta: [
+      ['Team', 'pointnemo'],
+      ['Team members', 'Elmer Benitez · Christian James Baldonado · Sean Mark Vasquez · James Olayres'],
+      ['Stack', 'React 19 · Vite 7 · TypeScript 5.9 · Express 5 · SQLite'],
+    ],
+    galleryHeading: 'product screenshots',
+    gallery: pointNemoScreenshots,
+    architecture: [
+      { label: 'library', title: 'Local document library', description: 'Students upload text-based PDFs containing the course material they want to study.' },
+      { label: 'sonar', title: 'Document processing', description: 'The local Express API extracts PDF text and validates data before it enters the study flow.' },
+      { label: 'questions', title: 'Study content', description: 'Question generation can use local Ollama, with mock and deterministic validation flows also available.' },
+      { label: 'expedition', title: 'Depth-zone encounters', description: 'Students progress through depth zones and study with turn-based creature encounters.' },
+      { label: 'storage', title: 'On-device persistence', description: 'The local app stores its data in SQLite on the student’s computer.' },
+    ],
+    blocks: [
+      ['The project', 'Point Nemo is a study expedition built around course material students bring with them. It turns uploaded text-based documents into a journey from Point Nemo through depth zones, with turn-based creature encounters woven into studying.'],
+      ['Team', 'Built for AppBuildersPH Hackathon 2026 by team pointnemo: Elmer Benitez, Christian James Baldonado, Sean Mark Vasquez, and James Olayres.'],
+      ['Local-first study flow', 'The React and Vite web app, Express API, PDF text extraction, and SQLite database run on the user’s computer. Runtime text inference uses the local Ollama endpoint. Document text, prompts, and answers are not sent to a cloud AI service by the study flow.'],
+      ['AI behavior', 'The default Ollama model is qwen2.5:1.5b and can be changed in the environment configuration. Ollama is optional for starting the app; mock and deterministic flows support validation without an active model.'],
+      ['Technology', 'React 19, Vite 7, TypeScript 5.9, Node.js, Express 5, better-sqlite3, Zod, pdf-parse, and npm workspaces for the web app, API, and shared package.'],
+      ['Network boundary', 'Installing dependencies and obtaining or updating an Ollama model normally require internet access. After setup, the main study flow is designed to run locally. An optional development CLI can call OpenAI’s image-generation API to create local project art; the running app does not call that service. Internet is also needed to access the GitHub repository or hosted media.'],
+      ['AI and art disclosures', 'Codex and Gemini were used as development assistants. The repository documents GPT Image 2.5 Sunburst and GPT Image 2.5 Flare for optional art production, and its combat-effects notes identify the built-in image-generation tool as the source of those effects. Exact model or tool attribution for every final image has not been confirmed here; the repository’s asset guide and inventories provide project provenance details.'],
+      ['Tested setup', 'The team tested on personal Lenovo LOQ laptops running Windows 11 with Brave. The app requires Node.js ^20.19.0 or >=22.12.0 and npm.'],
+    ],
+  },
   legendOfCee: {
     path: caseStudyPaths.legendOfCee,
     title: 'Legend Of Cee: Shadows Of The Ruined King',

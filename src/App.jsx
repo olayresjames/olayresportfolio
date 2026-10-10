@@ -59,6 +59,7 @@ export default function App() {
         <Route path="/experiences" element={routeElement(<ExperiencesPage />)} />
         <Route path="/stack" element={routeElement(<StackPage />)} />
         <Route path={caseStudyPaths.legendOfCee} element={routeElement(<CaseStudyRoute studyKey="legendOfCee" />)} />
+        <Route path={caseStudyPaths.pointNemo} element={routeElement(<CaseStudyRoute studyKey="pointNemo" />)} />
         <Route path={caseStudyPaths.agapai} element={routeElement(<CaseStudyRoute studyKey="agapai" />)} />
         <Route path={caseStudyPaths.foliofy} element={routeElement(<CaseStudyRoute studyKey="foliofy" />)} />
         <Route path={caseStudyPaths.pnp} element={routeElement(<CaseStudyRoute studyKey="pnp" />)} />

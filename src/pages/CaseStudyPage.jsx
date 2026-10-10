@@ -8,7 +8,7 @@ import { Lightbox } from '../components/Modals';
 
 export default function CaseStudyPage({ study }) {
   const [previewIndex, setPreviewIndex] = useState(null);
-  const caseImages = [study, ...(study.artGallery || []), ...(study.gallery || [])].map(item => ({
+  const caseImages = [...(study.image ? [study] : []), ...(study.artGallery || []), ...(study.gallery || [])].map(item => ({
     src: item.image,
     alt: item.alt,
     caption: item.caption,
@@ -44,7 +44,7 @@ export default function CaseStudyPage({ study }) {
         {study.meta && <dl className="case-meta">
           {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         </dl>}
-        <div className="case-hero"><button type="button" className="case-image-trigger" onClick={() => openPreview(0)} aria-label="Open cover art in full view"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></button></div>
+        {study.image && <div className="case-hero"><button type="button" className="case-image-trigger" onClick={() => openPreview(0)} aria-label="Open cover art in full view"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></button></div>}
         {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
         <p className="case-section-label">project breakdown</p>
         <div className="case-grid">
@@ -55,16 +55,16 @@ export default function CaseStudyPage({ study }) {
           <p className="case-section-label" id="case-art-heading">visual language</p>
           <div className="case-gallery-grid case-art-grid">
             {study.artGallery.map((item, index) => <figure key={item.image} className="case-gallery-item">
-              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(index + 1)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
+              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(index + (study.image ? 1 : 0))} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
               <figcaption>{item.caption}</figcaption>
             </figure>)}
           </div>
         </section>}
         {study.gallery?.length > 0 && <section className="case-gallery" aria-labelledby="case-gallery-heading">
-          <p className="case-section-label" id="case-gallery-heading">gameplay screenshots</p>
+          <p className="case-section-label" id="case-gallery-heading">{study.galleryHeading || 'gameplay screenshots'}</p>
           <div className="case-gallery-grid">
             {study.gallery.map((item, index) => <figure key={item.image} className="case-gallery-item">
-              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(1 + (study.artGallery?.length || 0) + index)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
+              <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview((study.image ? 1 : 0) + (study.artGallery?.length || 0) + index)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
               <figcaption>{item.caption}</figcaption>
             </figure>)}
           </div>
