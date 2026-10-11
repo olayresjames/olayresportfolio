@@ -7,9 +7,11 @@ import { galleryGroups } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 function GalleryPageCard({ item, index, total, onPreview }) {
+  const isPortrait = item.imageWidth && item.imageHeight > item.imageWidth;
+
   return (
     <article className="gallery-page-card">
-      <button className="gallery-page-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt, caption: item.title })} aria-label={`Preview ${item.title}`}><ResponsiveImage item={item} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw" /></button>
+      <button className={`gallery-page-image${isPortrait ? ' is-portrait' : ''}`} type="button" onClick={() => onPreview({ src: item.image, alt: item.alt, caption: item.title })} aria-label={`Preview ${item.title}`}><ResponsiveImage item={item} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw" /></button>
       <div className="gallery-page-card-copy">
         <span>{String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
         <h3>{item.title}</h3>
@@ -21,7 +23,17 @@ function GalleryPageCard({ item, index, total, onPreview }) {
 
 export default function GalleryPage() {
   const [preview, setPreview] = useState(null);
+  const [activeAlbum, setActiveAlbum] = useState('all');
   usePageMeta({ title: 'Gallery | Rafhael James Olayres', description: 'A visual archive of projects, awards, and selected moments from Rafhael James Olayres.', path: '/gallery' });
+  const albums = galleryGroups.filter(group => activeAlbum === 'all' || group.id === activeAlbum);
+  const totalPhotos = galleryGroups.reduce((total, group) => total + group.items.length, 0);
+  const openAlbumPhoto = (group, index) => {
+    setPreview({
+      items: group.items.map(item => ({ src: item.image, alt: item.alt, caption: item.title })),
+      index,
+      onNavigate: nextIndex => setPreview(current => current ? { ...current, index: nextIndex } : current),
+    });
+  };
 
   return (
     <>
@@ -37,8 +49,14 @@ export default function GalleryPage() {
           <h1>gallery</h1>
           <p>Selected moments, artifacts, and milestones from the work behind the projects.</p>
         </header>
-        <div className="gallery-page-albums">
+        <div className="gallery-album-filters" role="group" aria-label="Filter gallery albums">
+          <button type="button" aria-pressed={activeAlbum === 'all'} onClick={() => setActiveAlbum('all')}>All photos <span>{totalPhotos}</span></button>
           {galleryGroups.map(group => (
+            <button key={group.id} type="button" aria-pressed={activeAlbum === group.id} onClick={() => setActiveAlbum(group.id)}>{group.title} <span>{group.items.length}</span></button>
+          ))}
+        </div>
+        <div className="gallery-page-albums">
+          {albums.map(group => (
             <section className="gallery-album" key={group.id} aria-labelledby={`album-${group.id}`}>
               <header className="gallery-album-header">
                 <div>
@@ -49,7 +67,7 @@ export default function GalleryPage() {
                 {group.byline && <small>{group.byline}</small>}
               </header>
               <div className="gallery-page-list">
-                {group.items.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} total={group.items.length} onPreview={setPreview} />)}
+                {group.items.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} total={group.items.length} onPreview={() => openAlbumPhoto(group, index)} />)}
               </div>
             </section>
           ))}

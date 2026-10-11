@@ -85,24 +85,47 @@ export function Certifications({ onPreview }) {
 }
 
 export function Gallery({ onPreview }) {
-  const album = galleryGroups[0];
+  const [activeAlbumId, setActiveAlbumId] = useState(galleryGroups[0].id);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const album = galleryGroups.find(group => group.id === activeAlbumId) || galleryGroups[0];
+  const item = album.items[activeIndex];
+  const isPortrait = item.imageWidth && item.imageHeight > item.imageWidth;
+  const move = direction => setActiveIndex(index => (index + direction + album.items.length) % album.items.length);
+  const openAlbumPhoto = (album, index) => onPreview({
+    items: album.items.map(item => ({ src: item.image, alt: item.alt, caption: item.title })),
+    index,
+    onNavigate: nextIndex => onPreview(current => current ? { ...current, index: nextIndex } : current),
+  });
 
   return (
     <section id="gallery" className="editorial-section">
       <div className="section-header reveal"><h2>07 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
       <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
       <div className="portfolio-gallery-album reveal">
-        <header className="portfolio-gallery-album-header">
-          <div><span>Photo album - {String(album.items.length).padStart(2, '0')} photos</span><h3>{album.title}</h3><p>{album.description}</p></div>
-          <AppLink to="/gallery">Open album</AppLink>
-        </header>
-        <div className="portfolio-gallery-grid">
-          {album.items.slice(0, 3).map((item, index) => (
-            <article className="portfolio-gallery-card" key={item.title}>
-              <button className="portfolio-gallery-image" type="button" onClick={() => onPreview({ src: item.image, alt: item.alt, caption: item.title })} aria-label={`Preview ${item.title}`}><ResponsiveImage item={item} sizes="(max-width: 700px) 90vw, 33vw" /></button>
-              <div className="portfolio-gallery-copy"><span>{String(index + 1).padStart(2, '0')} / {String(album.items.length).padStart(2, '0')}</span><h4>{item.title}</h4></div>
-            </article>
+        <div className="portfolio-gallery-album-tabs" role="group" aria-label="Choose a photo album">
+          {galleryGroups.map(group => (
+            <button key={group.id} type="button" aria-pressed={activeAlbumId === group.id} onClick={() => { setActiveAlbumId(group.id); setActiveIndex(0); }}>
+              {group.title}<span>{String(group.items.length).padStart(2, '0')}</span>
+            </button>
           ))}
+        </div>
+        <header className="portfolio-gallery-album-header">
+          <div><span>{album.byline || 'Photo album'} · {String(album.items.length).padStart(2, '0')} photos</span><h3>{album.title}</h3><p>{album.description}</p></div>
+          <AppLink to="/gallery">Open gallery</AppLink>
+        </header>
+        <div className="portfolio-gallery-carousel">
+          <button className="portfolio-gallery-carousel-control" type="button" onClick={() => move(-1)} aria-label="Previous photo">‹</button>
+          <article className="portfolio-gallery-card">
+            <button className={`portfolio-gallery-image${isPortrait ? ' is-portrait' : ''}`} type="button" onClick={() => openAlbumPhoto(album, activeIndex)} aria-label={`Preview ${item.title}`}>
+              <ResponsiveImage item={item} sizes="(max-width: 700px) 80vw, 54vw" />
+            </button>
+            <div className="portfolio-gallery-copy">
+              <span aria-live="polite">{String(activeIndex + 1).padStart(2, '0')} / {String(album.items.length).padStart(2, '0')}</span>
+              <h4>{item.title}</h4>
+              <p>{item.caption}</p>
+            </div>
+          </article>
+          <button className="portfolio-gallery-carousel-control" type="button" onClick={() => move(1)} aria-label="Next photo">›</button>
         </div>
       </div>
     </section>

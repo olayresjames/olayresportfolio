@@ -23,6 +23,8 @@ function ProjectIcon({ name }) {
 
 function DeckCard({ project, position, onActivate, onPreview }) {
   const active = position === 'center';
+  const extraTechnologyCount = Math.max(0, project.technologies.length - 3);
+  const technologySummary = project.technologies.slice(0, 3).join(' · ');
   const previewContent = (
     <>
       {project.image ? <ResponsiveImage item={project} sizes="(max-width: 700px) 80vw, 360px" /> : (
@@ -71,7 +73,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
 
       <p className="deck-description">{project.summary || project.description}</p>
       {project.proof && <p className="deck-proof">{project.proof}</p>}
-      <p className="deck-technologies">{project.technologies.join(' · ')}</p>
+      <p className="deck-technologies">{technologySummary}{extraTechnologyCount > 0 ? ` · +${extraTechnologyCount} more` : ''}</p>
 
       <div className="deck-links" aria-hidden={!active}>
         {project.caseStudyUrl && (
@@ -81,6 +83,11 @@ function DeckCard({ project, position, onActivate, onPreview }) {
         )}
         {project.liveUrl && (
           <a className="deck-action" tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} live demo`} title="Live demo" onClick={event => event.stopPropagation()}>
+            <ProjectIcon name="external" />
+          </a>
+        )}
+        {project.pitchUrl && (
+          <a className="deck-action" tabIndex={active ? 0 : -1} href={project.pitchUrl} target="_blank" rel="noreferrer" aria-label={`Read ${project.name} project pitch on LinkedIn`} title="LinkedIn project pitch" onClick={event => event.stopPropagation()}>
             <ProjectIcon name="external" />
           </a>
         )}

@@ -1,4 +1,4 @@
-import { caseStudyPaths } from './routes.js';
+import { caseStudyPaths, pointNemoPitchUrl } from './routes.js';
 
 export const selectedProjectUpdates = [
     { name: 'Point Nemo', summary: 'A local-first study expedition built around course material and turn-based encounters.', status: 'AppBuildersPH Hackathon 2026', href: caseStudyPaths.pointNemo },
@@ -69,6 +69,7 @@ export const projects = [
     date: '2026',
     venue: 'AppBuildersPH Hackathon',
     caseStudyUrl: caseStudyPaths.pointNemo,
+    pitchUrl: pointNemoPitchUrl,
     url: 'https://github.com/Akosidakdok/PointNemo',
   },
   {
@@ -344,11 +345,12 @@ export const galleryItems = [
   { title: 'Team portrait', caption: 'A team photo from the AppBuildersPH Hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/831277560_1071540725679663_1368969917848350556_n-800.webp', imageWidth: 1536, imageHeight: 2048, alt: 'Group portrait at the AppBuildersPH Hackathon' },
   { title: 'Building Point Nemo', caption: 'The team working on Point Nemo during the hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/835357134_1129485376433869_5402630550514437801_n-800.webp', imageWidth: 1920, imageHeight: 1080, alt: 'Team member working at a computer during the AppBuildersPH Hackathon' },
   { title: 'Team photo', caption: 'A photo of the team at the hackathon venue.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/840346202_1069674935937478_847077860598290348_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Pointnemo team photo at the AppBuildersPH Hackathon venue' },
-  { title: 'Team selfie', caption: 'A team selfie during the AppBuildersPH Hackathon.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Pointnemo team selfie at the AppBuildersPH Hackathon' },
-  { title: 'Reset — Certificate + Trophy', caption: 'A milestone from the Reset game project.', image: '/resources/Gallery/reset-certificate-trophy.jpg', alt: 'Reset certificate and trophy' },
-  { title: 'Deckode', caption: 'Behind the scenes from the game development team.', image: '/resources/Gallery/DECKODE.jpg', alt: 'Deckode event photo' },
-  { title: 'Best Section', caption: 'A captured moment from the project showcase.', image: '/resources/Gallery/best-section.jpg', alt: 'Best section showcase photo' },
-  { title: '3—7', caption: 'Selected documentation from the work.', image: '/resources/Gallery/3-7.jpg', alt: 'Project documentation photo' },
+  { title: 'Team with host Mr. Bryl Lim', caption: 'The Point Nemo team with AppBuildersPH Hackathon host Mr. Bryl Lim.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Point Nemo team picture with AppBuildersPH Hackathon host Mr. Bryl Lim' },
+  { title: 'DECKODE', caption: 'The DECKODE team at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/DECKODE.jpg', alt: 'DECKODE team at ITlympics 2026' },
+  { title: 'DECKODE team', caption: 'Another moment with the DECKODE team at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/DECKODE%202.jpg', alt: 'DECKODE team at the ITlympics 2026 event' },
+  { title: 'Best Section', caption: 'The section recognition at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/best-section.jpg', imageWidth: 1536, imageHeight: 2048, alt: 'Best section recognition at ITlympics 2026' },
+  { title: '3—7', caption: 'A moment from the ITlympics 2026 program.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/3-7.jpg', alt: 'ITlympics 2026 event moment' },
+  { title: 'Reset — Certificate + Trophy', caption: 'Reset recognition from the ITlympics 2026 event.', image: '/resources/Gallery/reset-certificate-trophy.jpg', imageWidth: 1448, imageHeight: 1930, alt: 'Reset certificate and trophy from ITlympics 2026' },
 ];
 
 export const galleryGroups = [
@@ -360,9 +362,10 @@ export const galleryGroups = [
     items: galleryItems.slice(0, 5),
   },
   {
-    id: 'selected-moments',
-    title: 'More selected moments',
-    description: 'Additional photos and milestones from projects, showcases, and game development.',
+    id: 'itlympics-2026',
+    title: 'Imprint — ITlympics 2026',
+    description: 'Team photos and event moments from ITlympics, including the Reset certificate and trophy.',
+    byline: 'DECKODE / Reset',
     items: galleryItems.slice(5),
   },
 ];

@@ -23,6 +23,7 @@ function ProjectRow({ project }) {
         <p className="all-project-tech">{project.technologies.join(' · ')}</p>
         <div className="all-project-links">
           {project.caseStudyUrl && <AppLink to={project.caseStudyUrl}>case study ↗</AppLink>}
+          {project.pitchUrl && <a href={project.pitchUrl} target="_blank" rel="noreferrer">LinkedIn project pitch ↗</a>}
           {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">live demo ↗</a>}
           {project.url && <a href={project.url} target="_blank" rel="noreferrer">{project.linkLabel?.toLowerCase() || 'view project'} ↗</a>}
         </div>

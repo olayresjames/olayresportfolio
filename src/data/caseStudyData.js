@@ -1,4 +1,4 @@
-import { caseStudyPaths } from './routes.js';
+import { caseStudyPaths, pointNemoPitchUrl } from './routes.js';
 
 const legendOfCeeScreenshots = [
   ['Screenshot 2026-09-23 145910.png', 'Opening area and player HUD'],
@@ -70,7 +70,7 @@ export const caseStudies = {
     description: 'A local-first study expedition created by team pointnemo for AppBuildersPH Hackathon 2026.',
     kicker: 'AppBuildersPH Hackathon 2026 · team pointnemo',
     lede: 'Point Nemo turns a student’s course material into a local-first expedition: travel through depth zones, meet creatures in turn-based encounters, and study from documents processed on the same computer.',
-    actions: [['GitHub repository', 'https://github.com/Akosidakdok/PointNemo']],
+    actions: [['LinkedIn project pitch', pointNemoPitchUrl], ['GitHub repository', 'https://github.com/Akosidakdok/PointNemo']],
     meta: [
       ['Team', 'pointnemo'],
       ['Team members', 'Elmer Benitez · Christian James Baldonado · Sean Mark Vasquez · James Olayres'],

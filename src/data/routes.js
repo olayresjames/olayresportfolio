@@ -5,3 +5,5 @@ export const caseStudyPaths = Object.freeze({
   foliofy: '/foliofy-case-study.html',
   pnp: '/pnp-idtms-case-study.html',
 });
+
+export const pointNemoPitchUrl = 'https://lnkd.in/p/gM7acdHZ';
