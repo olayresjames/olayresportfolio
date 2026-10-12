@@ -1174,6 +1174,7 @@ body { font-size: 18px; }
   .projects-page-halftone { right: -8rem; }
   .case-block,
   .case-block:nth-child(even) { padding: 1.25rem 0; border-right: 0; }
+  .ask-me-layer { background: var(--background); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ask-me-panel { padding-right: max(1rem, env(safe-area-inset-right)); padding-left: max(1rem, env(safe-area-inset-left)); }
   .ask-me-header { gap: 0.9rem; padding-bottom: 1rem; }
   .ask-me-header h2 { font-size: clamp(1.65rem, 7vw, 2.4rem); }

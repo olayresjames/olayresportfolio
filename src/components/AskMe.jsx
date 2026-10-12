@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getAskMeAnswer } from '../data/askMeData';
 
 const MAX_QUESTION_LENGTH = 300;
+const isMobileViewport = () => window.matchMedia('(max-width: 767px)').matches;
 const reactionGifs = {
   friendly: { src: '/resources/gif%20replys/handshake.gif', webp: '/resources/gif%20replys/handshake.webp', alt: 'A man offers a casual handshake' },
   pointing: { src: '/resources/gif%20replys/druski-pointing.gif', webp: '/resources/gif%20replys/druski-pointing.webp', alt: 'A man points toward the viewer' },
@@ -94,7 +95,10 @@ export default function AskMe({ open, onClose }) {
     const restoreFocus = previousFocus?.closest('[aria-hidden="true"]') ? document.querySelector('.menu-toggle') : previousFocus;
     document.documentElement.classList.add('overlay-open');
     document.body.classList.add('overlay-open');
-    const focusFrame = window.requestAnimationFrame(() => inputRef.current?.focus());
+    const focusFrame = window.requestAnimationFrame(() => {
+      if (isMobileViewport()) panelRef.current?.focus();
+      else inputRef.current?.focus();
+    });
     return () => {
       window.cancelAnimationFrame(focusFrame);
       document.documentElement.classList.remove('overlay-open');
@@ -240,7 +244,11 @@ export default function AskMe({ open, onClose }) {
               if (!list || list.scrollHeight - list.scrollTop - list.clientHeight > 240) return;
               window.requestAnimationFrame(() => { list.scrollTop = list.scrollHeight; });
             } : undefined}
-            onSuggestion={suggestion => ask(suggestion, { focusInput: true })}
+            onSuggestion={suggestion => {
+              const focusInput = !isMobileViewport();
+              if (!focusInput) inputRef.current?.blur();
+              ask(suggestion, { focusInput });
+            }}
             showSuggestions={message.id === latestAssistantId}
           />)}
         </div>
