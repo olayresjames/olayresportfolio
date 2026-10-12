@@ -31,7 +31,7 @@ export default function CaseStudyPage({ study }) {
     title: study.pageTitle,
     description: study.description,
     path: study.path,
-    image: study.webp,
+    image: study.shareImage || study.webp,
     type: 'article',
   });
 

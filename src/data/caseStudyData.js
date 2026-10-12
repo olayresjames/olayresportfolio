@@ -225,6 +225,7 @@ export const caseStudies = {
     title: 'AgapAI',
     pageTitle: 'AgapAI Case Study | Rafhael James Olayres',
     description: 'A case study of AgapAI, a mobile emergency rescue and proactive health platform for senior citizens in Valenzuela City.',
+    shareImage: '/resources/agapai-portfolio-promo.png',
     kicker: 'Capstone case study · 2026–present',
     lede: 'A connected mobile platform for emergency rescue, proactive health monitoring, and community support for senior citizens in Valenzuela City.',
     image: '/resources/agapai-image.png',
