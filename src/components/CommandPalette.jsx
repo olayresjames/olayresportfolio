@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import usePlatformShortcuts from '../hooks/usePlatformShortcuts';
+import { playNavigationTone } from '../utils/uiSounds';
 
 const commands = [
   ['Ask me anything', 'ask-me'],
@@ -40,6 +41,7 @@ export default function CommandPalette({ open, onClose, onAskMe }) {
 
   const select = command => {
     if (!command) return;
+    if (command[1] !== 'ask-me') playNavigationTone();
     onClose();
     if (command[1] === 'ask-me') {
       onAskMe();

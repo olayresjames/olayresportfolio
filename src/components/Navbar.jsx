@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CommandPalette from './CommandPalette';
-import ThemeControl from './ThemeControl';
+import DisplayControls from './DisplayControls';
 import AskMe from './AskMe';
 import { ResumeModal } from './Modals';
 import usePlatformShortcuts from '../hooks/usePlatformShortcuts';
@@ -94,7 +94,7 @@ export default function Navbar() {
           <a className="sidebar-email" href="mailto:olayres.rafhaeljames@gmail.com"><span aria-hidden="true">✉</span> olayres.rafhaeljames@gmail.com</a>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => setPaletteOpen(true)}>command palette <kbd>{paletteShortcut}</kbd></button>
-          <div className="sidebar-controls"><ThemeControl /></div>
+          <div className="sidebar-controls"><DisplayControls /></div>
         </div>
       </aside>
 
@@ -108,7 +108,7 @@ export default function Navbar() {
           <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↓</button>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => { setMenuOpen(false); setPaletteOpen(true); }}>command palette <kbd>{paletteShortcut}</kbd></button>
-          <div className="sidebar-controls"><ThemeControl /></div>
+          <div className="sidebar-controls"><DisplayControls /></div>
         </div>
       </div>
       <AskMe open={askMeOpen} onClose={() => setAskMeOpen(false)} />

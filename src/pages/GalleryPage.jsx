@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AppLink from '../components/AppLink';
-import ThemeControl from '../components/ThemeControl';
+import DisplayControls from '../components/DisplayControls';
 import ResponsiveImage from '../components/ResponsiveImage';
 import { Lightbox } from '../components/Modals';
 import { galleryGroups } from '../data/siteData';
@@ -43,7 +43,7 @@ export default function GalleryPage() {
       <a className="skip-link" href="#gallery-page">Skip to gallery</a>
       <header className="case-nav">
         <AppLink to="/" className="identity-name">James Olayres</AppLink>
-        <div><ThemeControl /><AppLink to="/#about">home ↩</AppLink></div>
+        <div><DisplayControls /><AppLink to="/#about">home ↩</AppLink></div>
       </header>
       <main id="gallery-page" className="gallery-page">
         <div className="halftone gallery-page-halftone" aria-hidden="true" />

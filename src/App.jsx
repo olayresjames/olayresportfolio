@@ -1,6 +1,8 @@
 import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import RouteErrorBoundary from './components/RouteErrorBoundary';
+import NavigationSoundListener from './components/NavigationSoundListener';
+import { SoundPreferenceProvider } from './components/SoundControl';
 import { caseStudyPaths } from './data/routes';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -49,22 +51,25 @@ function routeElement(element) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <RouteEffects />
-      <Routes>
-        <Route path="/" element={routeElement(<HomePage />)} />
-        <Route path="/projects" element={routeElement(<ProjectsPage />)} />
-        <Route path="/certifications" element={routeElement(<CertificationsPage />)} />
-        <Route path="/gallery" element={routeElement(<GalleryPage />)} />
-        <Route path="/experiences" element={routeElement(<ExperiencesPage />)} />
-        <Route path="/stack" element={routeElement(<StackPage />)} />
-        <Route path={caseStudyPaths.legendOfCee} element={routeElement(<CaseStudyRoute studyKey="legendOfCee" />)} />
-        <Route path={caseStudyPaths.pointNemo} element={routeElement(<CaseStudyRoute studyKey="pointNemo" />)} />
-        <Route path={caseStudyPaths.agapai} element={routeElement(<CaseStudyRoute studyKey="agapai" />)} />
-        <Route path={caseStudyPaths.foliofy} element={routeElement(<CaseStudyRoute studyKey="foliofy" />)} />
-        <Route path={caseStudyPaths.pnp} element={routeElement(<CaseStudyRoute studyKey="pnp" />)} />
-        <Route path="*" element={routeElement(<NotFoundPage />)} />
-      </Routes>
-    </BrowserRouter>
+    <SoundPreferenceProvider>
+      <BrowserRouter>
+        <RouteEffects />
+        <NavigationSoundListener />
+        <Routes>
+          <Route path="/" element={routeElement(<HomePage />)} />
+          <Route path="/projects" element={routeElement(<ProjectsPage />)} />
+          <Route path="/certifications" element={routeElement(<CertificationsPage />)} />
+          <Route path="/gallery" element={routeElement(<GalleryPage />)} />
+          <Route path="/experiences" element={routeElement(<ExperiencesPage />)} />
+          <Route path="/stack" element={routeElement(<StackPage />)} />
+          <Route path={caseStudyPaths.legendOfCee} element={routeElement(<CaseStudyRoute studyKey="legendOfCee" />)} />
+          <Route path={caseStudyPaths.pointNemo} element={routeElement(<CaseStudyRoute studyKey="pointNemo" />)} />
+          <Route path={caseStudyPaths.agapai} element={routeElement(<CaseStudyRoute studyKey="agapai" />)} />
+          <Route path={caseStudyPaths.foliofy} element={routeElement(<CaseStudyRoute studyKey="foliofy" />)} />
+          <Route path={caseStudyPaths.pnp} element={routeElement(<CaseStudyRoute studyKey="pnp" />)} />
+          <Route path="*" element={routeElement(<NotFoundPage />)} />
+        </Routes>
+      </BrowserRouter>
+    </SoundPreferenceProvider>
   );
 }

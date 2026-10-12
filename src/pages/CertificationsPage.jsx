@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AppLink from '../components/AppLink';
 import { awards, certifications, getCertificationPreview } from '../data/siteData';
-import ThemeControl from '../components/ThemeControl';
+import DisplayControls from '../components/DisplayControls';
 import { Lightbox } from '../components/Modals';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -61,7 +61,7 @@ export default function CertificationsPage() {
       <a className="skip-link" href="#certifications-page">Skip to certifications</a>
       <header className="case-nav">
         <AppLink to="/" className="identity-name">James Olayres</AppLink>
-        <div><ThemeControl /><AppLink to="/#certifications">home ↩</AppLink></div>
+        <div><DisplayControls /><AppLink to="/#certifications">home ↩</AppLink></div>
       </header>
       <main id="certifications-page" className="certifications-page">
         <div className="halftone certifications-page-halftone" aria-hidden="true" />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AppLink from '../components/AppLink';
-import ThemeControl from '../components/ThemeControl';
+import DisplayControls from '../components/DisplayControls';
 import { Lightbox } from '../components/Modals';
 import { experiences } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -26,7 +26,7 @@ export default function ExperiencesPage() {
   return (
     <>
       <a className="skip-link" href="#experiences-page">Skip to experience</a>
-      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><ThemeControl /><AppLink to="/#experience">home ↩</AppLink></div></header>
+      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><DisplayControls /><AppLink to="/#experience">home ↩</AppLink></div></header>
       <main id="experiences-page" className="experiences-page">
         <div className="halftone experiences-page-halftone" aria-hidden="true" />
         <header className="experiences-page-header"><p className="section-heading">the path so far</p><h1>experience</h1><p>From game communities and ROM hacking to freelance web development and full-stack product work.</p></header>

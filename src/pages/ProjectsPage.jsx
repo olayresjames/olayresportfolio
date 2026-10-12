@@ -1,6 +1,6 @@
 import ResponsiveImage from '../components/ResponsiveImage';
 import AppLink from '../components/AppLink';
-import ThemeControl from '../components/ThemeControl';
+import DisplayControls from '../components/DisplayControls';
 import { projects } from '../data/siteData';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
       <a className="skip-link" href="#projects-page">Skip to projects</a>
       <header className="case-nav">
         <AppLink to="/" className="identity-name">James Olayres</AppLink>
-        <div><ThemeControl /><AppLink to="/#projects">home ↩</AppLink></div>
+        <div><DisplayControls /><AppLink to="/#projects">home ↩</AppLink></div>
       </header>
       <main id="projects-page" className="projects-page">
         <div className="halftone projects-page-halftone" aria-hidden="true" />

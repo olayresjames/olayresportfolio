@@ -1,7 +1,7 @@
 import ResponsiveImage from '../components/ResponsiveImage';
 import AppLink from '../components/AppLink';
 import CaseStudySystemMap from '../components/CaseStudySystemMap';
-import ThemeControl from '../components/ThemeControl';
+import DisplayControls from '../components/DisplayControls';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useState } from 'react';
 import { Lightbox } from '../components/Modals';
@@ -38,7 +38,7 @@ export default function CaseStudyPage({ study }) {
   return (
     <>
       <a className="skip-link" href="#case-content">Skip to content</a>
-      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><ThemeControl /><AppLink to="/#projects">projects ↩</AppLink></div></header>
+      <header className="case-nav"><AppLink to="/" className="identity-name">James Olayres</AppLink><div><DisplayControls /><AppLink to="/#projects">projects ↩</AppLink></div></header>
       <main id="case-content" className="case-study">
         <span className="case-kicker">{study.kicker}</span>
         <h1>{study.title}</h1>
