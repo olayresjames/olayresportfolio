@@ -1,4 +1,7 @@
+import { projects } from '../../data/siteData';
+
 export default function Hero({ onOpenResume }) {
+  const shippedProjectCount = projects.filter(project => !/\bcurrent\b|\bpresent\b/i.test(project.date || '')).length;
   const portraits = [
     ['/resources/id-picture-v2.png', '/resources/id-picture-v2.webp', '/resources/id-picture-v2-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
     ['/resources/hero-portrait-black-cutout.png', '/resources/hero-portrait-black-cutout.webp', '/resources/hero-portrait-black-cutout-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
@@ -9,9 +12,6 @@ export default function Hero({ onOpenResume }) {
     <section id="about" className="hero editorial-section">
       <div className="hero-grid">
         <div className="portrait-wrap reveal">
-          <div className="portrait-backdrop" aria-hidden="true">
-            <span className="portrait-monogram">RJ</span>
-          </div>
           <div className="halftone halftone-portrait" aria-hidden="true" />
           <div className="portrait-rotator" aria-label="Portrait of Rafhael James Olayres">
             {portraits.map(([src, webp, webpSmall, alt], index) => <picture key={src}>
@@ -19,35 +19,39 @@ export default function Hero({ onOpenResume }) {
               <img className={index === 0 ? 'is-primary' : ''} src={src} alt={index === 0 ? alt : ''} width="1254" height="1254" decoding="async" fetchPriority={index === 0 ? 'high' : undefined} aria-hidden={index === 0 ? undefined : 'true'} />
             </picture>)}
           </div>
-          <div className="portrait-caption" aria-hidden="true">
-            <span>RJO</span>
-            <span>01 / 27</span>
-          </div>
         </div>
         <div className="hero-copy">
-          <p className="section-heading reveal">01 — about</p>
+          <p className="hero-kicker reveal">Full-stack developer · IT student · Valenzuela, PH</p>
           <h1 className="reveal">Rafhael James Olayres</h1>
           <p className="hero-lede reveal">I’m a full-stack developer and IT student building practical web, mobile, and AI-powered products.</p>
-          <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System, studying at Pamantasan ng Lungsod ng Valenzuela, and completing an internship with the Camp Crame ITMS Office under the Special Project Management Team.</p>
-          <div className="about-details reveal">
-            <div><span>working across</span><strong>React, React Native, Firebase, Supabase, and AI integrations</strong></div>
-            <div><span>open to</span><strong>Internships, freelance work, and thoughtful collaborations</strong></div>
-          </div>
-          <div className="hero-actions reveal">
-            <a className="button button-primary" href="#projects">view selected work <span aria-hidden="true">↗</span></a>
-            <button className="button button-secondary" type="button" onClick={onOpenResume}>view résumé <span aria-hidden="true">↗</span></button>
-          </div>
-          <div className="text-links reveal" aria-label="Social links">
+          <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System with the Camp Crame ITMS Office’s Special Project Management Team while studying BSIT at PLV.</p>
+          <div className="text-links hero-links reveal" aria-label="Profile and portfolio links">
             <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
             <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
             <a href="mailto:olayres.rafhaeljames@gmail.com">email ↗</a>
+            <a href="#projects">projects ↗</a>
+            <button className="text-button" type="button" onClick={onOpenResume}>résumé ↗</button>
           </div>
+          <p className="hero-availability reveal">Open to internships, freelance work, and thoughtful collaborations.</p>
         </div>
       </div>
+      <div className="hero-affiliations reveal" aria-label="Current work, education, and project experience">
+        <a className="hero-affiliation" href="#experience">
+          <span className="hero-affiliation-mark" aria-hidden="true">PNP</span>
+          <span><strong>Camp Crame ITMS Office</strong><small>Full-stack project developer · current</small></span>
+        </a>
+        <a className="hero-affiliation" href="#education">
+          <span className="hero-affiliation-mark" aria-hidden="true">PLV</span>
+          <span><strong>Pamantasan ng Lungsod ng Valenzuela</strong><small>BS Information Technology · 2023–2027</small></span>
+        </a>
+        <a className="hero-affiliation" href="#projects">
+          <span className="hero-affiliation-mark" aria-hidden="true">PN</span>
+          <span><strong>AppBuildersPH Hackathon</strong><small>Point Nemo · 2026</small></span>
+        </a>
+      </div>
       <dl className="stats-row reveal">
-        <div><dt>Projects</dt><dd>8 shipped</dd></div>
-        <div><dt>Education</dt><dd>BSIT · PLV ’27</dd></div>
-        <div><dt>Focus</dt><dd>AI + full-stack</dd></div>
+        <div><dt>Projects shipped</dt><dd>{String(shippedProjectCount).padStart(2, '0')}</dd></div>
+        <div><dt>Independent development since</dt><dd>2023</dd></div>
         <div><dt>Based in</dt><dd>Valenzuela, PH</dd></div>
       </dl>
     </section>

@@ -10,7 +10,7 @@ export function Experience({ onOpenResume }) {
   return (
     <section id="experience" className="editorial-section">
       <div className="section-header reveal"><h2>03 — experience</h2><div className="section-header-actions"><AppLink to="/experiences">full experience →</AppLink><button className="text-button" type="button" onClick={onOpenResume}>view résumé ↗</button></div></div>
-      <div className="timeline">
+      <div className="timeline experience-preview">
         {experiences.map(entry => (
           <article className="timeline-entry reveal" key={entry.title}>
             <time>{entry.year}</time>

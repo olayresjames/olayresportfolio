@@ -84,7 +84,7 @@ const skillAliases = {
   'PostgreSQL': ['postgres', 'postgresql'],
   'JWT Authentication': ['jwt', 'authentication'],
   'Google Gemini API': ['gemini', 'google gemini'],
-  'Ollama (local inference)': ['ollama', 'local inference'],
+  'Local AI (Ollama)': ['ollama', 'local ai', 'local inference'],
   'OpenAI API': ['openai'],
 };
 const projectTechnologyTerms = [...new Set(projects.flatMap(project => project.technologies || []))];
@@ -151,7 +151,7 @@ export const askMeTopics = [
     keywords: ['currently', 'current work', 'working on', 'right now', 'ongoing', 'present'],
     phrases: ['what are you working on', 'what are you building now', 'current projects'],
     priority: 3,
-    answer: 'My current work includes the PNP Internship Database Tracking Management System, a role-aware platform for attendance and internship administration, and AgapAI, a mobile and web emergency support and health platform for seniors, guardians, and local responders. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
+    answer: 'My current work includes the PNP Internship Database Tracking Management System and AgapAI, an emergency support and health platform for seniors, guardians, and local responders. I am the tech lead for our AgapAI capstone team and developed its mobile app, website, and admin endpoint. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
     links: [
       { label: 'Explore PNP IDTMS', href: '/pnp-idtms-case-study.html' },
       { label: 'Explore AgapAI', href: '/agapai-case-study.html' },
@@ -162,7 +162,7 @@ export const askMeTopics = [
     keywords: ['ai', 'gemini', 'openai', 'artificial intelligence', 'assistant'],
     phrases: ['how do you use ai'],
     priority: 3,
-    answer: 'My AI-related work includes AgapAI, an emergency support platform with a Gemini-powered assistant, and Point Nemo, a local-first study app that uses Ollama for question generation by default. Point Nemo keeps document text, prompts, and answers on the user’s computer during its study flow; its default model is qwen2.5:1.5b.',
+    answer: 'My AI-related work includes AgapAI, where I am tech lead for the capstone team and developed the mobile app, website, and admin endpoint, with a Gemini-powered assistant. It also includes Point Nemo, a local-first study app that uses Ollama for question generation by default. Point Nemo keeps document text, prompts, and answers on the user’s computer during its study flow; its default model is qwen2.5:1.5b.',
     links: [{ label: 'Explore Point Nemo', href: '/point-nemo-case-study.html' }, { label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
   },
   {
@@ -170,7 +170,7 @@ export const askMeTopics = [
     keywords: ['mobile', 'android', 'ios', 'expo', 'react native', 'app'],
     phrases: ['mobile development'],
     priority: 3,
-    answer: 'My mobile-focused work includes AgapAI, built with React Native and Expo. Its scope includes emergency rescue, health monitoring, AI assistance, and connected workflows for seniors, guardians, and local responders.',
+    answer: 'I am the tech lead for the AgapAI capstone team and developed its React Native and Expo mobile app, website, and admin endpoint. The platform supports emergency rescue, health monitoring, AI assistance, and connected workflows for seniors, guardians, and local responders.',
     links: [{ label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
   },
   {

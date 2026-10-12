@@ -140,11 +140,11 @@ export const projects = [
     tag: 'AI · Capstone project',
     tagClass: 'tag-ai',
     summary: 'An AI-assisted emergency support platform designed to help seniors, guardians, and local responders act faster.',
-    proof: 'Our capstone project, built to connect seniors, guardians, and local responders through one emergency support platform.',
+    proof: 'Tech lead for our capstone team; I developed the mobile app, website, and admin endpoint.',
     facts: [
-      ['Role', 'Product designer & full-stack developer'],
+      ['Role', 'Capstone tech lead & full-stack developer'],
       ['Problem', 'Senior citizens and guardians need faster, clearer access to emergency support.'],
-      ['Built', 'Cross-platform app with SOS dispatch, health monitoring, AI assistance, and LGU workflows.'],
+      ['Built', 'Mobile app, website, and admin endpoint, with SOS dispatch, health monitoring, AI assistance, and LGU workflows.'],
       ['Result', 'One centralized experience connects seniors, guardians, and local responders.'],
     ],
     technologies: ['React', 'Firebase', 'Google Gemini AI', 'React Native', 'Expo'],
@@ -311,12 +311,12 @@ export const projects = [
 export const skillGroups = [
   ['Languages', ['TypeScript', 'JavaScript', 'HTML5 & CSS3', 'Python', 'C', 'C++', 'C#', 'PHP']],
   ['Frontend', ['React.js', 'React Native + Expo', 'React Router', 'Tailwind CSS', 'Vite', 'PWA']],
-  ['Backend & DB', ['Node.js', 'Express', 'Firebase', 'Supabase', 'MySQL', 'PostgreSQL', 'SQLite', 'REST APIs', 'JWT Authentication']],
-  ['AI / APIs', ['Google Gemini API', 'Ollama (local inference)', 'OpenAI API', 'API integration']],
+  ['Backend & DB', ['Node.js', 'Express', 'Firebase', 'Supabase', 'MySQL', 'PostgreSQL', 'SQLite', 'better-sqlite3', 'Zod', 'pdf-parse', 'REST APIs', 'JWT Authentication']],
+  ['AI / APIs', ['Google Gemini API', 'Local AI (Ollama)', 'OpenAI API', 'API integration']],
   ['Networking', ['Networking Protocols', 'Subnetting', 'IP Configuration']],
-  ['Tools & Workflow', ['Git & GitHub', 'VS Code', 'Postman', 'npm', 'IndexedDB', 'docx.js', 'jsPDF', 'FullCalendar', 'Tkinter', 'Pygame']],
+  ['Tools & Workflow', ['Git & GitHub', 'VS Code', 'Postman', 'npm', 'npm workspaces', 'IndexedDB', 'docx.js', 'jsPDF', 'FullCalendar', 'Tkinter', 'Pygame']],
   ['Quality & Delivery', ['Responsive Design', 'Accessibility', 'CI/CD (Vercel)', 'Debugging']],
-  ['Practices', ['Agile Development', 'Documentation', 'Analytical Thinking']],
+  ['Practices', ['Agile Development', 'Scrum', 'Documentation', 'Analytical Thinking']],
 ];
 
 export const certifications = [

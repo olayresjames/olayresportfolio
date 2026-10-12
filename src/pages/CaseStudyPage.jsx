@@ -8,11 +8,16 @@ import { Lightbox } from '../components/Modals';
 
 export default function CaseStudyPage({ study }) {
   const [previewIndex, setPreviewIndex] = useState(null);
-  const caseImages = [...(study.image ? [study] : []), ...(study.artGallery || []), ...(study.gallery || [])].map(item => ({
+  const gallerySections = study.gallerySections || [];
+  const caseImages = [...(study.image ? [study] : []), ...(study.artGallery || []), ...(study.gallery || []), ...gallerySections.flatMap(section => section.items)].map(item => ({
     src: item.image,
     alt: item.alt,
     caption: item.caption,
   }));
+  const gallerySectionOffset = sectionIndex => (study.image ? 1 : 0)
+    + (study.artGallery?.length || 0)
+    + (study.gallery?.length || 0)
+    + gallerySections.slice(0, sectionIndex).reduce((count, section) => count + section.items.length, 0);
   const openPreview = index => setPreviewIndex(index);
   const closePreview = () => setPreviewIndex(null);
   const preview = previewIndex === null ? null : {
@@ -78,6 +83,20 @@ export default function CaseStudyPage({ study }) {
             </figure>)}
           </div>
         </section>}
+        {gallerySections.map((section, sectionIndex) => {
+          const startIndex = gallerySectionOffset(sectionIndex);
+          const headingId = `case-gallery-heading-${sectionIndex}`;
+          return <section className="case-gallery case-gallery-role" key={section.heading} aria-labelledby={headingId}>
+            <p className="case-section-label" id={headingId}>{section.heading}</p>
+            {section.description && <p className="case-gallery-intro">{section.description}</p>}
+            <div className="case-gallery-grid">
+              {section.items.map((item, index) => <figure key={item.image} className="case-gallery-item">
+                <button type="button" className="case-image-trigger case-gallery-image" onClick={() => openPreview(startIndex + index)} aria-label={`Open ${item.caption} in full view`}><ResponsiveImage item={item} sizes="(max-width: 768px) 92vw, 27vw" /></button>
+                <figcaption>{item.caption}</figcaption>
+              </figure>)}
+            </div>
+          </section>;
+        })}
       </main>
       <Lightbox preview={preview} onClose={closePreview} />
     </>

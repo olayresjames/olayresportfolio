@@ -46,6 +46,45 @@ const pointNemoScreenshots = [
   caption,
 }));
 
+const pnpScreenshot = (role, time, caption, imageHeight) => {
+  const source = `/resources/p-idtms/${role}/${encodeURIComponent(`Screenshot 2026-10-12 ${time}`)}`;
+  return {
+    image: `${source}.png`,
+    webp: `${source}.webp`,
+    webpSmall: `${source}-800.webp`,
+    imageWidth: 1365,
+    imageHeight,
+    alt: `PNP IDTMS ${caption.toLowerCase()}`,
+    caption,
+  };
+};
+
+const pnpGallerySections = [
+  {
+    heading: 'Administrator experience',
+    description: 'Oversight for attendance, records, evaluations, and program reporting.',
+    items: [
+      ['admin', '151202', 'Administrator dashboard overview', 599],
+      ['admin', '151301', 'Attendance approval queue', 605],
+      ['admin', '151320', 'Intern daily time record management', 602],
+      ['admin', '151349', 'Document review queue', 603],
+      ['admin', '151359', 'Performance evaluation overview', 602],
+      ['admin', '151440', 'Program reports and exports', 605],
+    ].map(([role, time, caption, imageHeight]) => pnpScreenshot(role, time, caption, imageHeight)),
+  },
+  {
+    heading: 'Intern experience',
+    description: 'A personal workspace for attendance, project progress, documents, and evaluations.',
+    items: [
+      ['intern', '151539', 'Intern dashboard and active tasks', 608],
+      ['intern', '151609', 'Daily time record', 605],
+      ['intern', '151621', 'Project milestones and deliverables', 604],
+      ['intern', '151636', 'Documents and submissions', 602],
+      ['intern', '151646', 'Performance evaluation form', 604],
+    ].map(([role, time, caption, imageHeight]) => pnpScreenshot(role, time, caption, imageHeight)),
+  },
+];
+
 const legendOfCeeArt = [
   ['final boss.png', 'Final boss concept', 596, 364],
   ['NPCs 1.png', 'NPC character concepts', 440, 408],
@@ -168,6 +207,7 @@ export const caseStudies = {
       { label: 'api', title: 'Express service layer', description: 'The REST API handles authenticated requests and applies authorization rules to each workflow.' },
       { label: 'data', title: 'Supabase data layer', description: 'Postgres, Storage, and Row Level Security protect structured records and private files.' }
     ],
+    gallerySections: pnpGallerySections,
     blocks: [
       ['My role', 'Full-Stack Developer. I owned the user journeys, data model, React interface, Express API, authorization model, integrations, testing, and deployment preparation.'],
       ['The challenge', 'Internship administration was spread across disconnected processes, making attendance, DTR processing, document review, evaluations, and reporting difficult to coordinate.'],
@@ -196,7 +236,7 @@ export const caseStudies = {
       ['Live demo', 'https://download-agapai.vercel.app/', 'primary'],
     ],
     meta: [
-      ['Role', 'Product designer & full-stack developer'],
+      ['Role', 'Capstone tech lead & full-stack developer'],
       ['Status', 'Current build'],
       ['Stack', 'React Native · Expo · Firebase · Gemini'],
     ],
@@ -207,9 +247,9 @@ export const caseStudies = {
       { label: 'response', title: 'AI and responder support', description: 'SOS dispatch, health monitoring, and the Gemini-powered assistant support the broader care loop.' }
     ],
     blocks: [
-      ['My role', 'Product designer and full-stack developer. I shaped the product direction, interface, and connected user flows across the mobile and admin experiences.'],
+      ['My role', 'Tech lead for our capstone team and full-stack developer. I developed all three parts: the mobile app, the website, and the admin endpoint.'],
       ['The problem', 'Senior citizens, guardians, and local responders needed a clearer way to coordinate urgent help and ongoing health support.'],
-      ['What I built', 'React Native and Expo mobile flows, Firebase-backed real-time data, live SOS dispatching, health monitoring, and a Gemini-powered assistant.'],
+      ['What I built', 'The React Native and Expo mobile app, the AgapAI website, and the admin endpoint, alongside Firebase-backed data, live SOS dispatching, health monitoring, and a Gemini-powered assistant.'],
       ['Result', 'One centralized experience connects three audiences in a single operational loop, reducing the friction between an alert and the people who can respond.'],
     ],
   },

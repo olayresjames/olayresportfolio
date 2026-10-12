@@ -43,6 +43,10 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       className={`deck-card is-${position} ${project.featured ? 'featured' : ''}`}
       aria-label={`${project.name}${active ? ', selected project' : ''}`}
       aria-hidden={position === 'hidden'}
+      onClick={() => {
+        const desktopPointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? window.innerWidth >= 768;
+        if (desktopPointer && (position === 'left' || position === 'right')) onActivate();
+      }}
     >
       {project.image || !active ? (
         <button
@@ -52,7 +56,6 @@ function DeckCard({ project, position, onActivate, onPreview }) {
           tabIndex={position === 'hidden' ? -1 : 0}
           onClick={() => {
             if (active && project.image) onPreview({ src: project.webp || project.image, alt: project.alt });
-            else if (!active) onActivate();
           }}
         >
           {previewContent}

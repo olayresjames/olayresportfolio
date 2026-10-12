@@ -17,14 +17,15 @@ const iconPaths = {
 const iconSlugs = {
   TypeScript: 'typescript', JavaScript: 'javascript', 'HTML5 & CSS3': 'html5', Python: 'python', C: 'c', 'C++': 'cplusplus', 'C#': 'dotnet', PHP: 'php',
   'React.js': 'react', 'React Native + Expo': 'react', 'React Router': 'reactrouter', 'Tailwind CSS': 'tailwindcss', Vite: 'vite', PWA: 'pwa',
-  'Node.js': 'nodedotjs', Express: 'express', Firebase: 'firebase', Supabase: 'supabase', MySQL: 'mysql', PostgreSQL: 'postgresql', 'REST APIs': 'fastapi',
-  'Google Gemini API': 'googlegemini', 'API integration': 'postman',
-  'Git & GitHub': 'github', Postman: 'postman', npm: 'npm',
+  'Node.js': 'nodedotjs', Express: 'express', Firebase: 'firebase', Supabase: 'supabase', MySQL: 'mysql', PostgreSQL: 'postgresql', SQLite: 'sqlite', 'better-sqlite3': 'sqlite', 'REST APIs': 'fastapi',
+  'Google Gemini API': 'googlegemini', 'Local AI (Ollama)': 'ollama', Zod: 'zod', 'API integration': 'postman',
+  'Git & GitHub': 'github', Postman: 'postman', npm: 'npm', 'npm workspaces': 'npm',
   'CI/CD (Vercel)': 'vercel',
 };
 
 const skillIconPaths = {
   'OpenAI API': 'M12 3v18M3 12h18M5.5 6.5l13 11M18.5 6.5l-13 11',
+  'pdf-parse': 'M7 3h7l4 4v14H6V3zm7 0v5h5M8 13h8M8 17h5',
   'VS Code': 'M8 5l-4 3v8l4 3 8-4v-6L8 5zm0 0v14m8-10 4 3v6l-4 3',
   IndexedDB: 'M5 7c0-2 14-2 14 0v10c0 2-14 2-14 0zM5 7c0 2 14 2 14 0M5 12c0 2 14 2 14 0',
   'docx.js': 'M7 3h7l4 4v14H7zM14 3v5h5M9 13h6M9 17h6',
