@@ -55,6 +55,7 @@ export default function CaseStudyPage({ study }) {
           <div className="case-video-frame">
             <video controls preload="metadata" playsInline aria-label={study.videoTitle || `${study.title} project video`}>
               <source src={study.video} type="video/mp4" />
+              <track kind="captions" src={study.videoCaptions} srcLang="en" label="English" />
               Your browser does not support embedded video.
             </video>
           </div>

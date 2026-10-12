@@ -43,26 +43,18 @@ function DeckCard({ project, position, onActivate, onPreview }) {
       className={`deck-card is-${position} ${project.featured ? 'featured' : ''}`}
       aria-label={`${project.name}${active ? ', selected project' : ''}`}
       aria-hidden={position === 'hidden'}
-      onClick={() => {
-        const desktopPointer = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? window.innerWidth >= 768;
-        if (desktopPointer && (position === 'left' || position === 'right')) onActivate();
-      }}
     >
-      {project.image || !active ? (
+      {active && project.image ? (
         <button
           type="button"
           className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''} ${!project.image ? 'deck-preview-placeholder' : ''}`}
-          aria-label={`${active ? 'Preview' : 'Select'} ${project.name}`}
-          tabIndex={position === 'hidden' ? -1 : 0}
-          onClick={() => {
-            if (active && project.image) onPreview({ src: project.webp || project.image, alt: project.alt });
-          }}
+          aria-label={`Preview ${project.name}`}
+          onClick={() => onPreview({ src: project.webp || project.image, alt: project.alt })}
         >
           {previewContent}
-          {!project.image && <span className="deck-preview-label">select <span aria-hidden="true">↗</span></span>}
         </button>
       ) : (
-        <div className="deck-preview deck-preview-placeholder" aria-hidden="true">{previewContent}</div>
+        <div className={`deck-preview ${project.previewFit === 'contain' ? 'is-contain' : ''} ${!project.image ? 'deck-preview-placeholder' : ''}`} aria-hidden="true">{previewContent}</div>
       )}
       <div className="deck-tags">
         <span className={project.featured ? 'inverted-tag' : ''}>{project.featured ? 'featured project' : project.tag}</span>
@@ -100,6 +92,9 @@ function DeckCard({ project, position, onActivate, onPreview }) {
           </a>
         )}
       </div>
+      {(position === 'left' || position === 'right') && (
+        <button type="button" className="deck-select" aria-label={`Select ${project.name}`} onClick={onActivate} />
+      )}
     </article>
   );
 }

@@ -9,7 +9,7 @@ function CertificationCard({ certificate, onPreview }) {
   const mark = certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase());
   const openPreview = () => onPreview(getCertificationPreview(certificate));
   return (
-    <article
+    <div
       className="certification-page-card certification-page-card--preview"
       role="button"
       tabIndex={0}
@@ -29,7 +29,7 @@ function CertificationCard({ certificate, onPreview }) {
       <div className="certification-actions">
         <span>click to view ↗</span>
       </div>
-    </article>
+    </div>
   );
 }
 

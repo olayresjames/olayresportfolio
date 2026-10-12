@@ -347,7 +347,7 @@ main#main-content { min-width: 0; }
 .stats-row div:first-child { padding-left: 0; }
 .stats-row div:last-child { border-right: 0; }
 .stats-row dt { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
-.stats-row dd { order: -1; margin: 0; color: var(--foreground); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; line-height: 1.25; letter-spacing: 0; }
+.stats-row dd { order: -1; margin: 0; color: var(--foreground); font-family: var(--font-display), monospace; font-size: 1.2rem; font-weight: 400; line-height: 1.25; letter-spacing: 0; }
 
 /* Interactive project deck */
 .filter-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
@@ -381,8 +381,11 @@ main#main-content { min-width: 0; }
 .deck-card.featured { border-color: color-mix(in srgb, var(--mono-glow) 55%, var(--border-strong)); box-shadow: 0 14px 32px -20px color-mix(in srgb, var(--mono-glow) 60%, transparent); }
 .deck-card.featured.is-center { transform: translate(-50%, -50%) scale(1.025); }
 .deck-card.featured.is-center:hover { border-color: var(--mono-glow); transform: translate(-50%, calc(-50% - 2px)) scale(1.025); }
+.deck-select { position: absolute; inset: 0; z-index: 3; display: none; width: 100%; height: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.deck-select:focus-visible { outline: 2px solid var(--foreground); outline-offset: -4px; }
 @media (hover: hover) and (pointer: fine) {
   .deck-card.is-left, .deck-card.is-right { cursor: pointer; }
+  .deck-select { display: block; }
 }
 .deck-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; min-height: 1.4rem; color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
 .deck-tags > span { padding: 0.13rem 0.45rem; border: 1px solid var(--border-strong); border-radius: 999px; }
@@ -1352,7 +1355,7 @@ body { font-size: 18px; }
 .contact-section h2,
 .route-error h1,
 .deck-heading h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-display), monospace;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.2;

@@ -58,7 +58,7 @@ export function Certifications({ onPreview }) {
       <p className="section-intro reveal">Verified credentials in software development and a certificate from AppBuildersPH Hackathon 2026.</p>
       <div className="certification-grid reveal">
         {certifications.slice(0, 3).map(certificate => (
-          <article
+          <div
             className="certification-card certification-card--preview"
             key={`${certificate.title}-${certificate.version}`}
             role="button"
@@ -79,7 +79,7 @@ export function Certifications({ onPreview }) {
             <div className="certification-actions">
               <span>click to view ↗</span>
             </div>
-          </article>
+          </div>
         ))}
       </div>
     </section>

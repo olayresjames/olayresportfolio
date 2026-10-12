@@ -117,6 +117,7 @@ export const caseStudies = {
     ],
     video: '/resources/point-nemo-promo.mp4',
     videoTitle: 'Point Nemo promo video',
+    videoCaptions: '/resources/point-nemo-promo.vtt',
     galleryHeading: 'product screenshots',
     gallery: pointNemoScreenshots,
     architecture: [
