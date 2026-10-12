@@ -12,6 +12,7 @@ const applyTheme = theme => {
     : theme;
   document.documentElement.dataset.theme = resolved;
   document.documentElement.style.colorScheme = resolved;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0c0c0f' : '#f8fafc');
 };
 
 export default function ThemeControl() {

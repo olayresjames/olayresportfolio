@@ -330,6 +330,26 @@ export const certifications = [
   ].map(([title, version, image, verify]) => ({ title, version, image, verify, issuer: 'freeCodeCamp' })),
 ];
 
+export function getCertificationPreview(certificate) {
+  const preview = {
+    src: certificate.certificatePreviewImage || certificate.image || certificate.certificateFile,
+    alt: certificate.certificateFileAlt || `${certificate.title} certificate for ${certificate.issuer}`,
+    caption: certificate.title,
+  };
+  const verificationUrl = certificate.certificateVerifyUrl || certificate.verify;
+
+  if (certificate.certificateFile) {
+    preview.fileHref = certificate.certificateFile;
+    preview.fileLabel = 'Open signed PDF';
+  }
+  if (verificationUrl) {
+    preview.actionHref = verificationUrl;
+    preview.actionLabel = certificate.certificateVerifyLabel || `Verify with ${certificate.issuer}`;
+  }
+
+  return preview;
+}
+
 export const awards = [
   {
     title: "Reset: People's Choice Award",
@@ -348,8 +368,8 @@ export const galleryItems = [
   { title: 'Team with host Mr. Bryl Lim', caption: 'The Point Nemo team with AppBuildersPH Hackathon host Mr. Bryl Lim.', image: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.jpg', webp: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n.webp', webpSmall: '/resources/AppbuildersPH%20Hackaton%202026/Event%20photos/841120454_1079063551580006_2888176752970575677_n-800.webp', imageWidth: 2048, imageHeight: 1536, alt: 'Point Nemo team picture with AppBuildersPH Hackathon host Mr. Bryl Lim' },
   { title: 'DECKODE', caption: 'The DECKODE team at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/DECKODE.jpg', alt: 'DECKODE team at ITlympics 2026' },
   { title: 'DECKODE team', caption: 'Another moment with the DECKODE team at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/DECKODE%202.jpg', alt: 'DECKODE team at the ITlympics 2026 event' },
-  { title: 'Best Section', caption: 'The section recognition at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/best-section.jpg', imageWidth: 1536, imageHeight: 2048, alt: 'Best section recognition at ITlympics 2026' },
-  { title: '3—7', caption: 'A moment from the ITlympics 2026 program.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/3-7.jpg', alt: 'ITlympics 2026 event moment' },
+  { title: 'Best Section', caption: 'Our section earned Best Section for the third year in a row at ITlympics 2026.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/best-section.jpg', imageWidth: 1536, imageHeight: 2048, alt: 'Best Section recognition marking the third consecutive year at ITlympics 2026' },
+  { title: 'BSIT 3-7 Class Picture', caption: 'Class picture of BSIT 3-7 at the ITlympics 2026 event.', image: '/resources/Gallery/Imprint%20-%20ITlympics%202026/3-7.jpg', alt: 'BSIT 3-7 class picture at the ITlympics 2026 event' },
   { title: 'Reset — Certificate + Trophy', caption: 'Reset recognition from the ITlympics 2026 event.', image: '/resources/Gallery/reset-certificate-trophy.jpg', imageWidth: 1448, imageHeight: 1930, alt: 'Reset certificate and trophy from ITlympics 2026' },
 ];
 

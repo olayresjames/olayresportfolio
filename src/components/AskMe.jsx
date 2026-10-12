@@ -106,6 +106,30 @@ export default function AskMe({ open, onClose }) {
   }, [open]);
 
   useEffect(() => {
+    if (!open) return undefined;
+
+    const root = document.documentElement;
+    const viewport = window.visualViewport;
+    const updateVisualViewport = () => {
+      root.style.setProperty('--ask-me-viewport-height', `${Math.round(viewport?.height || window.innerHeight)}px`);
+      root.style.setProperty('--ask-me-viewport-top', `${Math.round(viewport?.offsetTop || 0)}px`);
+    };
+
+    updateVisualViewport();
+    viewport?.addEventListener('resize', updateVisualViewport);
+    viewport?.addEventListener('scroll', updateVisualViewport);
+    window.addEventListener('resize', updateVisualViewport);
+
+    return () => {
+      viewport?.removeEventListener('resize', updateVisualViewport);
+      viewport?.removeEventListener('scroll', updateVisualViewport);
+      window.removeEventListener('resize', updateVisualViewport);
+      root.style.removeProperty('--ask-me-viewport-height');
+      root.style.removeProperty('--ask-me-viewport-top');
+    };
+  }, [open]);
+
+  useEffect(() => {
     if (open && listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, open]);
 

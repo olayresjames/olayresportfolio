@@ -1,32 +1,33 @@
 import { useState } from 'react';
 import AppLink from '../components/AppLink';
-import { awards, certifications } from '../data/siteData';
+import { awards, certifications, getCertificationPreview } from '../data/siteData';
 import ThemeControl from '../components/ThemeControl';
 import { Lightbox } from '../components/Modals';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 function CertificationCard({ certificate, onPreview }) {
   const mark = certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase());
+  const openPreview = () => onPreview(getCertificationPreview(certificate));
   return (
     <article
-      className={`certification-page-card${certificate.certificateFile ? ' certification-page-card--preview' : ''}`}
-      role={certificate.certificateFile ? 'button' : undefined}
-      tabIndex={certificate.certificateFile ? 0 : undefined}
-      aria-label={certificate.certificateFile ? `View ${certificate.title} certificate` : undefined}
-      onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
-      onKeyDown={certificate.certificateFile ? event => {
+      className="certification-page-card certification-page-card--preview"
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${certificate.title} certificate`}
+      onClick={openPreview}
+      onKeyDown={event => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
+          openPreview();
         }
-      } : undefined}
+      }}
     >
       <div className="certification-icon" aria-hidden="true">{mark}</div>
       <h2>{certificate.title}</h2>
       <p>{certificate.issuer}</p>
       <span>{certificate.version}</span>
       <div className="certification-actions">
-        {certificate.certificateFile ? <span>{certificate.certificateFileLabel || 'click to view'}</span> : <a href={certificate.verify} target="_blank" rel="noreferrer">‹ verify ›</a>}
+        <span>click to view ↗</span>
       </div>
     </article>
   );

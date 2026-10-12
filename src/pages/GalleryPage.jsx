@@ -11,7 +11,9 @@ function GalleryPageCard({ item, index, total, onPreview }) {
 
   return (
     <article className="gallery-page-card">
-      <button className={`gallery-page-image${isPortrait ? ' is-portrait' : ''}`} type="button" onClick={() => onPreview({ src: item.image, alt: item.alt, caption: item.title })} aria-label={`Preview ${item.title}`}><ResponsiveImage item={item} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw" /></button>
+      <button className={`gallery-page-image${isPortrait ? ' is-portrait' : ''}`} type="button" onClick={onPreview} aria-label={`Preview ${item.title}`}>
+        <ResponsiveImage item={item} sizes="(max-width: 520px) 100vw, (max-width: 1023px) 50vw, 33vw" />
+      </button>
       <div className="gallery-page-card-copy">
         <span>{String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
         <h3>{item.title}</h3>
@@ -25,6 +27,7 @@ export default function GalleryPage() {
   const [preview, setPreview] = useState(null);
   const [activeAlbum, setActiveAlbum] = useState('all');
   usePageMeta({ title: 'Gallery | Rafhael James Olayres', description: 'A visual archive of projects, awards, and selected moments from Rafhael James Olayres.', path: '/gallery' });
+
   const albums = galleryGroups.filter(group => activeAlbum === 'all' || group.id === activeAlbum);
   const totalPhotos = galleryGroups.reduce((total, group) => total + group.items.length, 0);
   const openAlbumPhoto = (group, index) => {
@@ -67,7 +70,15 @@ export default function GalleryPage() {
                 {group.byline && <small>{group.byline}</small>}
               </header>
               <div className="gallery-page-list">
-                {group.items.map((item, index) => <GalleryPageCard key={item.title} item={item} index={index} total={group.items.length} onPreview={() => openAlbumPhoto(group, index)} />)}
+                {group.items.map((item, index) => (
+                  <GalleryPageCard
+                    key={item.title}
+                    item={item}
+                    index={index}
+                    total={group.items.length}
+                    onPreview={() => openAlbumPhoto(group, index)}
+                  />
+                ))}
               </div>
             </section>
           ))}

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import AppLink from '../AppLink';
 import ResponsiveImage from '../ResponsiveImage';
-import { certifications, education, experiences, featuredSongs, galleryGroups, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
+import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
+
+const portfolioGalleryMarqueeItems = galleryGroups.flatMap(group => group.items.map((photo, index) => ({ group, index, photo })));
 
 export function Experience({ onOpenResume }) {
 
@@ -57,25 +59,25 @@ export function Certifications({ onPreview }) {
       <div className="certification-grid reveal">
         {certifications.slice(0, 3).map(certificate => (
           <article
-            className={`certification-card${certificate.certificateFile ? ' certification-card--preview' : ''}`}
+            className="certification-card certification-card--preview"
             key={`${certificate.title}-${certificate.version}`}
-            role={certificate.certificateFile ? 'button' : undefined}
-            tabIndex={certificate.certificateFile ? 0 : undefined}
-            aria-label={certificate.certificateFile ? `View ${certificate.title} certificate` : undefined}
-            onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
-            onKeyDown={certificate.certificateFile ? event => {
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${certificate.title} certificate`}
+            onClick={() => onPreview(getCertificationPreview(certificate))}
+            onKeyDown={event => {
               if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
+                onPreview(getCertificationPreview(certificate));
               }
-            } : undefined}
+            }}
           >
-            {certificate.image ? <button type="button" className="certification-icon" aria-label={`Preview ${certificate.title} certificate`} onClick={() => onPreview({ src: certificate.image, alt: `${certificate.title} certificate` })}>{certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase())}</button> : <div className="certification-icon" aria-hidden="true">{certificate.mark || certificate.issuer.slice(0, 2).toUpperCase()}</div>}
+            <div className="certification-icon" aria-hidden="true">{certificate.mark || (certificate.issuer === 'freeCodeCamp' ? 'fcc' : certificate.issuer.slice(0, 2).toUpperCase())}</div>
             <h3>{certificate.title}</h3>
             <p>{certificate.issuer}</p>
             <span className="certification-version">{certificate.version}</span>
             <div className="certification-actions">
-              {certificate.certificateFile ? <span>{certificate.certificateFileLabel || 'click to view'}</span> : <a href={certificate.verify} target="_blank" rel="noreferrer">verify ↗</a>}
+              <span>click to view ↗</span>
             </div>
           </article>
         ))}
@@ -85,12 +87,6 @@ export function Certifications({ onPreview }) {
 }
 
 export function Gallery({ onPreview }) {
-  const [activeAlbumId, setActiveAlbumId] = useState(galleryGroups[0].id);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const album = galleryGroups.find(group => group.id === activeAlbumId) || galleryGroups[0];
-  const item = album.items[activeIndex];
-  const isPortrait = item.imageWidth && item.imageHeight > item.imageWidth;
-  const move = direction => setActiveIndex(index => (index + direction + album.items.length) % album.items.length);
   const openAlbumPhoto = (album, index) => onPreview({
     items: album.items.map(item => ({ src: item.image, alt: item.alt, caption: item.title })),
     index,
@@ -101,31 +97,24 @@ export function Gallery({ onPreview }) {
     <section id="gallery" className="editorial-section">
       <div className="section-header reveal"><h2>07 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
       <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
-      <div className="portfolio-gallery-album reveal">
-        <div className="portfolio-gallery-album-tabs" role="group" aria-label="Choose a photo album">
-          {galleryGroups.map(group => (
-            <button key={group.id} type="button" aria-pressed={activeAlbumId === group.id} onClick={() => { setActiveAlbumId(group.id); setActiveIndex(0); }}>
-              {group.title}<span>{String(group.items.length).padStart(2, '0')}</span>
-            </button>
-          ))}
-        </div>
-        <header className="portfolio-gallery-album-header">
-          <div><span>{album.byline || 'Photo album'} · {String(album.items.length).padStart(2, '0')} photos</span><h3>{album.title}</h3><p>{album.description}</p></div>
-          <AppLink to="/gallery">Open gallery</AppLink>
-        </header>
-        <div className="portfolio-gallery-carousel">
-          <button className="portfolio-gallery-carousel-control" type="button" onClick={() => move(-1)} aria-label="Previous photo">‹</button>
-          <article className="portfolio-gallery-card">
-            <button className={`portfolio-gallery-image${isPortrait ? ' is-portrait' : ''}`} type="button" onClick={() => openAlbumPhoto(album, activeIndex)} aria-label={`Preview ${item.title}`}>
-              <ResponsiveImage item={item} sizes="(max-width: 700px) 80vw, 54vw" />
-            </button>
-            <div className="portfolio-gallery-copy">
-              <span aria-live="polite">{String(activeIndex + 1).padStart(2, '0')} / {String(album.items.length).padStart(2, '0')}</span>
-              <h4>{item.title}</h4>
-              <p>{item.caption}</p>
+      <div className="portfolio-gallery-marquee reveal" role="region" aria-label="Gallery preview images">
+        <div className="portfolio-gallery-marquee-track">
+          {[false, true].map(isDuplicate => (
+            <div className="portfolio-gallery-marquee-set" key={String(isDuplicate)} aria-hidden={isDuplicate || undefined}>
+              {portfolioGalleryMarqueeItems.map(({ group, index, photo }) => (
+                <button
+                  className="portfolio-gallery-marquee-image"
+                  key={`${photo.image}-${isDuplicate ? 'duplicate' : 'original'}`}
+                  type="button"
+                  tabIndex={isDuplicate ? -1 : 0}
+                  aria-label={`Preview ${photo.title}`}
+                  onClick={() => openAlbumPhoto(group, index)}
+                >
+                  <ResponsiveImage item={photo} sizes="(max-width: 767px) 72vw, (max-width: 1023px) 32vw, 22rem" />
+                </button>
+              ))}
             </div>
-          </article>
-          <button className="portfolio-gallery-carousel-control" type="button" onClick={() => move(1)} aria-label="Next photo">›</button>
+          ))}
         </div>
       </div>
     </section>
