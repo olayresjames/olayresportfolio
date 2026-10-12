@@ -45,6 +45,15 @@ export default function CaseStudyPage({ study }) {
           {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         </dl>}
         {study.image && <div className="case-hero"><button type="button" className="case-image-trigger" onClick={() => openPreview(0)} aria-label="Open cover art in full view"><ResponsiveImage item={study} sizes="(max-width: 768px) 92vw, 100vw" eager /></button></div>}
+        {study.video && <section className="case-video-section" aria-labelledby="case-video-heading">
+          <p className="case-section-label" id="case-video-heading">project video</p>
+          <div className="case-video-frame">
+            <video controls preload="metadata" playsInline aria-label={study.videoTitle || `${study.title} project video`}>
+              <source src={study.video} type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+          </div>
+        </section>}
         {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
         <p className="case-section-label">project breakdown</p>
         <div className="case-grid">

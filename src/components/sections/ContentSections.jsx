@@ -62,11 +62,11 @@ export function Certifications({ onPreview }) {
             role={certificate.certificateFile ? 'button' : undefined}
             tabIndex={certificate.certificateFile ? 0 : undefined}
             aria-label={certificate.certificateFile ? `View ${certificate.title} certificate` : undefined}
-            onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
+            onClick={certificate.certificateFile ? () => onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel }) : undefined}
             onKeyDown={certificate.certificateFile ? event => {
               if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                onPreview({ src: certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
+                onPreview({ src: certificate.certificatePreviewImage || certificate.certificateFile, alt: certificate.certificateFileAlt, caption: certificate.title, fileHref: certificate.certificateFile, fileLabel: 'Open signed PDF', actionHref: certificate.certificateVerifyUrl, actionLabel: certificate.certificateVerifyLabel });
               }
             } : undefined}
           >

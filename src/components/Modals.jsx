@@ -36,8 +36,9 @@ export function Lightbox({ preview, onClose }) {
         {isPdf
           ? <iframe className="lightbox-pdf" src={current.src} title={current.caption || current.alt || 'Certificate PDF preview'} />
           : <img src={current.src} alt={current.alt} tabIndex="-1" />}
-        {(current.caption || current.actionHref) && <figcaption>
+        {(current.caption || current.actionHref || current.fileHref) && <figcaption>
           {current.caption && <span>{current.caption}</span>}
+          {current.fileHref && <a href={current.fileHref} target="_blank" rel="noreferrer">{current.fileLabel || 'Open file'} ↗</a>}
           {current.actionHref && <a href={current.actionHref} target="_blank" rel="noreferrer">{current.actionLabel || 'Verify with issuer'} ↗</a>}
         </figcaption>}
       </figure>

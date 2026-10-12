@@ -76,6 +76,8 @@ export const caseStudies = {
       ['Team members', 'Elmer Benitez · Christian James Baldonado · Sean Mark Vasquez · James Olayres'],
       ['Stack', 'React 19 · Vite 7 · TypeScript 5.9 · Express 5 · SQLite'],
     ],
+    video: '/resources/point-nemo-promo.mp4',
+    videoTitle: 'Point Nemo promo video',
     galleryHeading: 'product screenshots',
     gallery: pointNemoScreenshots,
     architecture: [
