@@ -71,11 +71,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body, button, a, input, article, section, aside, header, footer {
-  transition: background-color 500ms ease, color 500ms ease, border-color 500ms ease;
-}
-
 html.overlay-open, body.overlay-open, body.menu-open { overflow: hidden; }
+html.theme-wash::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: var(--theme-wash-color, transparent);
+  pointer-events: none;
+  animation: theme-wash 260ms ease-out both;
+}
+@keyframes theme-wash { from { opacity: 0.18; } to { opacity: 0; } }
 button, input { font: inherit; }
 button { color: inherit; }
 a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 25%, transparent); text-underline-offset: 2px; }

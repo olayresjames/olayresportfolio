@@ -1,29 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const fillRef = useRef(null);
   useEffect(() => {
-    let ticking = false;
+    let frame = 0;
     const update = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0);
-      ticking = false;
+      const progress = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${progress})`;
+      frame = 0;
     };
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
-    };
+    const scheduleUpdate = () => { if (!frame) frame = window.requestAnimationFrame(update); };
     update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', update);
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
     };
   }, []);
-  return <div className="scroll-progress" aria-hidden="true"><span style={{ transform: `scaleX(${progress})` }} /></div>;
+  return <div className="scroll-progress" aria-hidden="true"><span ref={fillRef} /></div>;
 }
 
 export function PageUpButton() {

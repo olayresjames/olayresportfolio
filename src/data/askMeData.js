@@ -134,7 +134,7 @@ export const askMeTopics = [
     keywords: ['experience', 'work history', 'internship', 'freelance', 'background', 'current'],
     phrases: ['where have you worked'],
     priority: 2,
-    answer: `My listed experience includes ${experienceList}. I’m currently developing the PNP Internship Database Tracking Management System and completing an internship with the Camp Crame ITMS Office under SPMT.`,
+    answer: `My listed experience includes ${experienceList}. I’m currently developing the PNP Internship Database Tracking Management System and completing an internship with the Camp Crame ITMS Office under the Special Project Management Team.`,
     links: [{ label: 'View experience', href: '#experience' }],
   },
   {

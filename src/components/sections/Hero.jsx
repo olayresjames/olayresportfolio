@@ -28,7 +28,7 @@ export default function Hero({ onOpenResume }) {
           <p className="section-heading reveal">01 — about</p>
           <h1 className="reveal">Rafhael James Olayres</h1>
           <p className="hero-lede reveal">I’m a full-stack developer and IT student building practical web, mobile, and AI-powered products.</p>
-          <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System, studying at Pamantasan ng Lungsod ng Valenzuela, and completing an internship with the Camp Crame ITMS Office under SPMT.</p>
+          <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System, studying at Pamantasan ng Lungsod ng Valenzuela, and completing an internship with the Camp Crame ITMS Office under the Special Project Management Team.</p>
           <div className="about-details reveal">
             <div><span>working across</span><strong>React, React Native, Firebase, Supabase, and AI integrations</strong></div>
             <div><span>open to</span><strong>Internships, freelance work, and thoughtful collaborations</strong></div>
