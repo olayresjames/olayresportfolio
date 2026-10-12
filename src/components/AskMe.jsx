@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getAskMeAnswer } from '../data/askMeData';
 
 const MAX_QUESTION_LENGTH = 300;
@@ -27,6 +27,15 @@ function isAllowedLink(link) {
   return link.href.startsWith('#') || (link.href.startsWith('/') && !link.href.startsWith('//') && !link.href.startsWith('/\\')) || link.href.startsWith('mailto:') || (link.external && /^https?:\/\//i.test(link.href));
 }
 
+function alignAnswerWithListStart(list, answer) {
+  if (!list || !answer) return;
+  const listRect = list.getBoundingClientRect();
+  const answerRect = answer.getBoundingClientRect();
+  const paddingTop = Number.parseFloat(window.getComputedStyle(list).paddingTop) || 0;
+  const contentTop = listRect.top + list.clientTop + paddingTop;
+  list.scrollTop += answerRect.top - contentTop;
+}
+
 function reactionFor(result, links, failed, fallbackVariant = 0) {
   if (result.id === 'fallback') {
     const useShrug = fallbackVariant % 2 === 1;
@@ -42,7 +51,7 @@ function reactionFor(result, links, failed, fallbackVariant = 0) {
   return links.length > 0 ? reactionGifs.pointing : null;
 }
 
-function Message({ message, onClose, onReactionLoad, onSuggestion, showSuggestions }) {
+function Message({ message, answerRef, onClose, onReactionLoad, onSuggestion, showSuggestions }) {
   const answer = typeof message.answer === 'string' ? message.answer : fallbackAnswer.answer;
   const paragraphs = answer.split('\n\n').filter(Boolean);
   const links = Array.isArray(message.links) ? message.links.filter(isAllowedLink) : [];
@@ -60,7 +69,7 @@ function Message({ message, onClose, onReactionLoad, onSuggestion, showSuggestio
           <img src={message.reaction.src} alt={message.reaction.alt} loading="lazy" decoding="async" onLoad={onReactionLoad} />
         </picture>
       </div>}
-      <div className="ask-message-copy">
+      <div ref={answerRef} className="ask-message-copy">
         {paragraphs.map((paragraph, index) => <p key={`${message.id}-paragraph-${index}`}>{paragraph}</p>)}
       </div>
       {links.length > 0 && <div className="ask-message-links" role="group" aria-label="Related links">
@@ -86,8 +95,10 @@ export default function AskMe({ open, onClose }) {
   const panelRef = useRef(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
+  const latestAnswerRef = useRef(null);
   const messageSequence = useRef(0);
   const fallbackReactionSequence = useRef(0);
+  const latestAssistantId = [...messages].reverse().find(message => message.role === 'assistant')?.id;
 
   useEffect(() => {
     if (!open) return undefined;
@@ -133,8 +144,8 @@ export default function AskMe({ open, onClose }) {
     };
   }, [open]);
 
-  useEffect(() => {
-    if (open && listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
+  useLayoutEffect(() => {
+    if (open) alignAnswerWithListStart(listRef.current, latestAnswerRef.current);
   }, [messages, open]);
 
   const ask = (question, { focusInput = false } = {}) => {
@@ -220,8 +231,6 @@ export default function AskMe({ open, onClose }) {
 
   if (!open) return null;
 
-  const latestAssistantId = [...messages].reverse().find(message => message.role === 'assistant')?.id;
-
   return (
     <div className="ask-me-layer" role="presentation" onClick={event => { if (event.target === event.currentTarget) onClose(); }}>
       <section ref={panelRef} className="ask-me-panel" role="dialog" aria-modal="true" aria-labelledby="ask-me-title" tabIndex={-1} onKeyDown={handleKeyDown}>
@@ -238,11 +247,16 @@ export default function AskMe({ open, onClose }) {
           {messages.map(message => <Message
             key={message.id}
             message={message}
+            answerRef={message.id === latestAssistantId ? latestAnswerRef : undefined}
             onClose={onClose}
-            onReactionLoad={message.id === latestAssistantId ? () => {
+            onReactionLoad={message.id === latestAssistantId ? image => {
               const list = listRef.current;
-              if (!list || list.scrollHeight - list.scrollTop - list.clientHeight > 240) return;
-              window.requestAnimationFrame(() => { list.scrollTop = list.scrollHeight; });
+              const answer = latestAnswerRef.current;
+              if (!list || !answer) return;
+              const imageBeforeAnswer = Boolean(image?.compareDocumentPosition(answer) & Node.DOCUMENT_POSITION_FOLLOWING);
+              const distanceFromBottom = list.scrollHeight - list.scrollTop - list.clientHeight;
+              if (!imageBeforeAnswer && distanceFromBottom > 240) return;
+              window.requestAnimationFrame(() => alignAnswerWithListStart(list, answer));
             } : undefined}
             onSuggestion={suggestion => {
               const focusInput = !isMobileViewport();
