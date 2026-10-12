@@ -283,14 +283,22 @@ export function GitHubSection() {
         <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
         <span aria-hidden="true">↗</span>
       </a>
-      <div className="project-updates reveal" aria-label="Selected projects">
-        <div className="project-updates-header"><span>selected work</span><span>projects, case studies, and demos</span></div>
-        <ol>
-          {selectedProjectUpdates.map(update => {
+      <details className="project-updates reveal">
+        <summary className="project-updates-header" aria-controls="selected-projects-list">
+          <span>selected work</span>
+          <span className="project-updates-summary-action">
+            <span>{String(selectedProjectUpdates.length).padStart(2, '0')} projects</span>
+            <span className="project-updates-toggle" aria-hidden="true" />
+          </span>
+        </summary>
+        <ol id="selected-projects-list" aria-label="Selected projects">
+          {selectedProjectUpdates.map((update, index) => {
             const content = (
               <>
+                <span className="project-update-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                 <span className="project-update-copy"><strong>{update.name}</strong><span>{update.summary}</span></span>
                 <span className="project-update-status">{update.status}</span>
+                <span className="project-update-arrow" aria-hidden="true">{update.href.startsWith('http') ? '↗' : '→'}</span>
               </>
             );
             const link = update.href.startsWith('/') && !update.href.startsWith('/#')
@@ -299,13 +307,12 @@ export function GitHubSection() {
 
             return (
               <li key={update.name}>
-                <span className="project-update-node" aria-hidden="true" />
                 {link}
               </li>
             );
           })}
         </ol>
-      </div>
+      </details>
       <div className="contribution-panel reveal">
         <div className="contribution-toolbar">
           <div className="contribution-heading">
