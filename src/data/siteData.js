@@ -320,7 +320,7 @@ export const skillGroups = [
 ];
 
 export const certifications = [
-  { title: 'AppBuildersPH Hackathon 2026', version: 'certificate', image: undefined, issuer: 'AppBuildersPH', certificateFile: '/resources/Certificates/APPBUILDERSPH%20HACKATHON%202026.png', certificateFileAlt: 'AppBuildersPH Hackathon 2026 certificate for James Olayres', certificateFileLabel: 'click to view ↗', certificateVerifyUrl: 'https://appbuildersph.com/hackathon/participants', certificateVerifyLabel: 'Verify with AppBuildersPH' },
+  { title: 'AppBuildersPH Hackathon 2026', version: 'certificate', image: undefined, issuer: 'AppBuildersPH', certificateFile: '/resources/Certificates/James%20Olayres%20-%20Appbuilders%20PH%202026%20-%20Hackaton%20Certification-SIGNED.pdf', certificateFileAlt: 'Signed AppBuildersPH Hackathon 2026 certificate for James Olayres', certificateFileLabel: 'click to view ↗', certificateVerifyUrl: 'https://appbuildersph.com/hackathon/participants', certificateVerifyLabel: 'Verify with AppBuildersPH' },
   ...[
     ['Responsive Web Design', 'V8', '/resources/Certificates/Legacy Responsive Web Design v8.png', 'https://www.freecodecamp.org/certification/james-olayres/responsive-web-design'],
     ['JavaScript Algorithms and Data Structures', 'V8', '/resources/Certificates/Legacy javasctipt algorithms and data structures v8.png', 'https://www.freecodecamp.org/certification/james-olayres/javascript-algorithms-and-data-structures-v8'],

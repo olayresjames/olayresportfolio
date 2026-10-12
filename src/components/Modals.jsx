@@ -9,6 +9,7 @@ export function Lightbox({ preview, onClose }) {
   const currentIndex = preview.index ?? 0;
   const hasNavigation = items.length > 1;
   const current = items[currentIndex] || items[0];
+  const isPdf = current.type === 'application/pdf' || /\.pdf(?:$|[?#])/i.test(current.src);
   const move = direction => preview.onNavigate?.((currentIndex + direction + items.length) % items.length);
 
   return (
@@ -32,7 +33,9 @@ export function Lightbox({ preview, onClose }) {
       </button>
       {hasNavigation && <button type="button" className="lightbox-nav lightbox-prev" aria-label="Previous image" onClick={() => move(-1)}>‹</button>}
       <figure className="lightbox-figure">
-        <img src={current.src} alt={current.alt} tabIndex="-1" />
+        {isPdf
+          ? <iframe className="lightbox-pdf" src={current.src} title={current.caption || current.alt || 'Certificate PDF preview'} />
+          : <img src={current.src} alt={current.alt} tabIndex="-1" />}
         {(current.caption || current.actionHref) && <figcaption>
           {current.caption && <span>{current.caption}</span>}
           {current.actionHref && <a href={current.actionHref} target="_blank" rel="noreferrer">{current.actionLabel || 'Verify with issuer'} ↗</a>}
