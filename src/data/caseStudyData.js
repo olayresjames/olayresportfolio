@@ -234,6 +234,10 @@ export const caseStudies = {
     imageWidth: 1265,
     imageHeight: 712,
     alt: 'AgapAI platform interface showing emergency and health features',
+    video: '/resources/AgapAIPromoVid.mp4',
+    videoTitle: 'AgapAI promotional video',
+    videoPoster: '/resources/agapai-portfolio-promo.webp',
+    imageAtBottom: true,
     actions: [
       ['Live demo', 'https://download-agapai.vercel.app/', 'primary'],
     ],
