@@ -115,9 +115,8 @@ export const caseStudies = {
       ['Team members', 'Elmer Benitez · Christian James Baldonado · Sean Mark Vasquez · James Olayres'],
       ['Stack', 'React 19 · Vite 7 · TypeScript 5.9 · Express 5 · SQLite'],
     ],
-    video: '/resources/point-nemo-promo.mp4',
+    videoId: 'nf25Q-lphUI',
     videoTitle: 'Point Nemo promo video',
-    videoCaptions: '/resources/point-nemo-promo.vtt',
     galleryHeading: 'product screenshots',
     gallery: pointNemoScreenshots,
     architecture: [
@@ -234,9 +233,8 @@ export const caseStudies = {
     imageWidth: 1265,
     imageHeight: 712,
     alt: 'AgapAI platform interface showing emergency and health features',
-    video: '/resources/AgapAIPromoVid.mp4',
+    videoId: 'jsnFPl6NdEg',
     videoTitle: 'AgapAI promotional video',
-    videoPoster: '/resources/agapai-portfolio-promo.webp',
     imageAtBottom: true,
     actions: [
       ['Live demo', 'https://download-agapai.vercel.app/', 'primary'],

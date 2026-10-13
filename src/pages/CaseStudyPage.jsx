@@ -51,14 +51,17 @@ export default function CaseStudyPage({ study }) {
           {study.meta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
         </dl>}
         {study.image && !study.imageAtBottom && caseHero}
-        {study.video && <section className="case-video-section" aria-labelledby="case-video-heading">
+        {study.videoId && <section className="case-video-section" aria-labelledby="case-video-heading">
           <p className="case-section-label" id="case-video-heading">project video</p>
           <div className="case-video-frame">
-            <video controls preload="metadata" playsInline poster={study.videoPoster || study.webp || study.image} aria-label={study.videoTitle || `${study.title} project video`}>
-              <source src={study.video} type="video/mp4" />
-              {study.videoCaptions && <track kind="captions" src={study.videoCaptions} srcLang="en" label="English" />}
-              Your browser does not support embedded video.
-            </video>
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(study.videoId)}?rel=0`}
+              title={study.videoTitle || `${study.title} project video`}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
         </section>}
         {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
