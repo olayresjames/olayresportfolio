@@ -40,7 +40,7 @@ function PostCard({ post, position, onActivate, isMobile }) {
         target="_blank"
         rel="noreferrer"
         className="blog-card-link"
-        tabIndex={active ? 0 : -1}
+        tabIndex={isMobile && !active ? -1 : 0}
         aria-label={`Read "${post.title}" on the blog (opens in new tab)`}
       >
         {post.coverUrl ? (
@@ -70,7 +70,7 @@ function PostCard({ post, position, onActivate, isMobile }) {
           </span>
         </div>
       </a>
-      {isMobile && !active && (
+      {isMobile && !active && position !== 'hidden' && (
         <button
           type="button"
           className="deck-select"
@@ -87,6 +87,7 @@ export default function BlogSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const touchStart = useRef(null);
+  const suppressClick = useRef(false);
   const swipeResetTimer = useRef(null);
 
   useEffect(() => {
@@ -129,13 +130,19 @@ export default function BlogSection() {
     if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
 
     move(deltaX < 0 ? 1 : -1);
+    suppressClick.current = true;
     window.clearTimeout(swipeResetTimer.current);
-    swipeResetTimer.current = window.setTimeout(() => {}, 400);
+    swipeResetTimer.current = window.setTimeout(() => {
+      suppressClick.current = false;
+    }, 400);
   };
 
   const handleDeckClickCapture = event => {
+    if (!suppressClick.current) return;
     event.preventDefault();
     event.stopPropagation();
+    suppressClick.current = false;
+    window.clearTimeout(swipeResetTimer.current);
   };
 
   const positionFor = index => {
@@ -151,7 +158,7 @@ export default function BlogSection() {
   return (
     <section id="blog" className="editorial-section wide-section blog-section">
       <div className="section-header">
-        <h2>05 — latest posts</h2>
+        <h2>06 — latest posts</h2>
         <a href={BLOG_URL} target="_blank" rel="noreferrer" className="section-header-action">
           view all posts →
         </a>

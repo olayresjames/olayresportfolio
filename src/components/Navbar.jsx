@@ -11,12 +11,13 @@ const links = [
   ['03', 'experience', 'experience'],
   ['04', 'education', 'education'],
   ['05', 'stack', 'stack'],
-  ['06', 'certifications', 'certifications'],
-  ['07', 'gallery', 'gallery'],
-  ['08', 'github', 'github'],
-  ['09', 'social', 'social'],
-  ['10', 'hobbies', 'hobbies'],
-  ['11', 'contact', 'contact'],
+  ['06', 'blog', 'blog'],
+  ['07', 'certifications', 'certifications'],
+  ['08', 'gallery', 'gallery'],
+  ['09', 'github', 'github'],
+  ['10', 'social', 'social'],
+  ['11', 'hobbies', 'hobbies'],
+  ['12', 'contact', 'contact'],
 ];
 
 export default function Navbar() {

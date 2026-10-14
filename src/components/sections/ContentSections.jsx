@@ -54,7 +54,7 @@ export function Skills() {
 export function Certifications({ onPreview }) {
   return (
     <section id="certifications" className="editorial-section">
-      <div className="section-header reveal"><h2>06 — certifications</h2><AppLink to="/certifications">all certifications →</AppLink></div>
+      <div className="section-header reveal"><h2>07 — certifications</h2><AppLink to="/certifications">all certifications →</AppLink></div>
       <p className="section-intro reveal">Verified credentials in software development and a certificate from AppBuildersPH Hackathon 2026.</p>
       <div className="certification-grid reveal">
         {certifications.slice(0, 3).map(certificate => (
@@ -95,7 +95,7 @@ export function Gallery({ onPreview }) {
 
   return (
     <section id="gallery" className="editorial-section">
-      <div className="section-header reveal"><h2>07 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
+      <div className="section-header reveal"><h2>08 — gallery</h2><AppLink to="/gallery">full gallery →</AppLink></div>
       <p className="section-intro reveal">Selected moments, artifacts, and milestones from the work behind the projects.</p>
       <div className="portfolio-gallery-marquee reveal" role="region" aria-label="Gallery preview images">
         <div className="portfolio-gallery-marquee-track">
@@ -277,7 +277,7 @@ export function GitHubSection() {
   };
   return (
     <section id="github" className="editorial-section">
-      <div className="section-header reveal"><h2>08 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
+      <div className="section-header reveal"><h2>09 — github</h2><a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">@olayresjames ↗</a></div>
       <a className="github-panel reveal" href="https://github.com/olayresjames" target="_blank" rel="noreferrer">
         <span className="github-mark" aria-hidden="true">&lt;/&gt;</span>
         <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
@@ -365,7 +365,7 @@ export function SocialMedia() {
 
   return (
     <section id="social" className="editorial-section">
-      <div className="section-header reveal"><h2>09 — social media</h2><span>find me elsewhere</span></div>
+      <div className="section-header reveal"><h2>10 — social media</h2><span>find me elsewhere</span></div>
       <p className="section-intro reveal">A few places to follow along outside of the portfolio.</p>
       <div className="social-grid reveal">
         {socialProfiles.map(([number, platform, handle, href]) => (
@@ -385,7 +385,7 @@ export function Hobbies() {
 
   return (
     <section id="hobbies" className="editorial-section hobbies-section">
-      <div className="section-header reveal"><h2>10 — hobbies</h2><span>music / esskid</span></div>
+      <div className="section-header reveal"><h2>11 — hobbies</h2><span>music / esskid</span></div>
       <div className="hobby-intro reveal">
         <div>
           <p className="hobby-kicker">outside the build</p>
@@ -417,7 +417,7 @@ export function Contact() {
   return (
     <section id="contact" className="editorial-section contact-section">
       <div className="halftone halftone-footer" aria-hidden="true" />
-      <p className="section-heading reveal">11 — contact</p>
+      <p className="section-heading reveal">12 — contact</p>
       <h2 className="reveal">Let’s build something useful.</h2>
       <p className="reveal">I’m open to internships, freelance work, and thoughtful collaborations.</p>
       <div className="text-links reveal">

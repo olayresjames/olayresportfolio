@@ -9,6 +9,7 @@ const commands = [
   ['Experience', '#experience'],
   ['Education', '#education'],
   ['Stack', '#stack'],
+  ['Blog', '#blog'],
   ['Certifications', '#certifications'],
   ['Gallery', '#gallery'],
   ['GitHub', '#github'],

@@ -253,9 +253,9 @@ main#main-content { min-width: 0; }
 /* Blog */
 .blog-section { margin-top: 4.5rem; }
 .blog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.blog-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--surface); transition: border-color 250ms ease, transform 250ms var(--ease-out), box-shadow 250ms ease; }
+.blog-card { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--surface); transition: border-color 250ms ease, transform 250ms var(--ease-out), box-shadow 250ms ease; }
 .blog-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-.blog-card-link { display: flex; flex-direction: column; min-height: 100%; color: inherit; text-decoration: none; }
+.blog-card-link { display: flex; flex: 1; flex-direction: column; min-height: 100%; color: inherit; text-decoration: none; }
 .blog-card-link:focus-visible { outline: 2px solid var(--foreground); outline-offset: 3px; border-radius: 14px; }
 .blog-card-cover { aspect-ratio: 16 / 9; width: 100%; overflow: hidden; background: var(--surface-secondary); }
 .blog-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -1179,12 +1179,8 @@ body { font-size: 18px; }
   .blog-card.is-left { z-index: 2; opacity: 0.72; transform: translate(calc(-50% - 14rem), calc(-50% + 1.4rem)) rotate(-12deg) scale(0.88); pointer-events: none; }
   .blog-card.is-right { z-index: 2; opacity: 0.72; transform: translate(calc(-50% + 14rem), calc(-50% + 1.4rem)) rotate(12deg) scale(0.88); pointer-events: none; }
   .blog-card.is-hidden { z-index: 0; opacity: 0; pointer-events: none; transform: translate(-50%, -45%) scale(0.78); }
-  .deck-select { position: absolute; inset: 0; z-index: 3; display: none; width: 100%; height: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
-  .deck-select:focus-visible { outline: 2px solid var(--foreground); outline-offset: -4px; }
-  @media (hover: hover) and (pointer: fine) {
-    .blog-card.is-left, .blog-card.is-right { cursor: pointer; }
-    .deck-select { display: block; }
-  }
+  .blog-card .deck-select { position: absolute; inset: 0; z-index: 3; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; pointer-events: auto; }
+  .blog-card .deck-select:focus-visible { outline: 2px solid var(--foreground); outline-offset: -4px; }
   .blog-dots { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.8rem auto 0; }
   .blog-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: var(--border); transition: background-color 200ms ease, transform 200ms ease; }
   .blog-dot:hover { background: var(--text-tertiary); }
