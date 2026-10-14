@@ -5,6 +5,7 @@ import { Lightbox, ResumeModal } from '../components/Modals';
 import Hero from '../components/sections/Hero';
 import Projects from '../components/sections/Projects';
 import { Certifications, Contact, Education, Experience, Gallery, GitHubSection, Hobbies, Skills, SocialMedia } from '../components/sections/ContentSections';
+import BlogSection from '../components/sections/BlogSection';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { usePortfolioEffects } from '../hooks/usePortfolioEffects';
 
@@ -27,6 +28,7 @@ export default function HomePage() {
         <Experience onOpenResume={() => setResumeOpen(true)} />
         <Education />
         <Skills />
+        <BlogSection />
         <Certifications onPreview={setPreview} />
         <Gallery onPreview={setPreview} />
         <GitHubSection />
