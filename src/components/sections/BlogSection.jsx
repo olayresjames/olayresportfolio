@@ -22,7 +22,7 @@ function formatDate(dateString) {
   }
 }
 
-function PostCard({ post, position, onActivate }) {
+function PostCard({ post, position, onActivate, isMobile }) {
   const active = position === 'center';
   const formattedDate = formatDate(post.published_at);
   const category = post.category
@@ -70,7 +70,7 @@ function PostCard({ post, position, onActivate }) {
           </span>
         </div>
       </a>
-      {!active && (
+      {isMobile && !active && (
         <button
           type="button"
           className="deck-select"
@@ -172,6 +172,7 @@ export default function BlogSection() {
               post={post}
               position={positionFor(index)}
               onActivate={() => setActiveIndex(index)}
+              isMobile={isMobile}
             />
           ))}
       </div>
