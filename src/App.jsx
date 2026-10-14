@@ -1,6 +1,7 @@
 import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
 import { BrowserRouter, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import RouteErrorBoundary from './components/RouteErrorBoundary';
+import RouteLoading from './components/RouteLoading';
 import NavigationSoundListener from './components/NavigationSoundListener';
 import { SoundPreferenceProvider } from './components/SoundControl';
 import { caseStudyPaths } from './data/routes';
@@ -42,7 +43,7 @@ function RouteEffects() {
 function routeElement(element) {
   return (
     <RouteErrorBoundary>
-      <Suspense fallback={<div className="route-loading" role="status">Loading page…</div>}>
+      <Suspense fallback={<RouteLoading />}>
         {element}
       </Suspense>
     </RouteErrorBoundary>

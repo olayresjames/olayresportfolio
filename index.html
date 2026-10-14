@@ -33,9 +33,23 @@
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0c0c0f' : '#f8fafc');
       })();
     </script>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Keep the startup screen in sync with RouteLoading.jsx. -->
+      <div class="route-loading" role="status" aria-live="polite" aria-atomic="true">
+        <div class="route-loading-content">
+          <div class="route-loading-brand" aria-hidden="true">
+            <span class="route-loading-mark"></span>
+            <span class="route-loading-eyebrow">Portfolio</span>
+            <span class="route-loading-name">James Olayres</span>
+          </div>
+          <div class="route-loading-track" aria-hidden="true"></div>
+          <p class="route-loading-label">Loading portfolio…</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
