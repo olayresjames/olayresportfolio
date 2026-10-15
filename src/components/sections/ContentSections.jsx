@@ -1,9 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import AppLink from '../AppLink';
 import ResponsiveImage from '../ResponsiveImage';
 import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
 
 const portfolioGalleryMarqueeItems = galleryGroups.flatMap(group => group.items.map((photo, index) => ({ group, index, photo })));
+
+function mostRecentContributionDate(data, year, currentYear, todayKey) {
+  if (year === currentYear) return todayKey;
+
+  let latestActiveDate = '';
+  for (const week of data?.[year]?.weeks || []) {
+    for (const day of week) {
+      if (day?.date?.startsWith(`${year}-`) && (day.count ?? day.level ?? 0) > 0 && day.date > latestActiveDate) {
+        latestActiveDate = day.date;
+      }
+    }
+  }
+  return latestActiveDate || `${year}-12-31`;
+}
 
 export function Experience({ onOpenResume }) {
 
@@ -124,6 +138,7 @@ export function Gallery({ onPreview }) {
 export function GitHubSection() {
   const currentYear = new Date().getUTCFullYear();
   const todayKey = new Date().toISOString().slice(0, 10);
+  const contributionScrollRef = useRef(null);
   const [contributionData, setContributionData] = useState(null);
   const [contributionStatus, setContributionStatus] = useState('loading');
   const [contributionAttempt, setContributionAttempt] = useState(0);
@@ -157,13 +172,30 @@ export function GitHubSection() {
     const resolvedYear = years.includes(currentYear) ? currentYear : years[0];
     if (!resolvedYear) return;
     setSelectedYear(resolvedYear);
-    setSelectedDate(resolvedYear === currentYear ? todayKey : `${resolvedYear}-01-01`);
+    setSelectedDate(mostRecentContributionDate(contributionData, resolvedYear, currentYear, todayKey));
   }, [contributionData, contributionStatus, currentYear, todayKey]);
 
   const availableYears = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
   const contributionYear = availableYears.includes(selectedYear)
     ? selectedYear
     : availableYears.includes(currentYear) ? currentYear : availableYears[0] || currentYear;
+  const mostRecentDate = mostRecentContributionDate(contributionData, contributionYear, currentYear, todayKey);
+  useLayoutEffect(() => {
+    if (contributionStatus !== 'ready') return undefined;
+    const scroll = contributionScrollRef.current;
+    const target = scroll?.querySelector(`[data-contribution-date="${mostRecentDate}"]`);
+    if (!target) return undefined;
+
+    const alignMostRecent = () => {
+      scroll.scrollLeft += target.getBoundingClientRect().right - scroll.getBoundingClientRect().right + 12;
+    };
+    alignMostRecent();
+
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(alignMostRecent);
+    observer.observe(scroll);
+    return () => observer.disconnect();
+  }, [contributionStatus, contributionYear, mostRecentDate]);
   const selectedContributions = contributionData?.[contributionYear];
   const firstDay = new Date(`${contributionYear}-01-01T00:00:00Z`);
   const yearDays = {};
@@ -257,7 +289,7 @@ export function GitHubSection() {
   };
   const selectContributionYear = year => {
     setSelectedYear(year);
-    setSelectedDate(year === currentYear ? todayKey : `${year}-01-01`);
+    setSelectedDate(mostRecentContributionDate(contributionData, year, currentYear, todayKey));
     closeContributionTooltip();
   };
   const moveSelectedDate = (event, dateKey) => {
@@ -334,7 +366,7 @@ export function GitHubSection() {
           <div><span>selected day</span><strong>{selectedDateLabel}</strong></div>
           <strong>{selectedDay?.count == null ? (selectedDay?.level ? 'Activity recorded' : 'No contributions') : `${selectedDay.count} contribution${selectedDay.count === 1 ? '' : 's'}`}</strong>
         </div>
-        <div className="contribution-scroll" onScroll={closeContributionTooltip}>
+        <div className="contribution-scroll" ref={contributionScrollRef} onScroll={closeContributionTooltip}>
           <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${contributionYear}-${label}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
           <div className="contribution-grid" role="group" aria-label={`Contribution activity in ${contributionYear}`}>
             {contributionWeeks.map(week => week.map(({ dateKey, level }) => {
