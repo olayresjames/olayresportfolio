@@ -597,14 +597,8 @@ main#main-content { min-width: 0; }
 .contribution-tooltip.is-below { transform: translateX(-50%); }
 .contribution-tooltip.is-below::after { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--border-strong); border-left: 1px solid var(--border-strong); }
 
-/* Social and hobbies */
-.social-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
-.social-card { display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: center; min-height: 6.5rem; padding: 1rem; border: 1px solid var(--border); border-radius: 10px; color: var(--foreground); background: var(--surface); text-decoration: none; transition: border-color 180ms ease, transform 180ms ease, background-color 180ms ease; }
-.social-card:hover { border-color: var(--border-strong); background: var(--surface-secondary); transform: translateY(-2px); }
-.social-card-number, .social-card-copy > span, .hobby-kicker, .featured-songs-header, .featured-songs li > span, .featured-songs small { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
-.social-card-copy { display: grid; gap: 0.3rem; }
-.social-card-copy strong { font-size: 1rem; font-weight: 500; }
-.social-card-arrow { color: var(--text-secondary); font-family: var(--font-mono); font-size: 14px; }
+/* Hobbies */
+.hobby-kicker, .featured-songs-header, .featured-songs li > span, .featured-songs small { color: var(--text-tertiary); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
 .hobby-intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; }
 .hobby-kicker { margin: 0 0 0.8rem; }
 .hobby-intro h3 { max-width: 26rem; margin: 0; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.05em; }
@@ -1326,7 +1320,6 @@ body { font-size: 18px; }
   .contribution-header,
   .contribution-footer { font-size: 10px; }
 
-  .social-grid,
   .hobby-intro { grid-template-columns: 1fr; }
   .hobby-intro { gap: 1rem; }
   .hobby-platforms { justify-content: flex-start; }
@@ -1346,8 +1339,6 @@ body { font-size: 18px; }
   .experience-page-copy .experience-page-org,
   .stack-row h3,
   .stack-detail-group header > div > span,
-  .social-card-number,
-  .social-card-copy > span,
   .hobby-kicker,
   .featured-songs-header,
   .featured-songs li > span,

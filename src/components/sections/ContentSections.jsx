@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import AppLink from '../AppLink';
 import ResponsiveImage from '../ResponsiveImage';
-import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, selectedProjectUpdates, skillGroups, socialProfiles } from '../../data/siteData';
+import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, selectedProjectUpdates, skillGroups } from '../../data/siteData';
 
 const portfolioGalleryMarqueeItems = galleryGroups.flatMap(group => group.items.map((photo, index) => ({ group, index, photo })));
 
@@ -392,32 +392,12 @@ export function GitHubSection() {
   );
 }
 
-export function SocialMedia() {
-
-
-  return (
-    <section id="social" className="editorial-section">
-      <div className="section-header reveal"><h2>10 — social media</h2><span>find me elsewhere</span></div>
-      <p className="section-intro reveal">A few places to follow along outside of the portfolio.</p>
-      <div className="social-grid reveal">
-        {socialProfiles.map(([number, platform, handle, href]) => (
-          <a className="social-card" key={platform} href={href} target="_blank" rel="noreferrer">
-            <span className="social-card-number">{number}</span>
-            <span className="social-card-copy"><span>{platform}</span><strong>{handle}</strong></span>
-            <span className="social-card-arrow" aria-hidden="true">↗</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export function Hobbies() {
 
 
   return (
     <section id="hobbies" className="editorial-section hobbies-section">
-      <div className="section-header reveal"><h2>11 — hobbies</h2><span>music / esskid</span></div>
+      <div className="section-header reveal"><h2>10 — hobbies</h2><span>music / esskid</span></div>
       <div className="hobby-intro reveal">
         <div>
           <p className="hobby-kicker">outside the build</p>
@@ -449,7 +429,7 @@ export function Contact() {
   return (
     <section id="contact" className="editorial-section contact-section">
       <div className="halftone halftone-footer" aria-hidden="true" />
-      <p className="section-heading reveal">12 — contact</p>
+      <p className="section-heading reveal">11 — contact</p>
       <h2 className="reveal">Let’s build something useful.</h2>
       <p className="reveal">I’m open to internships, freelance work, and thoughtful collaborations.</p>
       <div className="text-links reveal">

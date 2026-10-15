@@ -1,4 +1,4 @@
-import { awards, certifications, education, experiences, featuredSongs, projects, skillGroups } from './siteData';
+import { awards, certifications, education, experiences, featuredSongs, projects, skillGroups, socialProfiles } from './siteData';
 import { caseStudies } from './caseStudyData';
 
 const normalize = value => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+#.\s]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -228,8 +228,17 @@ export const askMeTopics = [
     ],
   },
   {
+    id: 'social',
+    name: 'social media',
+    keywords: ['social', 'social media', 'facebook', 'instagram', 'jmsolyrs', 'follow', 'profiles', 'handle'],
+    phrases: ['where can i follow you', 'what are your social media accounts', 'contact you on facebook', 'contact you on instagram'],
+    priority: 4,
+    answer: `You can find me on ${listWords(socialProfiles.map(([, platform, handle]) => `${platform} (${handle})`))}.`,
+    links: socialProfiles.map(([, platform, , href]) => ({ label: platform, href, external: true })),
+  },
+  {
     id: 'contact',
-    keywords: ['contact', 'email', 'reach', 'message', 'linkedin', 'github', 'social'],
+    keywords: ['contact', 'email', 'reach', 'message', 'linkedin', 'github'],
     phrases: ['how can i contact you', 'how do i reach you'],
     priority: 4,
     answer: 'You can reach me by email or connect with me on GitHub and LinkedIn.',
@@ -413,7 +422,7 @@ function getContextualAnswer(query, previousTopicId) {
     return makeAnswer(previousTopic, `${previousTopic.name} uses ${listWords(previousTopic.technologies)}.`);
   }
 
-  const specificCategories = new Set(['availability', 'contact', 'experience', 'education', 'certifications', 'recognition', 'location', 'resume', 'role', 'ai', 'mobile', 'pnp-details']);
+  const specificCategories = new Set(['availability', 'contact', 'social', 'experience', 'education', 'certifications', 'recognition', 'location', 'resume', 'role', 'ai', 'mobile', 'pnp-details']);
   const queryWords = words(query);
   const changesTopic = askMeTopics.some(topic => topic.id !== previousTopic.id && specificCategories.has(topic.id) && scoreTopic(topic, query, queryWords) >= 3);
   if (changesTopic) return null;
