@@ -5,9 +5,11 @@ Rafhael James Olayres' portfolio, built with Vite and React.
 ## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
+
+To load blog posts locally, copy `.env.example` to `.env.local` and set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`.
 
 ## Production build
 
