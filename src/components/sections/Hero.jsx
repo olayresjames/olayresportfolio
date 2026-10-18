@@ -6,6 +6,7 @@ export default function Hero({ onOpenResume }) {
     ['/resources/id-picture-v2.png', '/resources/id-picture-v2.webp', '/resources/id-picture-v2-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
     ['/resources/hero-portrait-black-cutout.png', '/resources/hero-portrait-black-cutout.webp', '/resources/hero-portrait-black-cutout-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
     ['/resources/hero-portrait-white-cutout.png', '/resources/hero-portrait-white-cutout.webp', '/resources/hero-portrait-white-cutout-800.webp', 'White shirt portrait of Rafhael James Olayres'],
+    ['/resources/masked-variant.png', '/resources/masked-variant.webp', null, 'Portrait in a black web-patterned mask'],
   ];
 
   return (
@@ -15,8 +16,8 @@ export default function Hero({ onOpenResume }) {
           <div className="halftone halftone-portrait" aria-hidden="true" />
           <div className="portrait-rotator" aria-label="Portrait of Rafhael James Olayres">
             {portraits.map(([src, webp, webpSmall, alt], index) => <picture key={src}>
-              <source srcSet={`${webpSmall} 800w, ${webp} 1254w`} sizes="(max-width: 768px) 78vw, 332px" type="image/webp" />
-              <img className={index === 0 ? 'is-primary' : ''} src={src} alt={index === 0 ? alt : ''} width="1254" height="1254" decoding="async" fetchPriority={index === 0 ? 'high' : undefined} aria-hidden={index === 0 ? undefined : 'true'} />
+              <source srcSet={webpSmall ? `${webpSmall} 800w, ${webp} 1254w` : `${webp} 500w`} sizes="(max-width: 768px) 78vw, 332px" type="image/webp" />
+              <img className={index === 0 ? 'is-primary' : ''} src={src} alt={index === 0 ? alt : ''} width={webpSmall ? 1254 : 500} height={webpSmall ? 1254 : 500} decoding="async" fetchPriority={index === 0 ? 'high' : undefined} aria-hidden={index === 0 ? undefined : 'true'} />
             </picture>)}
           </div>
         </div>

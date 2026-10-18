@@ -306,6 +306,7 @@ main#main-content { min-width: 0; }
 .portrait-rotator:hover picture:nth-child(1) img { animation-name: portrait-cycle-one; }
 .portrait-rotator:hover picture:nth-child(2) img { animation-name: portrait-cycle-two; }
 .portrait-rotator:hover picture:nth-child(3) img { animation-name: portrait-cycle-three; }
+.portrait-rotator:hover picture:nth-child(4) img { animation-name: portrait-cycle-four; }
 .portrait-rotator::before, .portrait-rotator::after { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0; }
 .portrait-rotator::before { background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, var(--foreground) 18%, transparent) 5px 6px, transparent 6px 11px); mix-blend-mode: screen; }
 .portrait-rotator::after { background: radial-gradient(circle, color-mix(in srgb, var(--foreground) 70%, transparent) 0.65px, transparent 0.9px); background-size: 4px 4px; mix-blend-mode: screen; opacity: 0; }
@@ -313,13 +314,16 @@ main#main-content { min-width: 0; }
 .portrait-rotator:hover::before { opacity: 1; animation: portrait-scan 140ms steps(2, end) infinite; }
 .portrait-rotator:hover::after { opacity: 1; animation: portrait-color-split 110ms steps(2, end) infinite; }
 @keyframes portrait-cycle-one {
-  0%, 30% { opacity: 1; } 31%, 65%, 96%, 100% { opacity: 0; }
+  0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; }
 }
 @keyframes portrait-cycle-two {
-  0%, 30%, 96%, 100% { opacity: 0; } 31%, 65% { opacity: 1; }
+  0%, 24%, 50%, 100% { opacity: 0; } 25%, 49% { opacity: 1; }
 }
 @keyframes portrait-cycle-three {
-  0%, 65%, 96%, 100% { opacity: 0; } 66%, 95% { opacity: 1; }
+  0%, 49%, 75%, 100% { opacity: 0; } 50%, 74% { opacity: 1; }
+}
+@keyframes portrait-cycle-four {
+  0%, 74% { opacity: 0; } 75%, 100% { opacity: 1; }
 }
 @keyframes portrait-glitch {
   0% { transform: translate(0) skew(0); filter: drop-shadow(4px 0 var(--foreground)) drop-shadow(-4px 0 var(--text-secondary)); }
