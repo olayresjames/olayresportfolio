@@ -78,7 +78,6 @@ export const projects = [
     category: 'fullstack',
     tag: 'Enterprise App · Internship',
     tagClass: 'tag-fullstack',
-    linkLabel: 'Live project',
     description: 'A full-scale HR and personnel management platform for PNP uniformed and civilian personnel.',
     proof: 'Internship project for the PNP ITMS Office, focused on personnel, assignment, and administrative workflows.',
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Express', 'Supabase'],
@@ -90,7 +89,6 @@ export const projects = [
     alt: 'PAIS 2.0 personnel and assignment information system preview',
     date: '2026',
     venue: 'Enterprise app',
-    url: 'https://itms-armd-directory-two.vercel.app/',
   },
   {
     id: 'camp-navi',
