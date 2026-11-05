@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import AppLink from '../AppLink';
 import ResponsiveImage from '../ResponsiveImage';
-import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, selectedProjectUpdates, skillGroups } from '../../data/siteData';
+import { certifications, education, experiences, featuredSongs, galleryGroups, getCertificationPreview, skillGroups } from '../../data/siteData';
 
 const portfolioGalleryMarqueeItems = galleryGroups.flatMap(group => group.items.map((photo, index) => ({ group, index, photo })));
 
@@ -315,36 +315,6 @@ export function GitHubSection() {
         <div><h3>Code, experiments, and works in progress</h3><p>Explore project repositories and the implementation behind my work.</p></div>
         <span aria-hidden="true">↗</span>
       </a>
-      <details className="project-updates reveal">
-        <summary className="project-updates-header" aria-controls="selected-projects-list">
-          <span>selected work</span>
-          <span className="project-updates-summary-action">
-            <span>{String(selectedProjectUpdates.length).padStart(2, '0')} projects</span>
-            <span className="project-updates-toggle" aria-hidden="true" />
-          </span>
-        </summary>
-        <ol id="selected-projects-list" aria-label="Selected projects">
-          {selectedProjectUpdates.map((update, index) => {
-            const content = (
-              <>
-                <span className="project-update-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                <span className="project-update-copy"><strong>{update.name}</strong><span>{update.summary}</span></span>
-                <span className="project-update-status">{update.status}</span>
-                <span className="project-update-arrow" aria-hidden="true">{update.href.startsWith('http') ? '↗' : '→'}</span>
-              </>
-            );
-            const link = update.href.startsWith('/') && !update.href.startsWith('/#')
-              ? <AppLink className="project-update-link" to={update.href}>{content}</AppLink>
-              : <a className="project-update-link" href={update.href} target={update.href.startsWith('http') ? '_blank' : undefined} rel={update.href.startsWith('http') ? 'noreferrer' : undefined}>{content}</a>;
-
-            return (
-              <li key={update.name}>
-                {link}
-              </li>
-            );
-          })}
-        </ol>
-      </details>
       <div className="contribution-panel reveal">
         <div className="contribution-toolbar">
           <div className="contribution-heading">
@@ -357,15 +327,6 @@ export function GitHubSection() {
         </div>
         {contributionStatus === 'ready' ? (
           <>
-        <div className="contribution-stats" role="group" aria-label="Contribution streak statistics">
-          <div className="contribution-stat"><strong>{currentStreak === null ? '—' : currentStreak}<span>{currentStreak === null ? '' : 'd'}</span></strong><small>current streak</small></div>
-          <div className="contribution-stat"><strong>{longestStreak}<span>d</span></strong><small>longest streak</small></div>
-          <div className="contribution-stat"><strong>{activeDays}</strong><small>active days</small></div>
-        </div>
-        <div className="contribution-detail" aria-live="polite">
-          <div><span>selected day</span><strong>{selectedDateLabel}</strong></div>
-          <strong>{selectedDay?.count == null ? (selectedDay?.level ? 'Activity recorded' : 'No contributions') : `${selectedDay.count} contribution${selectedDay.count === 1 ? '' : 's'}`}</strong>
-        </div>
         <div className="contribution-scroll" ref={contributionScrollRef} onScroll={closeContributionTooltip}>
           <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${contributionYear}-${label}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
           <div className="contribution-grid" role="group" aria-label={`Contribution activity in ${contributionYear}`}>
@@ -380,6 +341,15 @@ export function GitHubSection() {
         </div>
         {tooltipDate && tooltipPosition && <div className={`contribution-tooltip${tooltipPosition.below ? ' is-below' : ''}`} style={{ left: tooltipPosition.left, top: tooltipPosition.top }} aria-hidden="true">{tooltipMessage}</div>}
         <div className="contribution-footer"><span>less</span><div className="contribution-legend" aria-hidden="true">{[0, 1, 2, 3, 4].map(level => <span key={level} className={`contribution-cell level-${level}`} />)}</div><span>more</span></div>
+        <div className="contribution-stats" role="group" aria-label="Contribution streak statistics">
+          <div className="contribution-stat"><strong>{currentStreak === null ? '—' : currentStreak}<span>{currentStreak === null ? '' : 'd'}</span></strong><small>current streak</small></div>
+          <div className="contribution-stat"><strong>{longestStreak}<span>d</span></strong><small>longest streak</small></div>
+          <div className="contribution-stat"><strong>{activeDays}</strong><small>active days</small></div>
+        </div>
+        <div className="contribution-detail" aria-live="polite">
+          <div><span>selected day</span><strong>{selectedDateLabel}</strong></div>
+          <strong>{selectedDay?.count == null ? (selectedDay?.level ? 'Activity recorded' : 'No contributions') : `${selectedDay.count} contribution${selectedDay.count === 1 ? '' : 's'}`}</strong>
+        </div>
           </>
         ) : (
           <p className="contribution-state" role={contributionStatus === 'error' ? 'alert' : 'status'}>

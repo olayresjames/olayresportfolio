@@ -1,14 +1,5 @@
 import { caseStudyPaths, pointNemoPitchUrl } from './routes.js';
 
-export const selectedProjectUpdates = [
-    { name: 'Point Nemo', summary: 'A local-first study expedition built around course material and turn-based encounters.', status: 'AppBuildersPH Hackathon 2026', href: caseStudyPaths.pointNemo },
-    { name: 'PNP IDTMS', summary: 'Internship attendance and records in one workflow.', status: 'current project', href: caseStudyPaths.pnp },
-    { name: 'AgapAI', summary: 'Emergency support connecting seniors, guardians, and responders.', status: 'case study', href: caseStudyPaths.agapai },
-    { name: 'Foliofy', summary: 'Organize image collections and export Word or PDF documents.', status: 'case study', href: caseStudyPaths.foliofy },
-    { name: 'Reset', summary: 'A time-loop horror game with interactive encounters.', status: 'play the game', href: 'https://deckode.itch.io/reset-the-endless-horror' },
-    { name: 'Portfolio', summary: 'Selected work, experiments, and the process behind them.', status: 'this site', href: '#about' },
-  ];
-
 export const socialProfiles = [
     ['01', 'Facebook', 'jmsolyrs', 'https://www.facebook.com/jmsolyrs'],
     ['02', 'Instagram', '@jmsolyrs', 'https://www.instagram.com/jmsolyrs/?hl=en'],
