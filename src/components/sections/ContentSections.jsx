@@ -254,9 +254,18 @@ export function GitHubSection() {
       cursor.setUTCDate(cursor.getUTCDate() - 1);
     }
   }
-  const selectedDay = yearDays[selectedDate];
+  const displayedDate = tooltipDate || selectedDate;
+  const isPreviewingDay = Boolean(tooltipDate && tooltipDate !== selectedDate);
+  const displayedDay = yearDays[displayedDate];
+  const activeDates = Object.keys(yearDays).filter(dateKey =>
+    dateKey.startsWith(String(contributionYear))
+    && dateKey <= statsEnd.toISOString().slice(0, 10)
+    && (yearDays[dateKey].count ?? yearDays[dateKey].level) > 0,
+  ).sort();
+  const previousActiveDate = activeDates.filter(dateKey => dateKey < selectedDate).pop();
+  const nextActiveDate = activeDates.find(dateKey => dateKey > selectedDate);
   const tooltipDay = tooltipDate ? yearDays[tooltipDate] : null;
-  const selectedDateLabel = new Date(`${selectedDate}T00:00:00Z`).toLocaleDateString('en-US', {
+  const displayedDateLabel = new Date(`${displayedDate}T00:00:00Z`).toLocaleDateString('en-US', {
     weekday: 'long', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
   });
   const tooltipDateObject = tooltipDate ? new Date(`${tooltipDate}T00:00:00Z`) : null;
@@ -275,7 +284,6 @@ export function GitHubSection() {
     const centerX = cellRect.left + (cellRect.width / 2) - panelRect.left;
     const left = Math.min(Math.max(centerX, halfTooltipWidth + 8), panelRect.width - halfTooltipWidth - 8);
     const below = cellRect.top - panelRect.top < 56;
-    setSelectedDate(dateKey);
     setTooltipDate(dateKey);
     setTooltipPosition({ left, top: below ? cellRect.bottom - panelRect.top + 8 : cellRect.top - panelRect.top - 8, below });
   };
@@ -292,20 +300,20 @@ export function GitHubSection() {
     setSelectedDate(mostRecentContributionDate(contributionData, year, currentYear, todayKey));
     closeContributionTooltip();
   };
-  const moveSelectedDate = (event, dateKey) => {
-    const dayOffsets = { ArrowUp: -1, ArrowDown: 1, ArrowLeft: -7, ArrowRight: 7 };
-    if (event.key === 'Escape') {
-      closeContributionTooltip();
-      return;
-    }
-    if (!(event.key in dayOffsets)) return;
-    event.preventDefault();
-    const nextDate = new Date(`${dateKey}T00:00:00Z`);
-    nextDate.setUTCDate(nextDate.getUTCDate() + dayOffsets[event.key]);
-    const nextDateKey = nextDate.toISOString().slice(0, 10);
-    if (nextDate.getUTCFullYear() !== contributionYear) return;
-    setSelectedDate(nextDateKey);
-    document.querySelector(`[data-contribution-date="${nextDateKey}"]`)?.focus();
+  const selectActiveDate = dateKey => {
+    if (!dateKey) return;
+    setSelectedDate(dateKey);
+    closeContributionTooltip();
+    const scroll = contributionScrollRef.current;
+    const target = scroll?.querySelector(`[data-contribution-date="${dateKey}"]`);
+    if (!target) return;
+    const scrollRect = scroll.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const centeredLeft = scroll.scrollLeft + targetRect.left - scrollRect.left - (scroll.clientWidth - targetRect.width) / 2;
+    scroll.scrollTo({
+      left: centeredLeft,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
   };
   return (
     <section id="github" className="editorial-section">
@@ -335,7 +343,7 @@ export function GitHubSection() {
               const entry = yearDays[dateKey];
               const dayCount = entry?.count;
               const dayDescription = dayCount == null ? (level ? 'Activity recorded' : 'No contributions') : `${dayCount} contribution${dayCount === 1 ? '' : 's'}`;
-              return <button key={dateKey} type="button" className={`contribution-cell level-${level}${selectedDate === dateKey ? ' is-selected' : ''}`} data-contribution-date={dateKey} aria-label={`${dateKey}: ${dayDescription}`} aria-pressed={selectedDate === dateKey} tabIndex={selectedDate === dateKey ? 0 : -1} onMouseEnter={event => showContributionTooltip(dateKey, event.currentTarget)} onMouseLeave={event => { if (!event.relatedTarget?.closest?.('.contribution-grid button.contribution-cell')) hideContributionTooltip(event.currentTarget); }} onFocus={event => showContributionTooltip(dateKey, event.currentTarget)} onBlur={event => hideContributionTooltip(event.currentTarget)} onClick={event => showContributionTooltip(dateKey, event.currentTarget)} onKeyDown={event => moveSelectedDate(event, dateKey)} />;
+              return <button key={dateKey} type="button" className={`contribution-cell level-${level}${selectedDate === dateKey ? ' is-selected' : ''}`} data-contribution-date={dateKey} aria-label={`${dateKey}: ${dayDescription}`} aria-pressed={selectedDate === dateKey} onMouseEnter={event => showContributionTooltip(dateKey, event.currentTarget)} onMouseLeave={event => { if (!event.relatedTarget?.closest?.('.contribution-grid button.contribution-cell')) hideContributionTooltip(event.currentTarget); }} onFocus={event => showContributionTooltip(dateKey, event.currentTarget)} onBlur={event => hideContributionTooltip(event.currentTarget)} onClick={event => { setSelectedDate(dateKey); showContributionTooltip(dateKey, event.currentTarget); }} />;
             }))}
           </div>
         </div>
@@ -347,8 +355,14 @@ export function GitHubSection() {
           <div className="contribution-stat"><strong>{activeDays}</strong><small>active days</small></div>
         </div>
         <div className="contribution-detail" aria-live="polite">
-          <div><span>selected day</span><strong>{selectedDateLabel}</strong></div>
-          <strong>{selectedDay?.count == null ? (selectedDay?.level ? 'Activity recorded' : 'No contributions') : `${selectedDay.count} contribution${selectedDay.count === 1 ? '' : 's'}`}</strong>
+          <div><span>{isPreviewingDay ? 'previewing day' : 'selected day'}</span><strong>{displayedDateLabel}</strong></div>
+          <div className="contribution-detail-actions">
+            <strong>{displayedDay?.count == null ? (displayedDay?.level ? 'Activity recorded' : 'No contributions') : `${displayedDay.count} contribution${displayedDay.count === 1 ? '' : 's'}`}</strong>
+            <div className="contribution-day-nav" role="group" aria-label="Browse active days">
+              <button type="button" aria-label="Previous active day" title="Previous active day" disabled={!previousActiveDate} onClick={() => selectActiveDate(previousActiveDate)}>‹</button>
+              <button type="button" aria-label="Next active day" title="Next active day" disabled={!nextActiveDate} onClick={() => selectActiveDate(nextActiveDate)}>›</button>
+            </div>
+          </div>
         </div>
           </>
         ) : (
