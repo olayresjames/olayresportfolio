@@ -1,7 +1,7 @@
 import { projects } from '../../data/siteData';
 
 export default function Hero({ onOpenResume }) {
-  const shippedProjectCount = projects.filter(project => !/\bcurrent\b|\bpresent\b/i.test(project.date || '')).length;
+  const shippedProjectCount = projects.length;
   const portraits = [
     ['/resources/id-picture-v2.png', '/resources/id-picture-v2.webp', '/resources/id-picture-v2-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
     ['/resources/hero-portrait-black-cutout.png', '/resources/hero-portrait-black-cutout.webp', '/resources/hero-portrait-black-cutout-800.webp', 'Black shirt portrait of Rafhael James Olayres'],
