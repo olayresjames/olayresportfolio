@@ -66,12 +66,15 @@ export function Skills() {
 }
 
 export function Certifications({ onPreview }) {
+  const previewCount = Math.min(3, certifications.length);
+  const remainingCount = certifications.length - previewCount;
+
   return (
     <section id="certifications" className="editorial-section">
-      <div className="section-header reveal"><h2>07 — certifications</h2><AppLink to="/certifications">all certifications →</AppLink></div>
+      <div className="section-header reveal"><h2>07 — certifications</h2><AppLink className="certifications-all-link" to="/certifications">all certifications →{remainingCount > 0 && <span className="certification-more-badge" aria-label={`${remainingCount} more certifications`}>+{remainingCount}</span>}</AppLink></div>
       <p className="section-intro reveal">Verified credentials in software development and a certificate from AppBuildersPH Hackathon 2026.</p>
       <div className="certification-grid reveal">
-        {certifications.slice(0, 3).map(certificate => (
+        {certifications.slice(0, previewCount).map(certificate => (
           <div
             className="certification-card certification-card--preview"
             key={`${certificate.title}-${certificate.version}`}
