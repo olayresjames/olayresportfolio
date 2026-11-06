@@ -85,7 +85,7 @@ export default function Navbar() {
         </div>
         <nav aria-label="Primary navigation">{navList('sidebar-links')}</nav>
         <div className="sidebar-secondary">
-          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↓</button>
+          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↗</button>
           <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
           <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
         </div>
@@ -105,7 +105,7 @@ export default function Navbar() {
       <div id="mobile-navigation" className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
         <nav aria-label="Mobile navigation">{navList('mobile-links')}</nav>
         <div className="mobile-menu-footer">
-          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↓</button>
+          <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↗</button>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>
           <button className="command-hint" type="button" onClick={() => { setMenuOpen(false); setPaletteOpen(true); }}>command palette <kbd>{paletteShortcut}</kbd></button>
           <div className="sidebar-controls"><DisplayControls /></div>
