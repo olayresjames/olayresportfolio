@@ -9,15 +9,18 @@ const links = [
   ['01', 'about', 'about'],
   ['02', 'projects', 'projects'],
   ['03', 'experience', 'experience'],
-  ['04', 'education', 'education'],
-  ['05', 'stack', 'stack'],
-  ['06', 'blog', 'blog'],
-  ['07', 'certifications', 'certifications'],
-  ['08', 'gallery', 'gallery'],
-  ['09', 'github', 'github'],
-  ['10', 'hobbies', 'hobbies'],
-  ['11', 'contact', 'contact'],
+  ['04', 'blog', 'blog'],
+  ['05', 'contact', 'contact'],
 ];
+const moreLinks = [
+  ['06', 'education', 'education'],
+  ['07', 'stack', 'stack'],
+  ['08', 'certifications', 'certifications'],
+  ['09', 'gallery', 'gallery'],
+  ['10', 'github', 'github'],
+  ['11', 'hobbies', 'hobbies'],
+];
+const allLinks = [...links, ...moreLinks];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +34,7 @@ export default function Navbar() {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => entry.isIntersecting && setActiveSection(entry.target.id));
     }, { rootMargin: '-35% 0px -55% 0px' });
-    links.forEach(([, , id]) => {
+    allLinks.forEach(([, , id]) => {
       const section = document.getElementById(id);
       if (section) observer.observe(section);
     });
@@ -63,9 +66,9 @@ export default function Navbar() {
   const closeMenu = () => setMenuOpen(false);
   const openAskMe = () => { setMenuOpen(false); setPaletteOpen(false); setAskMeOpen(true); };
   const openResume = () => { setMenuOpen(false); setPaletteOpen(false); setAskMeOpen(false); setResumeOpen(true); };
-  const navList = className => (
+  const navList = (className, items) => (
     <ul className={className}>
-      {links.map(([number, label, id]) => (
+      {items.map(([number, label, id]) => (
         <li key={id}>
           <a href={`#${id}`} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'location' : undefined} onClick={closeMenu}>
             <span>{activeSection === id ? '→' : number}</span>{label}
@@ -73,6 +76,15 @@ export default function Navbar() {
         </li>
       ))}
     </ul>
+  );
+  const navContent = className => (
+    <>
+      {navList(className, links)}
+      <details className="sidebar-more">
+        <summary>more sections</summary>
+        {navList(className, moreLinks)}
+      </details>
+    </>
   );
 
   return (
@@ -83,7 +95,7 @@ export default function Navbar() {
           <span>full-stack developer</span>
           <span>Valenzuela City, PH</span>
         </div>
-        <nav aria-label="Primary navigation">{navList('sidebar-links')}</nav>
+        <nav aria-label="Primary navigation">{navContent('sidebar-links')}</nav>
         <div className="sidebar-secondary">
           <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↗</button>
           <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
@@ -103,7 +115,7 @@ export default function Navbar() {
         <button type="button" className="menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(open => !open)}>{menuOpen ? 'close' : 'menu'}</button>
       </header>
       <div id="mobile-navigation" className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
-        <nav aria-label="Mobile navigation">{navList('mobile-links')}</nav>
+        <nav aria-label="Mobile navigation">{navContent('mobile-links')}</nav>
         <div className="mobile-menu-footer">
           <button type="button" className="resume-nav-trigger" onClick={openResume}>resume ↗</button>
           <button className="ask-me-sidebar-link" type="button" onClick={openAskMe}>ask me <kbd>{askShortcut}</kbd></button>

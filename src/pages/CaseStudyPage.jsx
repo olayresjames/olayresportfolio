@@ -64,12 +64,11 @@ export default function CaseStudyPage({ study }) {
             />
           </div>
         </section>}
-        {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
-        <p className="case-section-label">project breakdown</p>
+        <p className="case-section-label">the story</p>
         <div className="case-grid">
           {study.blocks.map(([title, copy]) => <section className="case-block" key={title}><h2>{title}</h2><p>{copy}</p></section>)}
         </div>
-        {!study.imageAtBottom && <p className="case-footer"><AppLink className="text-button" to="/#projects">← Back to selected projects</AppLink></p>}
+        {study.architecture && <CaseStudySystemMap title={study.title} stages={study.architecture} />}
         {study.artGallery?.length > 0 && <section className="case-gallery case-art-gallery" aria-labelledby="case-art-heading">
           <p className="case-section-label" id="case-art-heading">visual language</p>
           <div className="case-gallery-grid case-art-grid">
@@ -103,7 +102,15 @@ export default function CaseStudyPage({ study }) {
           </section>;
         })}
         {study.imageAtBottom && caseHero}
-        {study.imageAtBottom && <p className="case-footer"><AppLink className="text-button" to="/#projects">← Back to selected projects</AppLink></p>}
+        <section className="case-contact" aria-labelledby="case-contact-heading">
+          <p className="case-section-label">next step</p>
+          <h2 id="case-contact-heading">Want to build something together?</h2>
+          <p className="case-contact-copy">Have a similar challenge or idea? Send me a note, or take a look at the other selected projects.</p>
+          <div className="case-contact-actions">
+            <a className="text-button" href="mailto:olayres.rafhaeljames@gmail.com">email me <span aria-hidden="true">↗</span></a>
+            <AppLink className="text-button" to="/#projects">back to selected projects <span aria-hidden="true">↗</span></AppLink>
+          </div>
+        </section>
       </main>
       <Lightbox preview={preview} onClose={closePreview} />
     </>
