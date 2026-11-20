@@ -5,11 +5,13 @@ import { certifications, education, experiences, featuredSongs, galleryGroups, g
 
 const portfolioGalleryMarqueeItems = galleryGroups.flatMap(group => group.items.map((photo, index) => ({ group, index, photo })));
 
-function mostRecentContributionDate(data, year, currentYear, todayKey) {
-  if (year === currentYear) return todayKey;
+function mostRecentContributionDate(data, range, currentYear, todayKey) {
+  if (range === 'recent' || Number(range) === currentYear) return todayKey;
+
+  const year = Number(range);
 
   let latestActiveDate = '';
-  for (const week of data?.[year]?.weeks || []) {
+  for (const week of data?.[range]?.weeks || []) {
     for (const day of week) {
       if (day?.date?.startsWith(`${year}-`) && (day.count ?? day.level ?? 0) > 0 && day.date > latestActiveDate) {
         latestActiveDate = day.date;
@@ -142,7 +144,7 @@ export function GitHubSection() {
   const [contributionData, setContributionData] = useState(null);
   const [contributionStatus, setContributionStatus] = useState('loading');
   const [contributionAttempt, setContributionAttempt] = useState(0);
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedRange, setSelectedRange] = useState('recent');
   const [selectedDate, setSelectedDate] = useState(todayKey);
   const [tooltipDate, setTooltipDate] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState(null);
@@ -168,18 +170,24 @@ export function GitHubSection() {
 
   useEffect(() => {
     if (contributionStatus !== 'ready') return;
-    const years = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
-    const resolvedYear = years.includes(currentYear) ? currentYear : years[0];
-    if (!resolvedYear) return;
-    setSelectedYear(resolvedYear);
-    setSelectedDate(mostRecentContributionDate(contributionData, resolvedYear, currentYear, todayKey));
+    const years = Object.keys(contributionData || {}).filter(year => /^\d{4}$/.test(year)).map(Number).sort((a, b) => b - a);
+    if (!years.length && !Array.isArray(contributionData?.recent?.weeks)) return;
+    const initialRange = Array.isArray(contributionData?.recent?.weeks)
+      ? 'recent'
+      : String(years.includes(currentYear) ? currentYear : years[0]);
+    setSelectedRange(initialRange);
+    setSelectedDate(mostRecentContributionDate(contributionData, initialRange, currentYear, todayKey));
   }, [contributionData, contributionStatus, currentYear, todayKey]);
 
-  const availableYears = Object.keys(contributionData || {}).map(Number).sort((a, b) => b - a);
-  const contributionYear = availableYears.includes(selectedYear)
-    ? selectedYear
-    : availableYears.includes(currentYear) ? currentYear : availableYears[0] || currentYear;
-  const mostRecentDate = mostRecentContributionDate(contributionData, contributionYear, currentYear, todayKey);
+  const availableYears = Object.keys(contributionData || {}).filter(year => /^\d{4}$/.test(year)).map(Number).sort((a, b) => b - a);
+  const hasRecentRange = Array.isArray(contributionData?.recent?.weeks);
+  const fallbackYear = availableYears.includes(currentYear) ? currentYear : availableYears[0] || currentYear;
+  const selectedPeriod = selectedRange === 'recent' && hasRecentRange
+    ? 'recent'
+    : availableYears.includes(Number(selectedRange)) ? String(Number(selectedRange)) : String(fallbackYear);
+  const isRecentRange = selectedPeriod === 'recent';
+  const contributionYear = isRecentRange ? currentYear : Number(selectedPeriod);
+  const mostRecentDate = mostRecentContributionDate(contributionData, selectedPeriod, currentYear, todayKey);
   useLayoutEffect(() => {
     if (contributionStatus !== 'ready') return undefined;
     const scroll = contributionScrollRef.current;
@@ -195,9 +203,13 @@ export function GitHubSection() {
     const observer = new ResizeObserver(alignMostRecent);
     observer.observe(scroll);
     return () => observer.disconnect();
-  }, [contributionStatus, contributionYear, mostRecentDate]);
-  const selectedContributions = contributionData?.[contributionYear];
-  const firstDay = new Date(`${contributionYear}-01-01T00:00:00Z`);
+  }, [contributionStatus, selectedPeriod, mostRecentDate]);
+  const selectedContributions = contributionData?.[selectedPeriod];
+  const rangeStartKey = isRecentRange ? selectedContributions?.from : `${contributionYear}-01-01`;
+  const rangeEndKey = isRecentRange
+    ? selectedContributions?.to
+    : `${contributionYear}-12-31`;
+  const firstDay = new Date(`${rangeStartKey}T00:00:00Z`);
   const yearDays = {};
   let dayOffset = 0;
   (selectedContributions?.weeks || []).forEach(week => {
@@ -212,7 +224,7 @@ export function GitHubSection() {
       dayOffset += 1;
     });
   });
-  const lastDay = new Date(`${contributionYear}-12-31T00:00:00Z`);
+  const lastDay = new Date(`${rangeEndKey}T00:00:00Z`);
   const calendarStart = new Date(firstDay);
   calendarStart.setUTCDate(calendarStart.getUTCDate() - calendarStart.getUTCDay());
   const calendarEnd = new Date(lastDay);
@@ -224,13 +236,15 @@ export function GitHubSection() {
     const dateKey = date.toISOString().slice(0, 10);
     return { dateKey, level: yearDays[dateKey]?.level || 0 };
   }));
-  const monthLabels = Array.from({ length: 12 }, (_, monthIndex) => {
-    const monthStart = new Date(Date.UTC(contributionYear, monthIndex, 1));
+  const monthLabels = [];
+  for (let monthStart = new Date(Date.UTC(firstDay.getUTCFullYear(), firstDay.getUTCMonth(), 1)); monthStart <= lastDay; monthStart.setUTCMonth(monthStart.getUTCMonth() + 1)) {
     const weekIndex = Math.floor((monthStart - calendarStart) / 604800000) + 1;
-    return { label: monthStart.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }), weekIndex };
-  });
+    monthLabels.push({ label: monthStart.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }), weekIndex });
+  }
   const contributionTotal = selectedContributions?.total ?? 0;
-  const statsEnd = contributionYear === currentYear ? new Date(`${todayKey}T00:00:00Z`) : lastDay;
+  const statsEnd = !isRecentRange && contributionYear === currentYear
+    ? new Date(`${todayKey}T00:00:00Z`)
+    : lastDay;
   let longestStreak = 0;
   let activeDays = 0;
   let runningStreak = 0;
@@ -245,7 +259,7 @@ export function GitHubSection() {
     }
   }
   let currentStreak = null;
-  if (contributionYear === currentYear) {
+  if (isRecentRange || contributionYear === currentYear) {
     const cursor = new Date(`${todayKey}T00:00:00Z`);
     if ((yearDays[todayKey]?.count ?? yearDays[todayKey]?.level ?? 0) === 0) cursor.setUTCDate(cursor.getUTCDate() - 1);
     currentStreak = 0;
@@ -258,7 +272,8 @@ export function GitHubSection() {
   const isPreviewingDay = Boolean(tooltipDate && tooltipDate !== selectedDate);
   const displayedDay = yearDays[displayedDate];
   const activeDates = Object.keys(yearDays).filter(dateKey =>
-    dateKey.startsWith(String(contributionYear))
+    dateKey >= rangeStartKey
+    && dateKey <= rangeEndKey
     && dateKey <= statsEnd.toISOString().slice(0, 10)
     && (yearDays[dateKey].count ?? yearDays[dateKey].level) > 0,
   ).sort();
@@ -295,9 +310,9 @@ export function GitHubSection() {
     if (target.matches(':hover') || target === document.activeElement) return;
     closeContributionTooltip();
   };
-  const selectContributionYear = year => {
-    setSelectedYear(year);
-    setSelectedDate(mostRecentContributionDate(contributionData, year, currentYear, todayKey));
+  const selectContributionRange = range => {
+    setSelectedRange(String(range));
+    setSelectedDate(mostRecentContributionDate(contributionData, String(range), currentYear, todayKey));
     closeContributionTooltip();
   };
   const selectActiveDate = dateKey => {
@@ -326,20 +341,21 @@ export function GitHubSection() {
       <div className="contribution-panel reveal">
         <div className="contribution-toolbar">
           <div className="contribution-heading">
-            <div className="contribution-header"><strong>{contributionStatus === 'ready' ? `${contributionTotal.toLocaleString()} contributions in ${contributionYear}` : contributionStatus === 'loading' ? `Loading activity for ${contributionYear}` : 'Activity data unavailable'}</strong><span>activity map</span></div>
+            <div className="contribution-header"><strong>{contributionStatus === 'ready' ? `${contributionTotal.toLocaleString()} contributions in ${isRecentRange ? 'the last 12 months' : contributionYear}` : contributionStatus === 'loading' ? `Loading activity for ${isRecentRange ? 'the last 12 months' : contributionYear}` : 'Activity data unavailable'}</strong><span>activity map</span></div>
             <p>{contributionStatus === 'ready' ? 'Hover or select a day to inspect activity' : contributionStatus === 'loading' ? 'Loading contribution history…' : 'GitHub activity could not be loaded. Try again later.'}</p>
           </div>
-          {availableYears.length > 1 && <div className="contribution-years" role="group" aria-label="Contribution year">
-            {availableYears.map(year => <button key={year} type="button" className={year === contributionYear ? 'active' : ''} aria-pressed={year === contributionYear} onClick={() => selectContributionYear(year)}>{year}</button>)}
+          {(hasRecentRange || availableYears.length > 1) && <div className="contribution-years" role="group" aria-label="Contribution time range">
+            {hasRecentRange && <button type="button" className={isRecentRange ? 'active' : ''} aria-pressed={isRecentRange} onClick={() => selectContributionRange('recent')}>12 mo</button>}
+            {availableYears.map(year => <button key={year} type="button" className={!isRecentRange && year === contributionYear ? 'active' : ''} aria-pressed={!isRecentRange && year === contributionYear} onClick={() => selectContributionRange(year)}>{year}</button>)}
           </div>}
         </div>
         {contributionStatus === 'ready' ? (
           <>
         <div className="contribution-scroll" ref={contributionScrollRef} onScroll={closeContributionTooltip}>
-          <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${contributionYear}-${label}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
-          <div className="contribution-grid" role="group" aria-label={`Contribution activity in ${contributionYear}`}>
+          <div className="contribution-months" aria-hidden="true">{monthLabels.map(({ label, weekIndex }) => <span key={`${selectedPeriod}-${weekIndex}`} style={{ gridColumn: weekIndex }}>{label}</span>)}</div>
+          <div className="contribution-grid" role="group" aria-label={`Contribution activity ${isRecentRange ? 'in the last 12 months' : `in ${contributionYear}`}`}>
             {contributionWeeks.map(week => week.map(({ dateKey, level }) => {
-              if (Number(dateKey.slice(0, 4)) !== contributionYear) return <span key={dateKey} className="contribution-cell level-0" aria-hidden="true" />;
+              if (dateKey < rangeStartKey || dateKey > rangeEndKey) return <span key={dateKey} className="contribution-cell level-0" aria-hidden="true" />;
               const entry = yearDays[dateKey];
               const dayCount = entry?.count;
               const dayDescription = dayCount == null ? (level ? 'Activity recorded' : 'No contributions') : `${dayCount} contribution${dayCount === 1 ? '' : 's'}`;

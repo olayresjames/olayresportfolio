@@ -11,6 +11,8 @@ npm run dev
 
 To load blog posts locally, copy `.env.example` to `.env.local` and set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`.
 
+The GitHub contribution workflow uses the `GH_CONTRIBUTIONS_TOKEN` repository secret. To match private contribution counts shown on the profile, enable private contributions in GitHub's profile settings and give the token the `read:user` scope.
+
 ## Production build
 
 ```bash
