@@ -153,7 +153,11 @@ export default function BlogSection() {
     return 'hidden';
   };
 
-  if (error || (!loading && posts.length === 0)) return null;
+  const statusMessage = error
+    ? 'Latest posts are temporarily unavailable.'
+    : !loading && posts.length === 0
+      ? 'No posts have been published yet.'
+      : null;
 
   return (
     <section id="blog" className="editorial-section wide-section blog-section">
@@ -163,26 +167,30 @@ export default function BlogSection() {
           view all posts →
         </a>
       </div>
-      <p className="section-intro">Notes, essays, and works in progress from the blog.</p>
-      <div
-        className="blog-grid"
-        onTouchStart={isMobile ? handleTouchStart : undefined}
-        onTouchEnd={isMobile ? handleTouchEnd : undefined}
-        onTouchCancel={isMobile ? () => { touchStart.current = null; } : undefined}
-        onClickCapture={isMobile ? handleDeckClickCapture : undefined}
-      >
-        {loading
-          ? Array.from({ length: 3 }, (_, i) => <div key={i} className="blog-card blog-skeleton" aria-hidden="true" />)
-          : posts.map((post, index) => (
-            <PostCard
-              key={post.slug}
-              post={post}
-              position={positionFor(index)}
-              onActivate={() => setActiveIndex(index)}
-              isMobile={isMobile}
-            />
-          ))}
-      </div>
+      <p className="section-intro" role={statusMessage ? 'status' : undefined}>
+        {statusMessage || 'Notes, essays, and works in progress from the blog.'}
+      </p>
+      {(loading || posts.length > 0) && (
+        <div
+          className="blog-grid"
+          onTouchStart={isMobile ? handleTouchStart : undefined}
+          onTouchEnd={isMobile ? handleTouchEnd : undefined}
+          onTouchCancel={isMobile ? () => { touchStart.current = null; } : undefined}
+          onClickCapture={isMobile ? handleDeckClickCapture : undefined}
+        >
+          {loading
+            ? Array.from({ length: 3 }, (_, i) => <div key={i} className="blog-card blog-skeleton" aria-hidden="true" />)
+            : posts.map((post, index) => (
+              <PostCard
+                key={post.slug}
+                post={post}
+                position={positionFor(index)}
+                onActivate={() => setActiveIndex(index)}
+                isMobile={isMobile}
+              />
+            ))}
+        </div>
+      )}
       {isMobile && !loading && posts.length > 0 && (
         <div className="blog-dots" role="tablist" aria-label="Blog post navigation">
           {posts.map((post, index) => (

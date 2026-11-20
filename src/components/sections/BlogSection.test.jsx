@@ -62,18 +62,20 @@ describe('blog section', () => {
     expect(within(firstCard).getByRole('heading', { name: 'Hello World' })).toBeTruthy();
   });
 
-  it('hides section when there are no posts', () => {
+  it('keeps the section anchor when there are no posts', () => {
     vi.mocked(useLatestPosts).mockReturnValue({ posts: [], loading: false, error: null });
     const { container } = renderBlog();
 
-    expect(container.querySelector('#blog')).toBeNull();
+    expect(container.querySelector('#blog')).toBeTruthy();
+    expect(screen.getByRole('status').textContent).toMatch(/no posts have been published/i);
   });
 
-  it('hides section on fetch error', () => {
+  it('keeps the section anchor on fetch error', () => {
     vi.mocked(useLatestPosts).mockReturnValue({ posts: [], loading: false, error: new Error('fail') });
     const { container } = renderBlog();
 
-    expect(container.querySelector('#blog')).toBeNull();
+    expect(container.querySelector('#blog')).toBeTruthy();
+    expect(screen.getByRole('status').textContent).toMatch(/latest posts are temporarily unavailable/i);
   });
 
   it('passes axe accessibility checks when posts render', async () => {
