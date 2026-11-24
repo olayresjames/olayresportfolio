@@ -14,11 +14,27 @@ const experienceGroups = [
 
 function ExperiencePageCard({ entry, index, onPreview }) {
   const projectGrid = entry.contributionLayout === 'project-grid';
+  const landscapeBand = entry.imageLayout === 'landscape-band';
   const contributionOnly = entry.contributions?.length > 0 && !entry.outcome && !entry.technologies?.length && !projectGrid;
 
   return (
-    <article className="experience-page-card">
-      {entry.image ? <button className="experience-page-image" type="button" onClick={() => onPreview({ src: entry.webp || entry.image, alt: entry.alt })} aria-label={`Preview ${entry.title}`}><ResponsiveImage item={entry} sizes="(max-width: 767px) calc(100vw - 4rem), (max-width: 1023px) 44vw, 25rem" eager={index === 0} /></button> : <div className="experience-page-current" aria-hidden="true">{entry.mark || 'now'}</div>}
+    <article className={`experience-page-card${landscapeBand ? ' experience-page-card--landscape' : ''}`}>
+      {entry.image ? (
+        <button
+          className={`experience-page-image${landscapeBand ? ' experience-page-image--landscape' : ''}`}
+          type="button"
+          onClick={() => onPreview({ src: entry.webp || entry.image, alt: entry.alt })}
+          aria-label={`Preview ${entry.title}`}
+        >
+          <ResponsiveImage
+            item={entry}
+            sizes={landscapeBand
+              ? '(max-width: 767px) 85vw, (max-width: 928px) calc(100vw - 4rem), 54rem'
+              : '(max-width: 767px) calc(100vw - 4rem), (max-width: 1023px) 44vw, 25rem'}
+            eager={index === 0}
+          />
+        </button>
+      ) : <div className="experience-page-current" aria-hidden="true">{entry.mark || 'now'}</div>}
       <div className="experience-page-copy">
         <div className="experience-page-meta"><span>{entry.year} · {String(index + 1).padStart(2, '0')}</span>{entry.status && <span className="experience-page-status">{entry.status}</span>}</div>
         <h3>{entry.title}</h3>
@@ -40,8 +56,8 @@ function ExperiencePageCard({ entry, index, onPreview }) {
                       ? <svg aria-hidden="true" viewBox="0 0 16 16"><path d="M5 11 11 5M5.5 5H11v5.5" /></svg>
                       : <svg aria-hidden="true" viewBox="0 0 16 16"><path d="M4.25 2.5h5l2.5 2.5v8.5h-7.5zM9.25 2.75V5h2.25M6.25 8h3.5M6.25 10.25h3.5" /></svg>;
                     return link.external
-                      ? <a key={link.href} href={link.href} target="_blank" rel="noreferrer" aria-label={`${link.label} (opens in a new tab)`}>{link.label}{icon}</a>
-                      : <AppLink key={link.href} to={link.href}>{link.label}{icon}</AppLink>;
+                      ? <a key={link.href} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} title={link.label}>{icon}</a>
+                      : <AppLink key={link.href} to={link.href} aria-label={link.label} title={link.label}>{icon}</AppLink>;
                   })}
                 </div>}
               </div>

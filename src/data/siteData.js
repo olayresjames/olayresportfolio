@@ -392,8 +392,8 @@ export const experiences = [
         name: 'P-IDTMS',
         description: 'Internship database tracking management system.',
         links: [
-          { label: 'Case study', href: caseStudyPaths.pnp },
-          { label: 'Live system', href: 'https://pnp-itms-internship-attendance.vercel.app/', external: true },
+          { label: 'Read the P-IDTMS case study', href: caseStudyPaths.pnp },
+          { label: 'Open the P-IDTMS live system in a new tab', href: 'https://pnp-itms-internship-attendance.vercel.app/', external: true },
         ],
       },
       { name: 'PAIS 2.0', description: 'Personnel and assignment information management system.' },
@@ -403,6 +403,7 @@ export const experiences = [
     image: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.png',
     webp: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW.webp',
     webpSmall: '/resources/Experiences/PNP - IDTMS PROJECT PREVIEW-800.webp',
+    imageLayout: 'landscape-band',
     imageWidth: 1365,
     imageHeight: 607,
     alt: 'PNP Internship Database Tracking Management System project preview',
