@@ -77,7 +77,7 @@ function DeckCard({ project, position, onActivate, onPreview }) {
           </AppLink>
         )}
         {project.liveUrl && (
-          <a className="deck-action" tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} live demo`} title="Live demo" onClick={event => event.stopPropagation()}>
+          <a className="deck-action" tabIndex={active ? 0 : -1} href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} ${project.liveLinkLabel || 'live demo'}`} title={project.liveLinkLabel || 'Live demo'} onClick={event => event.stopPropagation()}>
             <ProjectIcon name="external" />
           </a>
         )}

@@ -397,12 +397,12 @@ export function Hobbies() {
 
   return (
     <section id="hobbies" className="editorial-section hobbies-section">
-      <div className="section-header reveal"><h2>10 — hobbies</h2><span>music / esskid</span></div>
+      <div className="section-header reveal"><h2>10 — music</h2><span>esskid / original music</span></div>
       <div className="hobby-intro reveal">
         <div>
           <p className="hobby-kicker">outside the build</p>
-          <h3>I sometimes make music as <em>esskid</em>.</h3>
-          <p>I drop songs on SoundCloud and YouTube from time to time, usually with friends and collaborators.</p>
+          <h3>I make music as <em>esskid</em>.</h3>
+          <p>I collaborate with friends and release tracks on SoundCloud and YouTube.</p>
         </div>
         <div className="text-links hobby-platforms" aria-label="esskid music profiles">
           <a href="https://soundcloud.com/esskid" target="_blank" rel="noreferrer">soundcloud ↗</a>
@@ -410,13 +410,13 @@ export function Hobbies() {
         </div>
       </div>
       <div className="featured-songs reveal">
-        <div className="featured-songs-header"><span>featured songs</span><span>esskid / youtube</span></div>
+        <div className="featured-songs-header"><span>selected tracks</span><span>esskid / youtube</span></div>
         <ol>
           {featuredSongs.map(([title, href], index) => (
             <li key={title}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <a href={href} target="_blank" rel="noreferrer">{title} <span aria-hidden="true">↗</span></a>
-              {index === featuredSongs.length - 1 && <small>our first officially recorded song</small>}
+              {index === featuredSongs.length - 1 && <small>first officially recorded track</small>}
             </li>
           ))}
         </ol>

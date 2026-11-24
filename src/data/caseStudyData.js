@@ -209,9 +209,9 @@ export const caseStudies = {
     path: caseStudyPaths.agapai,
     title: 'AgapAI',
     pageTitle: 'AgapAI Case Study | Rafhael James Olayres',
-    description: 'A case study of AgapAI, a mobile emergency rescue and proactive health platform for senior citizens in Valenzuela City.',
+    description: 'A defended capstone case study of AgapAI, a mobile emergency rescue and proactive health platform for senior citizens in Valenzuela City.',
     shareImage: '/resources/agapai-portfolio-promo.png',
-    kicker: 'Capstone case study · 2026–present',
+    kicker: 'Defended capstone case study · November 13, 2026',
     lede: 'A connected mobile platform for emergency rescue, proactive health monitoring, and community support for senior citizens in Valenzuela City.',
     image: '/resources/agapai-image.png',
     webp: '/resources/agapai-image.webp',
@@ -223,11 +223,11 @@ export const caseStudies = {
     videoTitle: 'AgapAI promotional video',
     imageAtBottom: true,
     actions: [
-      ['Live demo', 'https://download-agapai.vercel.app/', 'primary'],
+      ['App download website', 'https://download-agapai.vercel.app/', 'primary'],
     ],
     meta: [
       ['Role', 'Capstone tech lead & full-stack developer'],
-      ['Status', 'Current build'],
+      ['Status', 'Defended as a capstone project on November 13, 2026'],
       ['Stack', 'React Native · Expo · Firebase · Gemini'],
     ],
     architecture: [
@@ -238,9 +238,9 @@ export const caseStudies = {
     ],
     blocks: [
       ['The problem', 'Senior citizens, guardians, and local responders needed a clearer way to coordinate urgent help and ongoing health support.'],
-      ['My contribution', 'As capstone tech lead and full-stack developer, I built the mobile app, website, and admin endpoint with the team.'],
-      ['A connected care flow', 'The current build brings seniors, guardians, and responders into one flow for SOS dispatch, health monitoring, and support from a Gemini-powered assistant. Firebase connects the app’s current support and health information.'],
-      ['Current outcome', 'The prototype brings emergency and ongoing health support into one connected experience. The team is still developing the build, so its real-world impact has not yet been measured.'],
+      ['My contribution', 'As the capstone tech lead, I developed AgapAI’s admin website, the public website where users can download the app, and the React Native and Expo mobile app.'],
+      ['A connected care flow', 'AgapAI connects seniors, guardians, and responders in one flow for SOS dispatch, health monitoring, and support from a Gemini-powered assistant. Firebase connects app activity with support and health information.'],
+      ['Capstone defense', 'AgapAI was defended as a capstone project on November 13, 2026. The prototype brings emergency and ongoing health support into one connected experience; its real-world impact has not yet been measured.'],
     ],
   },
   foliofy: {

@@ -9,16 +9,16 @@ const links = [
   ['01', 'about', 'about'],
   ['02', 'projects', 'projects'],
   ['03', 'experience', 'experience'],
-  ['04', 'blog', 'blog'],
-  ['05', 'contact', 'contact'],
+  ['06', 'blog', 'blog'],
+  ['11', 'contact', 'contact'],
 ];
 const moreLinks = [
-  ['06', 'education', 'education'],
-  ['07', 'stack', 'stack'],
-  ['08', 'certifications', 'certifications'],
-  ['09', 'gallery', 'gallery'],
-  ['10', 'github', 'github'],
-  ['11', 'hobbies', 'hobbies'],
+  ['04', 'education', 'education'],
+  ['05', 'stack', 'stack'],
+  ['07', 'certifications', 'certifications'],
+  ['08', 'gallery', 'gallery'],
+  ['09', 'github', 'github'],
+  ['10', 'music', 'hobbies'],
 ];
 const allLinks = [...links, ...moreLinks];
 

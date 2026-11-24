@@ -99,7 +99,8 @@ function answerProject(topic, query) {
   const source = projects.find(project => project.id === topic.id);
   const links = topic.links || [];
   if (matches(query, /\b(demo|live|website|site|play|download|repository|repo|github|link|try it|see it)\b/)) {
-    const wanted = matches(query, /\b(repo|repository|github|source)\b/) ? /repo|source|github/i : /demo|live|play|project|case study/i;
+    const wantsAppDownload = matches(query, /\b(download|website|site)\b/) || (matches(query, /\bapp\b/) && matches(query, /\b(link|where|try)\b/));
+    const wanted = matches(query, /\b(repo|repository|github|source)\b/) ? /repo|source|github/i : wantsAppDownload ? /download|website|site/i : /demo|live|play|project|case study/i;
     const link = links.find(item => wanted.test(item.label)) || links[0];
     return response(topic, link ? `Sure, here's the link for ${topic.name}.` : `I don't have a public link for ${topic.name} listed here.`, link ? [link] : []);
   }
@@ -194,12 +195,12 @@ function genericAnswer(topic, query) {
     case 'experience': return response(topic, matches(query, /\binternship\b/)
       ? 'At my Camp Crame internship, I’m building the PNP Internship Database Tracking Management System, including its React interface, Express API, and data model.'
       : 'I’ve done freelance web development since 2023 and currently work on the PNP internship system at Camp Crame. I also built Point Nemo with a hackathon team.', topic.links);
-    case 'current-work': return response(topic, 'Right now I’m developing the PNP Internship Database Tracking Management System and leading the AgapAI capstone team.', topic.links);
+    case 'current-work': return response(topic, 'Right now I’m developing the PNP Internship Database Tracking Management System. I served as tech lead for AgapAI, whose capstone defense was on November 13, 2026.', topic.links);
     case 'education': return response(topic, `I'm studying ${education[0].degree} at ${education[0].school} (${education[0].period}).`, topic.links);
     case 'certifications': return response(topic, `I have ${certifications.length} certifications listed, including ${certifications.slice(0, 2).map(item => item.title).join(' and ')}.`, topic.links);
     case 'recognition': return response(topic, awards.length ? `Reset: Endless Horror won ${awards[0].category}.` : 'I don’t have any awards listed yet.', topic.links);
     case 'ai': return response(topic, 'I’ve worked on AgapAI, which uses a Gemini powered assistant, and Point Nemo, which uses Ollama for local question generation.', topic.links);
-    case 'mobile': return response(topic, 'I built the React Native and Expo app for AgapAI, alongside its website and admin endpoint.', topic.links);
+    case 'mobile': return response(topic, 'For AgapAI, I served as tech lead and developed the admin website, public app-download website, and React Native and Expo mobile app.', topic.links);
     case 'profile':
     case 'role': return response(topic, 'I’m Rafhael James Olayres, a full stack developer and IT student. I build web, mobile, and AI integrated products.', topic.links);
     default: return response(topic, short(topic.answer), topic.links);

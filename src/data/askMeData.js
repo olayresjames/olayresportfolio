@@ -66,7 +66,7 @@ const projectTopics = projects.map(project => {
     answer,
     links: [
       ...(project.caseStudyUrl ? [{ label: 'Read case study', href: project.caseStudyUrl }] : []),
-      ...(project.liveUrl ? [{ label: 'Open live demo', href: project.liveUrl, external: true }] : []),
+      ...(project.liveUrl ? [{ label: project.liveLinkLabel || 'Open live demo', href: project.liveUrl, external: true }] : []),
       ...(project.url ? [{ label: project.linkLabel || 'View project', href: project.url, external: true }] : []),
     ],
   };
@@ -150,7 +150,7 @@ export const askMeTopics = [
     keywords: ['currently', 'current work', 'working on', 'right now', 'ongoing', 'present'],
     phrases: ['what are you working on', 'what are you building now', 'current projects'],
     priority: 3,
-    answer: 'My current work includes the PNP Internship Database Tracking Management System and AgapAI, an emergency support and health platform for seniors, guardians, and local responders. I am the tech lead for our AgapAI capstone team and developed its mobile app, website, and admin endpoint. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
+    answer: 'My current work includes the PNP Internship Database Tracking Management System. I served as tech lead for AgapAI, a capstone project defended on November 13, 2026, and developed its admin website, public app-download website, and mobile app. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
     links: [
       { label: 'Explore PNP IDTMS', href: '/pnp-idtms-case-study.html' },
       { label: 'Explore AgapAI', href: '/agapai-case-study.html' },
@@ -161,7 +161,7 @@ export const askMeTopics = [
     keywords: ['ai', 'gemini', 'openai', 'artificial intelligence', 'assistant'],
     phrases: ['how do you use ai'],
     priority: 3,
-    answer: 'My AI-related work includes AgapAI, where I am tech lead for the capstone team and developed the mobile app, website, and admin endpoint, with a Gemini-powered assistant. It also includes Point Nemo, a local-first study app that uses Ollama for question generation by default. Point Nemo keeps document text, prompts, and answers on the user’s computer during its study flow; its default model is qwen2.5:1.5b.',
+    answer: 'My AI-related work includes AgapAI, where I served as capstone tech lead and developed the admin website, public app-download website, and mobile app, with a Gemini-powered assistant. AgapAI was defended on November 13, 2026. My work also includes Point Nemo, a local-first study app that uses Ollama for question generation by default. Point Nemo keeps document text, prompts, and answers on the user’s computer during its study flow; its default model is qwen2.5:1.5b.',
     links: [{ label: 'Explore Point Nemo', href: '/point-nemo-case-study.html' }, { label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
   },
   {
@@ -169,7 +169,7 @@ export const askMeTopics = [
     keywords: ['mobile', 'android', 'ios', 'expo', 'react native', 'app'],
     phrases: ['mobile development'],
     priority: 3,
-    answer: 'I am the tech lead for the AgapAI capstone team and developed its React Native and Expo mobile app, website, and admin endpoint. The platform supports emergency rescue, health monitoring, AI assistance, and connected workflows for seniors, guardians, and local responders.',
+    answer: 'I served as tech lead for the AgapAI capstone, defended on November 13, 2026. I developed its admin website, public app-download website, and React Native and Expo mobile app. The platform supports emergency rescue, health monitoring, AI assistance, and connected workflows for seniors, guardians, and local responders.',
     links: [{ label: 'Explore AgapAI', href: '/agapai-case-study.html' }],
   },
   {
@@ -185,11 +185,11 @@ export const askMeTopics = [
     keywords: ['music', 'song', 'songs', 'artist', 'esskid', 'soundcloud', 'youtube', 'hobby', 'hobbies'],
     phrases: ['what music do you make', 'what do you do outside coding'],
     priority: 2,
-    answer: `Outside development, I make music as esskid and share songs on SoundCloud and YouTube. Featured tracks include ${featuredSongList}.`,
+    answer: `Outside development, I make music as esskid, collaborating with friends and releasing tracks on SoundCloud and YouTube. Selected tracks include ${featuredSongList}.`,
     links: [
       { label: 'SoundCloud', href: 'https://soundcloud.com/esskid', external: true },
       { label: 'YouTube', href: 'https://www.youtube.com/@esskidwsg', external: true },
-      { label: 'Music and hobbies', href: '#hobbies' },
+      { label: 'Music', href: '#hobbies' },
     ],
   },
   {

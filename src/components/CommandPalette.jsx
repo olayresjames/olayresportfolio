@@ -13,7 +13,7 @@ const commands = [
   ['Certifications', '#certifications'],
   ['Gallery', '#gallery'],
   ['GitHub', '#github'],
-  ['Hobbies', '#hobbies'],
+  ['Music', '#hobbies'],
   ['Contact', '#contact'],
 ];
 

@@ -7,8 +7,6 @@ export const socialProfiles = [
 
 export const featuredSongs = [
     ['motion', 'https://youtu.be/p_kUmmd3PVg'],
-    ['sincity', 'https://youtu.be/_CUu6VfzuFY'],
-    ['get that', 'https://youtu.be/NU2d52qCEbc'],
     ['baguvix · esskid ft. tuz', 'https://youtu.be/BHmWAR5VSrU'],
     ['bara bara · esskid and tuz', 'https://youtu.be/SOD2YxGD1tc'],
   ];
@@ -129,11 +127,11 @@ export const projects = [
     tag: 'AI · Capstone project',
     tagClass: 'tag-ai',
     summary: 'An AI-assisted emergency support platform designed to help seniors, guardians, and local responders act faster.',
-    proof: 'Tech lead for our capstone team; I developed the mobile app, website, and admin endpoint.',
+    proof: 'Capstone tech lead; I developed the admin website, public app-download website, and mobile app.',
     facts: [
       ['Role', 'Capstone tech lead & full-stack developer'],
       ['Problem', 'Senior citizens and guardians need faster, clearer access to emergency support.'],
-      ['Built', 'Mobile app, website, and admin endpoint, with SOS dispatch, health monitoring, AI assistance, and LGU workflows.'],
+      ['Built', 'Admin website, public website for app downloads, and mobile app, with SOS dispatch, health monitoring, AI assistance, and LGU workflows.'],
       ['Result', 'One centralized experience connects seniors, guardians, and local responders.'],
     ],
     technologies: ['React', 'Firebase', 'Google Gemini AI', 'React Native', 'Expo'],
@@ -143,9 +141,10 @@ export const projects = [
     imageWidth: 1672,
     imageHeight: 941,
     alt: 'AgapAI promotional artwork with the senior care app and mascot',
-    date: 'Jan 2026 – Present',
+    date: 'Defended Nov 13, 2026',
     caseStudyUrl: caseStudyPaths.agapai,
     liveUrl: 'https://download-agapai.vercel.app/',
+    liveLinkLabel: 'App download website',
   },
   {
     id: 'foliofy',
