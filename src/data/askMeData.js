@@ -133,7 +133,7 @@ export const askMeTopics = [
     keywords: ['experience', 'work history', 'internship', 'freelance', 'background', 'current'],
     phrases: ['where have you worked'],
     priority: 2,
-    answer: `My listed experience includes ${experienceList}. I’m currently developing the PNP Internship Database Tracking Management System and completing an internship with the Camp Crame ITMS Office under the Special Project Management Team.`,
+    answer: `My listed experience includes ${experienceList}. I’m completing a Full-stack Developer internship with the PNP Information Technology Management Office’s Special Project Management Team (SPMT) at Camp Crame, Quezon City. My projects there are P-IDTMS, PAIS 2.0, CAMP-NAVI, and the PNP Assignment System.`,
     links: [{ label: 'View experience', href: '#experience' }],
   },
   {
@@ -150,9 +150,9 @@ export const askMeTopics = [
     keywords: ['currently', 'current work', 'working on', 'right now', 'ongoing', 'present'],
     phrases: ['what are you working on', 'what are you building now', 'current projects'],
     priority: 3,
-    answer: 'My current work includes the PNP Internship Database Tracking Management System. I served as tech lead for AgapAI, a capstone project defended on November 13, 2026, and developed its admin website, public app-download website, and mobile app. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
+    answer: 'My current work is a Full-stack Developer internship with the PNP Information Technology Management Office’s SPMT at Camp Crame, Quezon City, working across P-IDTMS, PAIS 2.0, CAMP-NAVI, and the PNP Assignment System. I served as tech lead for AgapAI, a capstone project defended on November 13, 2026, and developed its admin website, public app-download website, and mobile app. I am also studying Information Technology at Pamantasan ng Lungsod ng Valenzuela.',
     links: [
-      { label: 'Explore PNP IDTMS', href: '/pnp-idtms-case-study.html' },
+      { label: 'Explore P-IDTMS', href: '/pnp-idtms-case-study.html' },
       { label: 'Explore AgapAI', href: '/agapai-case-study.html' },
     ],
   },

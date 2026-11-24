@@ -30,7 +30,7 @@ export function Experience({ onOpenResume }) {
         {experiences.map(entry => (
           <article className="timeline-entry reveal" key={entry.title}>
             <time>{entry.year}</time>
-            <div><h3>{entry.title}</h3><p className="timeline-org">{entry.organization}</p><p>{entry.description}</p></div>
+            <div><h3>{entry.title}</h3><p className="timeline-org">{entry.role} · {entry.organization}</p><p>{entry.description}</p></div>
           </article>
         ))}
       </div>

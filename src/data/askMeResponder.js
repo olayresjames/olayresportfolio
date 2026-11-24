@@ -193,9 +193,9 @@ function genericAnswer(topic, query) {
       return response(topic, 'I mainly work with React, TypeScript, Node.js, Express, and databases such as Supabase and SQLite. I also build mobile apps with React Native and work with local and cloud AI.', topic.links);
     }
     case 'experience': return response(topic, matches(query, /\binternship\b/)
-      ? 'At my Camp Crame internship, I’m building the PNP Internship Database Tracking Management System, including its React interface, Express API, and data model.'
-      : 'I’ve done freelance web development since 2023 and currently work on the PNP internship system at Camp Crame. I also built Point Nemo with a hackathon team.', topic.links);
-    case 'current-work': return response(topic, 'Right now I’m developing the PNP Internship Database Tracking Management System. I served as tech lead for AgapAI, whose capstone defense was on November 13, 2026.', topic.links);
+      ? 'I’m a Full-stack Developer intern with the PNP Information Technology Management Office’s Special Project Management Team (SPMT) at Camp Crame, Quezon City. My projects there are P-IDTMS, PAIS 2.0, CAMP-NAVI, and the PNP Assignment System.'
+      : 'I’ve done freelance web development since 2023 and currently intern as a Full-stack Developer with the PNP Information Technology Management Office’s SPMT at Camp Crame. My projects there include P-IDTMS, PAIS 2.0, CAMP-NAVI, and the PNP Assignment System. I also built Point Nemo with a hackathon team.', topic.links);
+    case 'current-work': return response(topic, 'I’m currently a Full-stack Developer intern with the PNP Information Technology Management Office’s SPMT at Camp Crame, working on P-IDTMS, PAIS 2.0, CAMP-NAVI, and the PNP Assignment System. I served as tech lead for AgapAI, whose capstone defense was on November 13, 2026.', topic.links);
     case 'education': return response(topic, `I'm studying ${education[0].degree} at ${education[0].school} (${education[0].period}).`, topic.links);
     case 'certifications': return response(topic, `I have ${certifications.length} certifications listed, including ${certifications.slice(0, 2).map(item => item.title).join(' and ')}.`, topic.links);
     case 'recognition': return response(topic, awards.length ? `Reset: Endless Horror won ${awards[0].category}.` : 'I don’t have any awards listed yet.', topic.links);

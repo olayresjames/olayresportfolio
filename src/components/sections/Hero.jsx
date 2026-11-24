@@ -25,7 +25,7 @@ export default function Hero({ onOpenResume }) {
           <p className="hero-kicker reveal">Full-stack developer · IT student · Valenzuela, PH</p>
           <h1 className="reveal">Rafhael James Olayres</h1>
           <p className="hero-lede reveal">I’m a full-stack developer and IT student building practical web, mobile, and AI-powered products.</p>
-          <p className="hero-secondary reveal">Right now I’m developing the PNP Internship Database Tracking Management System with the Camp Crame ITMS Office’s Special Project Management Team while studying BSIT at PLV.</p>
+          <p className="hero-secondary reveal">I’m completing a Full-stack Developer internship with the PNP Information Technology Management Office’s Special Project Management Team (SPMT) at Camp Crame, Quezon City, while studying BSIT at PLV.</p>
           <div className="text-links hero-links reveal" aria-label="Profile and portfolio links">
             <a href="https://github.com/olayresjames" target="_blank" rel="noreferrer">github ↗</a>
             <a href="https://linkedin.com/in/james-olayres-888721410" target="_blank" rel="noreferrer">linkedin ↗</a>
@@ -39,7 +39,7 @@ export default function Hero({ onOpenResume }) {
       <div className="hero-affiliations reveal" aria-label="Current work, education, and project experience">
         <a className="hero-affiliation" href="#experience">
           <span className="hero-affiliation-mark" aria-hidden="true">PNP</span>
-          <span><strong>Camp Crame ITMS Office</strong><small>Full-stack project developer · current</small></span>
+          <span><strong>PNP Information Technology Management Office</strong><small>SPMT internship · Full-stack Developer · current</small></span>
         </a>
         <a className="hero-affiliation" href="#education">
           <span className="hero-affiliation-mark" aria-hidden="true">PLV</span>

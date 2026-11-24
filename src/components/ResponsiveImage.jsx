@@ -1,7 +1,15 @@
+function encodeSrcSetUrl(url) {
+  try {
+    return encodeURI(decodeURI(url));
+  } catch {
+    return encodeURI(url);
+  }
+}
+
 export default function ResponsiveImage({ item, sizes = '(max-width: 768px) 92vw, 45vw', eager = false }) {
   return (
     <picture>
-      {item.webp && <source srcSet={`${item.webpSmall ? `${item.webpSmall} 800w, ` : ''}${item.webp} ${item.imageWidth}w`} sizes={sizes} type="image/webp" />}
+      {item.webp && <source srcSet={`${item.webpSmall ? `${encodeSrcSetUrl(item.webpSmall)} 800w, ` : ''}${encodeSrcSetUrl(item.webp)} ${item.imageWidth}w`} sizes={sizes} type="image/webp" />}
       <img
         src={item.image}
         alt={item.alt}
