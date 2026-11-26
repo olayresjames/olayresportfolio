@@ -37,7 +37,7 @@ function AwardCard({ award, onPreview }) {
   return (
     <article className="award-card">
       <button type="button" className="award-preview" onClick={() => onPreview({ src: award.webp || award.image, alt: award.alt })} aria-label={`Preview ${award.title} award image`}>
-        <picture>{award.webp && <source srcSet={award.webp} type="image/webp" />}<img src={award.image} alt={award.alt} /></picture>
+        <picture>{award.webp && <source srcSet={award.webp} type="image/webp" />}<img src={award.image} alt={award.alt} loading="lazy" decoding="async" /></picture>
       </button>
       <div>
         <h2>{award.title}</h2>
